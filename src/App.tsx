@@ -1,10 +1,4 @@
-import React, { useEffect } from 'react';
-import './App.css';
-
-function App() {
-  useEffect(() => {
-    document.title = 'RoguePod LiteCast';
-  }, []);
+import React from 'react';
 
 interface LinkItem {
   href: string;
