@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 interface LinkItem {
   href: string;
@@ -7,6 +7,10 @@ interface LinkItem {
 }
 
 const App: React.FC = () => {
+  useEffect(() => {
+    document.title = 'RoguePod LiteCast';
+  }, []);
+
   const links: LinkItem[] = [
     {
       href: "https://feeds.acast.com/public/shows/roguepod-litecast",
