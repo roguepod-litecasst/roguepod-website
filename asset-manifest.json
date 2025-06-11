@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/roguepod-website/static/css/main.3583b423.css",
-    "main.js": "/roguepod-website/static/js/main.22ec9418.js",
+    "main.js": "/roguepod-website/static/js/main.526b2b04.js",
     "static/js/453.982118da.chunk.js": "/roguepod-website/static/js/453.982118da.chunk.js",
     "index.html": "/roguepod-website/index.html",
     "main.3583b423.css.map": "/roguepod-website/static/css/main.3583b423.css.map",
-    "main.22ec9418.js.map": "/roguepod-website/static/js/main.22ec9418.js.map",
+    "main.526b2b04.js.map": "/roguepod-website/static/js/main.526b2b04.js.map",
     "453.982118da.chunk.js.map": "/roguepod-website/static/js/453.982118da.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3583b423.css",
-    "static/js/main.22ec9418.js"
+    "static/js/main.526b2b04.js"
   ]
 }
