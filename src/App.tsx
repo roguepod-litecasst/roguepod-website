@@ -13,7 +13,7 @@ const App: React.FC = () => {
       text: "RSS",
       icon: (
         <div className="w-10 h-10 flex items-center justify-center">
-          <img src="/rss-icon.svg" alt="RSS" className="w-8 h-8 filter invert" />
+          <img src={`${process.env.PUBLIC_URL}/rss-icon.svg`} alt="RSS" className="w-8 h-8 filter invert" />
         </div>
       )
     },
@@ -161,7 +161,7 @@ const App: React.FC = () => {
           className="block w-48 h-48 mx-auto mb-8 relative overflow-hidden rounded-2xl shadow-xl animate-pulse-custom cursor-pointer transition-transform duration-300 hover:scale-105"
         >
           <img 
-            src="/cover-art.png"
+            src={`${process.env.PUBLIC_URL}/cover-art.png`}
             alt="RoguePod LiteCast Cover Art"
             className="w-full h-full object-cover rounded-2xl"
             onError={handleImageError}
