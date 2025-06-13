@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 interface LinkItem {
   href: string;
@@ -7,10 +7,6 @@ interface LinkItem {
 }
 
 const App: React.FC = () => {
-  useEffect(() => {
-    document.title = 'RoguePod LiteCast';
-  }, []);
-
   const links: LinkItem[] = [
     {
       href: "https://feeds.acast.com/public/shows/roguepod-litecast",
@@ -155,14 +151,14 @@ const App: React.FC = () => {
         />
       </div>
 
-      <div className="relative z-10 bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl border border-white border-opacity-20 p-10 text-center max-w-lg w-full shadow-2xl animate-fadeInUp">
+      <div className="relative z-10 bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl border border-white border-opacity-20 p-6 sm:p-10 text-center w-full max-w-4xl shadow-2xl animate-fadeInUp">
         
         {/* Logo */}
         <a 
           href="https://feeds.acast.com/public/shows/roguepod-litecast"
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-48 h-48 mx-auto mb-8 relative overflow-hidden rounded-2xl shadow-xl animate-pulse-custom cursor-pointer transition-transform duration-300 hover:scale-105"
+          className="block w-32 h-32 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 relative overflow-hidden rounded-2xl shadow-xl animate-pulse-custom cursor-pointer transition-transform duration-300 hover:scale-105"
         >
           <img 
             src={`${process.env.PUBLIC_URL}/cover-art.png`}
@@ -173,33 +169,53 @@ const App: React.FC = () => {
         </a>
 
         {/* Title */}
-        <h1 className="text-white text-4xl font-bold mb-5 drop-shadow-lg animate-slideInLeft">
+        <h1 className="text-white text-2xl sm:text-4xl font-bold mb-4 sm:mb-5 drop-shadow-lg animate-slideInLeft">
           RoguePod LiteCast
         </h1>
 
         {/* Description */}
-        <p className="text-white text-opacity-90 text-lg mb-10 font-normal leading-relaxed max-w-full mx-auto animate-slideInRight">
+        <p className="text-white text-opacity-90 text-base sm:text-lg mb-6 sm:mb-8 font-normal leading-relaxed max-w-full mx-auto animate-slideInRight">
           RoguePod LiteCast is a roguelite review podcast released every other Wednesday. Each episode Danny and David discuss a different roguelite and add it to the ultimate roguelite tierlist.
         </p>
 
+        {/* Podcast Player */}
+        <div className="mb-8 sm:mb-10 animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl border border-white border-opacity-20 p-4 sm:p-6 shadow-xl">
+            <h3 className="text-white text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center">
+              Latest Episodes
+            </h3>
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <iframe 
+                src="https://embed.acast.com/670c223adf4dd6f896322012?feed=true" 
+                frameBorder="0" 
+                width="100%" 
+                height="320"
+                className="w-full"
+                style={{ minHeight: '280px' }}
+                title="RoguePod LiteCast Episodes"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Links Grid */}
-        <div className="grid grid-cols-3 gap-5 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5 mb-8 sm:mb-10">
           {links.map((link, index) => (
             <a
               key={index}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center text-white no-underline transition-all duration-300 p-4 rounded-2xl bg-white bg-opacity-10 border border-white border-opacity-20 relative overflow-hidden group hover:-translate-y-1 hover:scale-105 hover:bg-opacity-20 hover:shadow-lg"
+              className="flex flex-col items-center text-white no-underline transition-all duration-300 p-3 sm:p-4 rounded-2xl bg-white bg-opacity-10 border border-white border-opacity-20 relative overflow-hidden group hover:-translate-y-1 hover:scale-105 hover:bg-opacity-20 hover:shadow-lg"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${0.1 + index * 0.1}s both`
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-opacity-10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-              <div className="w-10 h-10 mb-2 drop-shadow-lg relative z-10">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 mb-2 drop-shadow-lg relative z-10">
                 {link.icon}
               </div>
-              <span className="text-sm font-medium drop-shadow-sm relative z-10">
+              <span className="text-xs sm:text-sm font-medium drop-shadow-sm relative z-10">
                 {link.text}
               </span>
             </a>
@@ -207,16 +223,17 @@ const App: React.FC = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="border-t border-white border-opacity-20 pt-8 animate-fadeIn">
-          <p className="text-white text-opacity-90 mb-4 text-lg">Get in touch</p>
+        <div className="border-t border-white border-opacity-20 pt-6 sm:pt-8 animate-fadeIn">
+          <p className="text-white text-opacity-90 mb-3 sm:mb-4 text-base sm:text-lg">Get in touch</p>
           <a
             href="mailto:host@roguepod.show"
-            className="inline-flex items-center gap-3 bg-white bg-opacity-10 px-5 py-3 rounded-full no-underline text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-0.5 hover:shadow-md"
+            className="inline-flex items-center gap-2 sm:gap-3 bg-white bg-opacity-10 px-4 sm:px-5 py-2 sm:py-3 rounded-full no-underline text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-0.5 hover:shadow-md text-sm sm:text-base"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>
-            host@roguepod.show
+            <span className="hidden sm:inline">host@roguepod.show</span>
+            <span className="sm:hidden">Email us</span>
           </a>
         </div>
       </div>
