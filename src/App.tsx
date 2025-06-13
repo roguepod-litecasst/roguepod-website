@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface LinkItem {
   href: string;
@@ -7,6 +7,41 @@ interface LinkItem {
 }
 
 const App: React.FC = () => {
+  const [currentView, setCurrentView] = useState<'home' | 'tierlist'>('home');
+  
+  useEffect(() => {
+    document.title = 'RoguePod LiteCast';
+    
+    // Check hash on load
+    const hash = window.location.hash;
+    if (hash === '#tierlist') {
+      setCurrentView('tierlist');
+    }
+    
+    // Handle browser back/forward
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#tierlist') {
+        setCurrentView('tierlist');
+      } else {
+        setCurrentView('home');
+      }
+    };
+    
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const navigateToTierList = () => {
+    window.location.hash = '#tierlist';
+    setCurrentView('tierlist');
+  };
+
+  const navigateToHome = () => {
+    window.location.hash = '';
+    setCurrentView('home');
+  };
+
   const links: LinkItem[] = [
     {
       href: "https://feeds.acast.com/public/shows/roguepod-litecast",
@@ -153,89 +188,166 @@ const App: React.FC = () => {
 
       <div className="relative z-10 bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl border border-white border-opacity-20 p-6 sm:p-10 text-center w-full max-w-4xl shadow-2xl animate-fadeInUp">
         
-        {/* Logo */}
-        <a 
-          href="https://feeds.acast.com/public/shows/roguepod-litecast"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-32 h-32 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 relative overflow-hidden rounded-2xl shadow-xl animate-pulse-custom cursor-pointer transition-transform duration-300 hover:scale-105"
-        >
-          <img 
-            src={`${process.env.PUBLIC_URL}/cover-art.png`}
-            alt="RoguePod LiteCast Cover Art"
-            className="w-full h-full object-cover rounded-2xl"
-            onError={handleImageError}
-          />
-        </a>
-
-        {/* Title */}
-        <h1 className="text-white text-2xl sm:text-4xl font-bold mb-4 sm:mb-5 drop-shadow-lg animate-slideInLeft">
-          RoguePod LiteCast
-        </h1>
-
-        {/* Description */}
-        <p className="text-white text-opacity-90 text-base sm:text-lg mb-6 sm:mb-8 font-normal leading-relaxed max-w-full mx-auto animate-slideInRight">
-          RoguePod LiteCast is a roguelite review podcast released every other Wednesday. Each episode Danny and David discuss a different roguelite and add it to the ultimate roguelite tierlist.
-        </p>
-
-        {/* Podcast Player */}
-        <div className="mb-8 sm:mb-10 animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-          <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl border border-white border-opacity-20 p-4 sm:p-6 shadow-xl">
-            <h3 className="text-white text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center">
-              Latest Episodes
-            </h3>
-            <div className="rounded-xl overflow-hidden shadow-lg">
-              <iframe 
-                src="https://embed.acast.com/670c223adf4dd6f896322012?feed=true" 
-                frameBorder="0" 
-                width="100%" 
-                height="320"
-                className="w-full"
-                style={{ minHeight: '280px' }}
-                title="RoguePod LiteCast Episodes"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Links Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5 mb-8 sm:mb-10">
-          {links.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
+        {currentView === 'home' ? (
+          <>
+            {/* Logo */}
+            <a 
+              href="https://feeds.acast.com/public/shows/roguepod-litecast"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center text-white no-underline transition-all duration-300 p-3 sm:p-4 rounded-2xl bg-white bg-opacity-10 border border-white border-opacity-20 relative overflow-hidden group hover:-translate-y-1 hover:scale-105 hover:bg-opacity-20 hover:shadow-lg"
-              style={{
-                animation: `fadeInUp 0.6s ease-out ${0.1 + index * 0.1}s both`
-              }}
+              className="block w-32 h-32 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 relative overflow-hidden rounded-2xl shadow-xl animate-pulse-custom cursor-pointer transition-transform duration-300 hover:scale-105"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-opacity-10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-              <div className="w-8 h-8 sm:w-10 sm:h-10 mb-2 drop-shadow-lg relative z-10">
-                {link.icon}
-              </div>
-              <span className="text-xs sm:text-sm font-medium drop-shadow-sm relative z-10">
-                {link.text}
-              </span>
+              <img 
+                src={`${process.env.PUBLIC_URL}/cover-art.png`}
+                alt="RoguePod LiteCast Cover Art"
+                className="w-full h-full object-cover rounded-2xl"
+                onError={handleImageError}
+              />
             </a>
-          ))}
-        </div>
 
-        {/* Contact Section */}
-        <div className="border-t border-white border-opacity-20 pt-6 sm:pt-8 animate-fadeIn">
-          <p className="text-white text-opacity-90 mb-3 sm:mb-4 text-base sm:text-lg">Get in touch</p>
-          <a
-            href="mailto:host@roguepod.show"
-            className="inline-flex items-center gap-2 sm:gap-3 bg-white bg-opacity-10 px-4 sm:px-5 py-2 sm:py-3 rounded-full no-underline text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-0.5 hover:shadow-md text-sm sm:text-base"
-          >
-            <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-            <span className="hidden sm:inline">host@roguepod.show</span>
-            <span className="sm:hidden">Email us</span>
-          </a>
-        </div>
+            {/* Title */}
+            <h1 className="text-white text-2xl sm:text-4xl font-bold mb-4 sm:mb-5 drop-shadow-lg animate-slideInLeft">
+              RoguePod LiteCast
+            </h1>
+
+            {/* Description */}
+            <p className="text-white text-opacity-90 text-base sm:text-lg mb-6 sm:mb-8 font-normal leading-relaxed max-w-full mx-auto animate-slideInRight">
+              RoguePod LiteCast is a roguelite review podcast released every other Wednesday. Each episode Danny and David discuss a different roguelite and add it to the ultimate roguelite tierlist.
+            </p>
+
+            {/* Tier List Button */}
+            <div className="mb-8 sm:mb-10 animate-fadeInUp" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+              <button
+                onClick={navigateToTierList}
+                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl border border-white border-opacity-20"
+              >
+                <div className="flex items-center justify-center gap-3">
+                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                  </svg>
+                  <span className="text-lg">View Current Tier List</span>
+                </div>
+              </button>
+            </div>
+
+            {/* Podcast Player */}
+            <div className="mb-8 sm:mb-10 animate-fadeInUp" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl border border-white border-opacity-20 p-4 sm:p-6 shadow-xl">
+                <h3 className="text-white text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center">
+                  Latest Episodes
+                </h3>
+                <div className="rounded-xl overflow-hidden shadow-lg">
+                  <iframe 
+                    src="https://embed.acast.com/670c223adf4dd6f896322012?feed=true" 
+                    frameBorder="0" 
+                    width="100%" 
+                    height="320"
+                    className="w-full"
+                    style={{ minHeight: '280px' }}
+                    title="RoguePod LiteCast Episodes"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Links Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5 mb-8 sm:mb-10">
+              {links.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col items-center text-white no-underline transition-all duration-300 p-3 sm:p-4 rounded-2xl bg-white bg-opacity-10 border border-white border-opacity-20 relative overflow-hidden group hover:-translate-y-1 hover:scale-105 hover:bg-opacity-20 hover:shadow-lg"
+                  style={{
+                    animation: `fadeInUp 0.6s ease-out ${0.2 + index * 0.1}s both`
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-opacity-10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 mb-2 drop-shadow-lg relative z-10">
+                    {link.icon}
+                  </div>
+                  <span className="text-xs sm:text-sm font-medium drop-shadow-sm relative z-10">
+                    {link.text}
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            {/* Contact Section */}
+            <div className="border-t border-white border-opacity-20 pt-6 sm:pt-8 animate-fadeIn">
+              <p className="text-white text-opacity-90 mb-3 sm:mb-4 text-base sm:text-lg">Get in touch!</p>
+              <a
+                href="mailto:host@roguepod.show"
+                className="inline-flex items-center gap-2 sm:gap-3 bg-white bg-opacity-10 px-4 sm:px-5 py-2 sm:py-3 rounded-full no-underline text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-0.5 hover:shadow-md text-sm sm:text-base"
+              >
+                <svg width="16" height="16" className="sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                <span className="hidden sm:inline">host@roguepod.show</span>
+                <span className="sm:hidden">Email us</span>
+              </a>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Tier List View */}
+            <div className="w-full">
+              {/* Back Button */}
+              <button
+                onClick={navigateToHome}
+                className="mb-6 inline-flex items-center gap-2 bg-white bg-opacity-10 px-4 py-2 rounded-xl text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-0.5"
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+                Back to Home
+              </button>
+
+              {/* Tier List Title */}
+              <h1 className="text-white text-2xl sm:text-4xl font-bold mb-4 sm:mb-6 drop-shadow-lg">
+                Current Tier List
+              </h1>
+
+              {/* Tier List Description */}
+              <p className="text-white text-opacity-90 text-base sm:text-lg mb-6 sm:mb-8 font-normal leading-relaxed">
+                This is a tier list of roguelites specifically - we ask how good a game is as a roguelite, not necessarily how good it is as a game. Games are ordered within tiers. If you have strong opinions and you want to be heard, let us know in our discord!
+              </p>
+
+              {/* Tier List Image */}
+              <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl border border-white border-opacity-20 p-4 sm:p-6 shadow-xl">
+                <div className="rounded-xl overflow-hidden shadow-lg bg-white">
+                  <img 
+                    src={`${process.env.PUBLIC_URL}/tierlist.png`}
+                    alt="RoguePod LiteCast Roguelite Tier List"
+                    className="w-full h-auto"
+                    style={{ maxWidth: '100%', height: 'auto' }}
+                  />
+                </div>
+                <p className="text-white text-opacity-70 text-sm mt-4 text-center">
+                  Tier list updated as of our latest episode
+                </p>
+              </div>
+
+              {/* Discord Link */}
+              <div className="mt-8 flex justify-center">
+                <a
+                  href="https://discord.gg/EEwq9VGGKb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-white bg-opacity-10 px-6 py-4 rounded-2xl text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-1 hover:scale-105 hover:shadow-lg"
+                >
+                  <div className="w-8 h-8">
+                    <svg className="w-full h-full" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.191.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                  </div>
+                  <span className="text-lg">Join Our Discord</span>
+                </a>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
