@@ -8,6 +8,7 @@ interface LinkItem {
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<'home' | 'tierlist'>('home');
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   
   useEffect(() => {
     document.title = 'RoguePod LiteCast';
@@ -316,7 +317,7 @@ const App: React.FC = () => {
 
               {/* Tier List Image */}
               <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl border border-white border-opacity-20 p-4 sm:p-6 shadow-xl">
-                <div className="rounded-xl overflow-hidden shadow-lg bg-white">
+                <div className="rounded-xl overflow-hidden shadow-lg bg-white cursor-pointer hover:shadow-xl transition-shadow duration-300" onClick={() => setIsImageModalOpen(true)}>
                   <img 
                     src={`${process.env.PUBLIC_URL}/tierlist.png`}
                     alt="RoguePod LiteCast Roguelite Tier List"
@@ -325,7 +326,7 @@ const App: React.FC = () => {
                   />
                 </div>
                 <p className="text-white text-opacity-70 text-sm mt-4 text-center">
-                  Tier list updated as of our latest episode
+                  Tier list updated as of our latest episode • <span className="sm:hidden">Tap to expand</span><span className="hidden sm:inline">Click to expand</span>
                 </p>
               </div>
 
@@ -349,6 +350,44 @@ const App: React.FC = () => {
           </>
         )}
       </div>
+
+      {/* Image Modal */}
+      {isImageModalOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsImageModalOpen(false)}
+        >
+          <div className="relative max-w-full max-h-full overflow-auto">
+            {/* Close Button */}
+            <button
+              onClick={() => setIsImageModalOpen(false)}
+              className="absolute top-4 right-4 z-10 bg-white bg-opacity-20 backdrop-blur-sm rounded-full p-2 text-white hover:bg-opacity-30 transition-all duration-300"
+            >
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg>
+            </button>
+            
+            {/* Expanded Image */}
+            <img 
+              src={`${process.env.PUBLIC_URL}/tierlist.png`}
+              alt="RoguePod LiteCast Roguelite Tier List - Full Size"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+              style={{ 
+                maxHeight: '90vh',
+                maxWidth: '90vw'
+              }}
+            />
+            
+            {/* Instruction Text */}
+            <p className="text-white text-center mt-4 text-sm opacity-70">
+              <span className="sm:hidden">Pinch to zoom • Tap outside to close</span>
+              <span className="hidden sm:inline">Scroll to zoom • Click outside to close</span>
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
