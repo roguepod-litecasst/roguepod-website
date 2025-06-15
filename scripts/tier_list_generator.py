@@ -77,15 +77,46 @@ class TierListGenerator:
             data = response.json()
             
             if 'items' in data and len(data['items']) > 0:
-                # Get the first result (usually the most relevant)
-                app_id = data['items'][0]['id']
+                # Find the best match by comparing names
+                best_match = None
+                best_score = 0
                 
-                # Cache the result
-                self.game_id_cache[cache_key] = app_id
-                self.save_game_id_cache()
+                for item in data['items']:
+                    item_name = item.get('name', '').lower()
+                    search_name = game_name.lower()
+                    
+                    # Calculate similarity score
+                    score = self._calculate_name_similarity(search_name, item_name)
+                    
+                    # Bonus points for exact matches or very close matches
+                    if search_name == item_name:
+                        score += 1.0  # Perfect match bonus
+                    elif search_name in item_name or item_name in search_name:
+                        score += 0.5  # Substring match bonus
+                    
+                    # Penalty for sequels when not searching for them
+                    if not any(num in search_name for num in ['2', '3', '4', '5', 'ii', 'iii', 'iv', 'v']):
+                        if any(num in item_name for num in ['2', '3', '4', '5', 'ii', 'iii', 'iv', 'v']):
+                            score -= 0.3  # Penalty for sequels
+                    
+                    self.vprint(f"  {item_name}: score {score:.2f}")
+                    
+                    if score > best_score:
+                        best_score = score
+                        best_match = item
                 
-                self.vprint(f"Found Steam ID {app_id} for {game_name}")
-                return app_id
+                if best_match:
+                    app_id = best_match['id']
+                    
+                    # Cache the result
+                    self.game_id_cache[cache_key] = app_id
+                    self.save_game_id_cache()
+                    
+                    self.vprint(f"✅ Best match: '{best_match['name']}' (ID: {app_id}, score: {best_score:.2f})")
+                    return app_id
+                else:
+                    self.vprint(f"No good matches found for {game_name}")
+                    return None
             else:
                 self.vprint(f"No Steam results found for {game_name}")
                 return None
@@ -93,6 +124,11 @@ class TierListGenerator:
         except Exception as e:
             self.vprint(f"Error searching Steam for {game_name}: {e}")
             return None
+    
+    def _calculate_name_similarity(self, name1, name2):
+        """Calculate similarity between two game names"""
+        from difflib import SequenceMatcher
+        return SequenceMatcher(None, name1, name2).ratio()
     
     def get_steam_header_image(self, game_name):
         """Get the Steam header image for a game"""
