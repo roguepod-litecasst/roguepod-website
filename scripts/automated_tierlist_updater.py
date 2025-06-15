@@ -19,6 +19,7 @@ import argparse
 import os
 import sys
 from datetime import datetime
+import time
 import json
 
 # Google API imports
@@ -30,11 +31,18 @@ except ImportError:
     GOOGLE_API_AVAILABLE = False
     print("Warning: Google API libraries not installed. Install with: pip install google-api-python-client google-auth")
 
-# Import the existing tier list generator
+# Import the existing tier list generator with better error handling
 try:
     from tier_list_generator import TierListGenerator
-except ImportError:
-    print("Error: tier_list_generator.py not found in the current directory")
+except ImportError as e:
+    print(f"❌ Import error: {e}")
+    print(f"Current directory: {os.getcwd()}")
+    print(f"Files in directory: {os.listdir('.')}")
+    print("Make sure tier_list_generator.py is in the same directory")
+    sys.exit(1)
+except Exception as e:
+    print(f"❌ Unexpected error importing tier_list_generator: {e}")
+    print(f"Error type: {type(e)}")
     sys.exit(1)
 
 
@@ -93,37 +101,43 @@ class AutomatedTierListUpdater:
             print(f"Warning: Failed to initialize Google Docs API: {e}")
             self.docs_service = None
     
-    def fetch_rss_episodes(self):
-        """Fetch and parse RSS feed to get episode titles"""
-        try:
-            self.vprint("Fetching RSS feed...")
-            response = requests.get(self.rss_url, timeout=30)
-            response.raise_for_status()
-            
-            # Parse XML
-            root = ET.fromstring(response.content)
-            
-            episodes = []
-            items = root.findall('.//item')
-            
-            for item in items:
-                title_elem = item.find('title')
-                pub_date_elem = item.find('pubDate')
+    def fetch_rss_episodes(self, max_retries=3):
+        """Fetch and parse RSS feed to get episode titles with automatic retries"""
+        for attempt in range(max_retries):
+            try:
+                self.vprint(f"Fetching RSS feed (attempt {attempt + 1}/{max_retries})...")
+                response = requests.get(self.rss_url, timeout=30)
+                response.raise_for_status()
                 
-                if title_elem is not None:
-                    title = title_elem.text.strip()
-                    pub_date = pub_date_elem.text if pub_date_elem is not None else "Unknown"
-                    episodes.append({
-                        'title': title,
-                        'pub_date': pub_date
-                    })
-            
-            self.vprint(f"Found {len(episodes)} episodes in RSS feed")
-            return episodes
-            
-        except Exception as e:
-            print(f"Error fetching RSS feed: {e}")
-            return []
+                # Parse XML
+                root = ET.fromstring(response.content)
+                
+                episodes = []
+                items = root.findall('.//item')
+                
+                for item in items:
+                    title_elem = item.find('title')
+                    pub_date_elem = item.find('pubDate')
+                    
+                    if title_elem is not None:
+                        title = title_elem.text.strip()
+                        pub_date = pub_date_elem.text if pub_date_elem is not None else "Unknown"
+                        episodes.append({
+                            'title': title,
+                            'pub_date': pub_date
+                        })
+                
+                self.vprint(f"✅ Successfully found {len(episodes)} episodes in RSS feed")
+                return episodes
+                
+            except Exception as e:
+                if attempt < max_retries - 1:
+                    self.vprint(f"❌ Attempt {attempt + 1} failed: {e}")
+                    self.vprint(f"⏳ Retrying in 5 seconds...")
+                    time.sleep(5)
+                else:
+                    print(f"❌ Error fetching RSS feed after {max_retries} attempts: {e}")
+                    return []
     
     def extract_game_names_from_episodes(self, episodes):
         """Extract game names from episode titles"""
@@ -300,7 +314,7 @@ class AutomatedTierListUpdater:
         
         print(f"Debug information saved to {output_dir}/ directory")
     
-    def update_tier_list(self, output_path="public/tierlist.png", save_debug=False):
+    def update_tier_list(self, output_path="../public/tierlist.png", save_debug=False):
         """Main method to update the tier list"""
         print("🚀 Starting automated tier list update...")
         print(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

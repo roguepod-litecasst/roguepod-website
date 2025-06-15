@@ -1,0 +1,86 @@
+name: Update Tier List
+
+on:
+  # Dual schedule to handle Pacific Daylight/Standard Time transitions
+  # Always runs at 2:02 AM Pacific time, adjusting for daylight savings
+  schedule:
+    # PDT schedule (March-November): 9:02 AM UTC = 2:02 AM PDT (UTC-7)
+    - cron: '2 9 * 3-11 3'
+    # PST schedule (December-February): 10:02 AM UTC = 2:02 AM PST (UTC-8)
+    - cron: '2 10 * 12,1-2 3'
+  
+  # Allow manual triggering for testing
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Enable debug mode'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  update-tierlist:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Important: This allows the action to push changes back
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r scripts/requirements.txt
+    
+    - name: Update tier list
+      env:
+        # This is the secure way to pass the Google credentials
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      run: |
+        cd scripts
+        if [ "${{ github.event.inputs.debug }}" = "true" ]; then
+          python automated_tierlist_updater.py --debug --verbose
+        else
+          python automated_tierlist_updater.py --verbose
+        fi
+    
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet HEAD -- public/tierlist.png; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No changes to tier list"
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "Tier list updated"
+        fi
+    
+    - name: Commit and push changes
+      if: steps.check_changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add public/tierlist.png
+        git add scripts/steam_images/  # Update cached images if new games added
+        git commit -m "🎮 Automated tier list update - $(date +'%Y-%m-%d %H:%M UTC')"
+        git push
+    
+    - name: Create summary
+      run: |
+        echo "## 🎮 Tier List Update Results" >> $GITHUB_STEP_SUMMARY
+        echo "- **Timestamp:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
+          echo "- **Status:** ✅ Tier list updated successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** New tier list image generated and committed" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status:** ℹ️ No changes needed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** Tier list is already up to date" >> $GITHUB_STEP_SUMMARY
+        fi
+        echo "- **Manual trigger:** Available in Actions tab" >> $GITHUB_STEP_SUMMARY
