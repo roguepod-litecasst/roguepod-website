@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+credentials.json
+*.Zone.Identifier
+scripts/credentials.json
+scripts/debug/
+*.Zone.Identifier
+__pycache__/
