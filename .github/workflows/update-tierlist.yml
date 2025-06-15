@@ -72,15 +72,24 @@ jobs:
         git commit -m "🎮 Automated tier list update - $(date +'%Y-%m-%d %H:%M UTC')"
         git push
     
+    - name: Build and deploy website
+      if: steps.check_changes.outputs.changed == 'true'
+      run: |
+        npm install
+        npm run deploy
+      env:
+        # GitHub token for gh-pages deployment
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
     - name: Create summary
       run: |
         echo "## 🎮 Tier List Update Results" >> $GITHUB_STEP_SUMMARY
         echo "- **Timestamp:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
         if [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
-          echo "- **Status:** ✅ Tier list updated successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- **Action:** New tier list image generated and committed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ✅ Tier list updated and deployed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** New tier list generated, committed, and website deployed" >> $GITHUB_STEP_SUMMARY
         else
           echo "- **Status:** ℹ️ No changes needed" >> $GITHUB_STEP_SUMMARY
-          echo "- **Action:** Tier list is already up to date" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** Tier list is already up to date, no deployment needed" >> $GITHUB_STEP_SUMMARY
         fi
         echo "- **Manual trigger:** Available in Actions tab" >> $GITHUB_STEP_SUMMARY
