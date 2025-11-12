@@ -4,10 +4,10 @@ on:
   # Dual schedule to handle Pacific Daylight/Standard Time transitions
   # Always runs at 2:02 AM Pacific time, adjusting for daylight savings
   schedule:
-    # PDT schedule (March-November): 9:02 AM UTC = 2:02 AM PDT (UTC-7)
-    - cron: '2 9 * 3-11 3'
-    # PST schedule (December-February): 10:02 AM UTC = 2:02 AM PST (UTC-8)
-    - cron: '2 10 * 12,1-2 3'
+    # PDT schedule (March-early November): 9:02 AM UTC = 2:02 AM PDT (UTC-7)
+    - cron: '2 9 * 3-10 3'
+    # PST schedule (early November-February): 10:02 AM UTC = 2:02 AM PST (UTC-8)
+    - cron: '2 10 * 11-12,1-2 3'
   
   # Allow manual triggering for testing
   workflow_dispatch:
