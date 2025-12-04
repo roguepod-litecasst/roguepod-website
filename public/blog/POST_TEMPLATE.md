@@ -4,6 +4,7 @@ date: "2025-12-04"
 author: "Danny & David"
 excerpt: "A short 1-2 sentence description that appears on the blog list page. Keep it concise and engaging!"
 slug: "your-post-slug-here"
+published: false
 ---
 
 # Your Post Title Here

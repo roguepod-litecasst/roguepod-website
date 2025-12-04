@@ -7,6 +7,7 @@ interface BlogPostPreview {
   author: string;
   excerpt: string;
   slug: string;
+  published: boolean;
 }
 
 // Simple frontmatter parser for browser
@@ -57,16 +58,20 @@ const BlogList: React.FC = () => {
             date: data.date,
             author: data.author,
             excerpt: data.excerpt,
-            slug: data.slug
+            slug: data.slug,
+            published: data.published === 'true' || data.published === true
           };
         });
 
         const loadedPosts = await Promise.all(postPromises);
 
-        // Sort by date, newest first
-        loadedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        // Filter to only show published posts
+        const publishedPosts = loadedPosts.filter(post => post.published);
 
-        setPosts(loadedPosts);
+        // Sort by date, newest first
+        publishedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        setPosts(publishedPosts);
       } catch (err) {
         console.error('Failed to load posts:', err);
       } finally {

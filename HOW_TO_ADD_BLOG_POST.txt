@@ -15,6 +15,10 @@ STEP 2: WRITE YOUR POST
 Copy the template from: public/blog/POST_TEMPLATE.md
 Fill in your content.
 
+IMPORTANT: Set published to true when ready to publish!
+    published: false  (draft - won't show on website)
+    published: true   (published - will show on website)
+
 
 STEP 3: REGISTER THE POST
 ---------------------------------
