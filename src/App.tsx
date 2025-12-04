@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import BlogList from './components/BlogList';
+import BlogPost from './components/BlogPost';
 
 interface LinkItem {
   href: string;
@@ -49,7 +52,7 @@ const App: React.FC = () => {
       text: "RSS",
       icon: (
         <div className="w-10 h-10 flex items-center justify-center">
-          <img src={`${process.env.PUBLIC_URL}/rss-icon.svg`} alt="RSS" className="w-8 h-8 filter invert" />
+          <img src="/rss-icon.svg" alt="RSS" className="w-8 h-8 filter invert" />
         </div>
       )
     },
@@ -122,84 +125,39 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-5 overflow-x-hidden relative"
-         style={{
-           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-         }}>
-      
-      {/* Enhanced Background Elements */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        {/* Animated Gradient Orbs */}
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={`orb-${i}`}
-            className="absolute rounded-full opacity-20 blur-xl"
-            style={{
-              width: `${200 + i * 100}px`,
-              height: `${200 + i * 100}px`,
-              background: `radial-gradient(circle, ${
-                ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7'][i]
-              }40, transparent)`,
-              top: `${10 + i * 15}%`,
-              left: `${5 + i * 20}%`,
-              animation: `float 8s infinite ease-in-out ${i * 1.5}s, drift 20s infinite linear ${i * 3}s`
-            }}
-          />
-        ))}
-        
-        {/* Floating Particles */}
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={`particle-${i}`}
-            className="absolute rounded-full bg-white bg-opacity-10"
-            style={{
-              width: `${4 + (i % 3) * 3}px`,
-              height: `${4 + (i % 3) * 3}px`,
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animation: `float 6s infinite ease-in-out ${i * 0.5}s, drift 15s infinite linear ${i * 2}s`
-            }}
-          />
-        ))}
-        
-        {/* Geometric Shapes */}
-        <div 
-          className="absolute opacity-5 rotate-45"
-          style={{
-            top: '10%',
-            right: '10%',
-            width: '300px',
-            height: '300px',
-            background: 'linear-gradient(45deg, transparent 40%, white 41%, white 59%, transparent 60%)',
-            animation: 'rotate 30s infinite linear'
-          }}
-        />
-        <div 
-          className="absolute opacity-5 -rotate-12"
-          style={{
-            bottom: '20%',
-            left: '5%',
-            width: '200px',
-            height: '200px',
-            background: 'linear-gradient(135deg, transparent 40%, white 41%, white 59%, transparent 60%)',
-            animation: 'rotate 25s infinite linear reverse'
-          }}
-        />
-      </div>
+    <Routes>
+      <Route path="/blog" element={<BlogList />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
+      <Route path="/" element={<HomePage currentView={currentView} navigateToTierList={navigateToTierList} navigateToHome={navigateToHome} isImageModalOpen={isImageModalOpen} setIsImageModalOpen={setIsImageModalOpen} links={links} handleImageError={handleImageError} />} />
+    </Routes>
+  );
+};
 
-      <div className="relative z-10 bg-white bg-opacity-10 backdrop-blur-lg rounded-3xl border border-white border-opacity-20 p-6 sm:p-10 text-center w-full max-w-4xl shadow-2xl animate-fadeInUp">
+const HomePage: React.FC<{
+  currentView: 'home' | 'tierlist';
+  navigateToTierList: () => void;
+  navigateToHome: () => void;
+  isImageModalOpen: boolean;
+  setIsImageModalOpen: (value: boolean) => void;
+  links: LinkItem[];
+  handleImageError: (e: React.SyntheticEvent<HTMLImageElement>) => void;
+}> = ({ currentView, navigateToTierList, navigateToHome, isImageModalOpen, setIsImageModalOpen, links, handleImageError }) => {
+  return (
+    <div className="min-h-screen flex items-center justify-center p-5 bg-gray-900">
+
+      <div className="relative z-10 bg-gray-800 rounded-3xl border border-gray-700 p-6 sm:p-10 text-center w-full max-w-4xl shadow-2xl animate-fadeInUp">
         
         {currentView === 'home' ? (
           <>
             {/* Logo */}
-            <a 
+            <a
               href="https://feeds.acast.com/public/shows/roguepod-litecast"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-32 h-32 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 relative overflow-hidden rounded-2xl shadow-xl animate-pulse-custom cursor-pointer transition-transform duration-300 hover:scale-105"
             >
-              <img 
-                src={`${process.env.PUBLIC_URL}/cover-art.png`}
+              <img
+                src="/cover-art.png"
                 alt="RoguePod LiteCast Cover Art"
                 className="w-full h-full object-cover rounded-2xl"
                 onError={handleImageError}
@@ -249,6 +207,22 @@ const App: React.FC = () => {
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Companion Articles Section */}
+            <div className="mb-8 sm:mb-10 animate-fadeInUp text-center" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
+              <p className="text-white text-opacity-90 text-base sm:text-lg mb-4 font-normal leading-relaxed">
+                Sometimes we write up reviews to go along with our podcast episodes. Check those out here!
+              </p>
+              <Link
+                to="/blog"
+                className="inline-flex items-center gap-2 bg-white bg-opacity-10 px-5 py-3 rounded-full text-white font-medium border border-white border-opacity-20 transition-all duration-300 hover:bg-opacity-20 hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <span>Companion Articles</span>
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </Link>
             </div>
 
             {/* Links Grid */}
@@ -318,8 +292,8 @@ const App: React.FC = () => {
               {/* Tier List Image */}
               <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl border border-white border-opacity-20 p-4 sm:p-6 shadow-xl">
                 <div className="rounded-xl overflow-hidden shadow-lg bg-white cursor-pointer hover:shadow-xl transition-shadow duration-300" onClick={() => setIsImageModalOpen(true)}>
-                  <img 
-                    src={`${process.env.PUBLIC_URL}/tierlist.png`}
+                  <img
+                    src="/tierlist.png"
                     alt="RoguePod LiteCast Roguelite Tier List"
                     className="w-full h-auto"
                     style={{ maxWidth: '100%', height: 'auto' }}
@@ -369,12 +343,12 @@ const App: React.FC = () => {
             </button>
             
             {/* Expanded Image */}
-            <img 
-              src={`${process.env.PUBLIC_URL}/tierlist.png`}
+            <img
+              src="/tierlist.png"
               alt="RoguePod LiteCast Roguelite Tier List - Full Size"
               className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
-              style={{ 
+              style={{
                 maxHeight: '90vh',
                 maxWidth: '90vw'
               }}
