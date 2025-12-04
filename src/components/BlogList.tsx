@@ -57,7 +57,7 @@ const BlogList: React.FC = () => {
             author: data.author,
             excerpt: data.excerpt,
             slug: data.slug,
-            published: data.published === 'true' || data.published === true
+            published: data.published === 'true'
           };
         });
 
