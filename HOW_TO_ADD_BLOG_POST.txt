@@ -1,0 +1,84 @@
+================================================================================
+HOW TO ADD A BLOG POST TO ROGUEPOD WEBSITE
+================================================================================
+
+STEP 1: CREATE THE MARKDOWN FILE
+---------------------------------
+Create a new file in: public/blog/your-post-name.md
+(Use lowercase, hyphens instead of spaces)
+
+Example: public/blog/dead-cells-review.md
+
+
+STEP 2: WRITE YOUR POST
+---------------------------------
+Copy the template from: public/blog/POST_TEMPLATE.md
+Fill in your content.
+
+
+STEP 3: REGISTER THE POST
+---------------------------------
+Open: src/components/BlogList.tsx
+
+Find line 18 with the postFiles array:
+    const postFiles = [
+      'welcome-to-roguepod-blog',
+      'slay-the-spire-deep-dive'
+    ];
+
+Add your post filename (WITHOUT the .md extension):
+    const postFiles = [
+      'welcome-to-roguepod-blog',
+      'slay-the-spire-deep-dive',
+      'your-post-name'  // <-- Add this
+    ];
+
+
+STEP 4: TEST LOCALLY
+---------------------------------
+If dev server is running, it should auto-refresh.
+Go to: http://localhost:3000/blog
+
+If not running:
+    npm start
+
+Then visit: http://localhost:3000/blog
+
+
+STEP 5: PUBLISH TO WEBSITE
+---------------------------------
+When you're ready to publish:
+
+    git add public/blog/your-post-name.md src/components/BlogList.tsx
+    git commit -m "Add blog post: Your Post Title"
+    git push
+    npm run build
+    npm run deploy
+
+
+THAT'S IT! Your post is now live at roguepod.show/blog
+
+================================================================================
+MARKDOWN TIPS
+================================================================================
+
+# Heading 1
+## Heading 2
+### Heading 3
+
+**Bold text**
+*Italic text*
+
+- Bullet point
+- Another bullet
+
+1. Numbered item
+2. Another numbered item
+
+[Link text](https://example.com)
+
+> This is a quote
+
+`inline code`
+
+================================================================================

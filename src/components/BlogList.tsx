@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import matter from 'gray-matter';
 
 interface BlogPostPreview {
   title: string;
@@ -10,6 +9,31 @@ interface BlogPostPreview {
   slug: string;
 }
 
+// Simple frontmatter parser for browser
+const parseFrontmatter = (markdown: string) => {
+  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const match = markdown.match(frontmatterRegex);
+
+  if (!match) {
+    return { data: {}, content: markdown };
+  }
+
+  const frontmatterText = match[1];
+  const content = match[2];
+
+  const data: Record<string, string> = {};
+  frontmatterText.split('\n').forEach(line => {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex > -1) {
+      const key = line.substring(0, colonIndex).trim();
+      const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
+      data[key] = value;
+    }
+  });
+
+  return { data, content };
+};
+
 const BlogList: React.FC = () => {
   const [posts, setPosts] = useState<BlogPostPreview[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,15 +42,15 @@ const BlogList: React.FC = () => {
     const loadPosts = async () => {
       try {
         // List of blog post filenames (in a real app, this could come from an API or be generated at build time)
-        const postFiles = [
-          'welcome-to-roguepod-blog',
-          'slay-the-spire-deep-dive'
+        const postFiles: string[] = [
+          // Add your blog post filenames here (without .md extension)
+          // Example: 'my-first-post'
         ];
 
         const postPromises = postFiles.map(async (filename) => {
           const response = await fetch(`/blog/${filename}.md`);
           const markdown = await response.text();
-          const { data } = matter(markdown);
+          const { data } = parseFrontmatter(markdown);
 
           return {
             title: data.title,
@@ -55,8 +79,8 @@ const BlogList: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center">
-        <div className="text-white text-xl">Loading posts...</div>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-gray-400 text-xl">Loading posts...</div>
       </div>
     );
   }
