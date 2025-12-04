@@ -42,11 +42,9 @@ const BlogList: React.FC = () => {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        // List of blog post filenames (in a real app, this could come from an API or be generated at build time)
-        const postFiles: string[] = [
-          // Add your blog post filenames here (without .md extension)
-          // Example: 'my-first-post'
-        ];
+        // Fetch the auto-generated blog index
+        const indexResponse = await fetch('/blog-index.json');
+        const postFiles: string[] = await indexResponse.json();
 
         const postPromises = postFiles.map(async (filename) => {
           const response = await fetch(`/blog/${filename}.md`);

@@ -20,25 +20,7 @@ IMPORTANT: Set published to true when ready to publish!
     published: true   (published - will show on website)
 
 
-STEP 3: REGISTER THE POST
----------------------------------
-Open: src/components/BlogList.tsx
-
-Find line 18 with the postFiles array:
-    const postFiles = [
-      'welcome-to-roguepod-blog',
-      'slay-the-spire-deep-dive'
-    ];
-
-Add your post filename (WITHOUT the .md extension):
-    const postFiles = [
-      'welcome-to-roguepod-blog',
-      'slay-the-spire-deep-dive',
-      'your-post-name'  // <-- Add this
-    ];
-
-
-STEP 4: TEST LOCALLY
+STEP 3: TEST LOCALLY
 ---------------------------------
 If dev server is running, it should auto-refresh.
 Go to: http://localhost:3000/blog
@@ -49,11 +31,11 @@ If not running:
 Then visit: http://localhost:3000/blog
 
 
-STEP 5: SAVE AS DRAFT (OPTIONAL)
+STEP 4: SAVE AS DRAFT (OPTIONAL)
 ---------------------------------
 You can commit your draft without publishing it:
 
-    git add public/blog/your-post-name.md src/components/BlogList.tsx
+    git add public/blog/your-post-name.md
     git commit -m "Draft: Your Post Title"
     git push
 
@@ -64,7 +46,7 @@ To preview locally:
     Visit: http://localhost:3000/blog/your-post-name
 
 
-STEP 6: PUBLISH TO WEBSITE
+STEP 5: PUBLISH TO WEBSITE
 ---------------------------------
 When you're ready to publish:
 
@@ -76,6 +58,10 @@ When you're ready to publish:
     git push
     npm run build
     npm run deploy
+
+NOTE: Posts are automatically discovered! Just drop the .md file in
+public/blog/ and it will be found when you run npm start or npm run build.
+No need to edit any code!
 
 
 THAT'S IT! Your post is now live at roguepod.show/blog
