@@ -49,18 +49,51 @@ If not running:
 Then visit: http://localhost:3000/blog
 
 
-STEP 5: PUBLISH TO WEBSITE
+STEP 5: SAVE AS DRAFT (OPTIONAL)
+---------------------------------
+You can commit your draft without publishing it:
+
+    git add public/blog/your-post-name.md src/components/BlogList.tsx
+    git commit -m "Draft: Your Post Title"
+    git push
+
+Your draft is now saved to git but won't show on the website!
+
+To preview locally:
+    npm start
+    Visit: http://localhost:3000/blog/your-post-name
+
+
+STEP 6: PUBLISH TO WEBSITE
 ---------------------------------
 When you're ready to publish:
 
-    git add public/blog/your-post-name.md src/components/BlogList.tsx
-    git commit -m "Add blog post: Your Post Title"
+1. Change published: false to published: true in your post
+2. Commit and deploy:
+
+    git add public/blog/your-post-name.md
+    git commit -m "Publish blog post: Your Post Title"
     git push
     npm run build
     npm run deploy
 
 
 THAT'S IT! Your post is now live at roguepod.show/blog
+
+================================================================================
+DRAFT WORKFLOW
+================================================================================
+
+SAVE DRAFTS:
+    published: false  →  Won't show on website, can commit to git safely
+
+PREVIEW DRAFTS:
+    npm start
+    Go to: http://localhost:3000/blog/your-post-slug
+    (Won't appear in blog list, but accessible by direct URL)
+
+PUBLISH:
+    Change published: true  →  Will show on website after deploy
 
 ================================================================================
 MARKDOWN TIPS
