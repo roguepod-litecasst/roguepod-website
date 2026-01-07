@@ -52,10 +52,16 @@ class AutomatedTierListUpdater:
         self.rss_url = "https://feeds.acast.com/public/shows/roguepod-litecast"
         self.google_doc_id = "1nCm7kf_10FCEs5HKVEQyyivV50e7XrAzgueP2oSPTt8"
         self.credentials_path = credentials_path or "credentials.json"
-        
+
+        # Hard-coded name mappings for episode titles that don't match tier list exactly
+        # Maps: episode_title -> tier_list_name
+        self.name_mappings = {
+            "Spelunky HD": "Spelunky",
+        }
+
         # Initialize the tier list generator
         self.generator = TierListGenerator(verbose=verbose)
-        
+
         # Initialize Google Docs service
         self.docs_service = None
         if GOOGLE_API_AVAILABLE:
@@ -142,28 +148,34 @@ class AutomatedTierListUpdater:
     def extract_game_names_from_episodes(self, episodes):
         """Extract game names from episode titles"""
         game_names = []
-        
+
         for episode in episodes:
             title = episode['title']
             pub_date = episode['pub_date']
-            
+
             # Clean up the title to extract game name
             # Remove common podcast prefixes/suffixes
             cleaned_title = title
-            
+
             # Remove episode numbers (e.g., "Episode 1:", "Ep. 2:", etc.)
             cleaned_title = re.sub(r'^(Episode\s*\d+:?\s*|Ep\.?\s*\d+:?\s*)', '', cleaned_title, flags=re.IGNORECASE)
-            
+
             # Remove common suffixes
             cleaned_title = re.sub(r'\s*-\s*(Review|Discussion|Podcast).*$', '', cleaned_title, flags=re.IGNORECASE)
-            
+
             # Clean up extra whitespace
             cleaned_title = cleaned_title.strip()
-            
+
+            # Apply hard-coded name mappings
+            if cleaned_title in self.name_mappings:
+                original_title = cleaned_title
+                cleaned_title = self.name_mappings[cleaned_title]
+                self.vprint(f"  Applied name mapping: '{original_title}' -> '{cleaned_title}'")
+
             if cleaned_title:
                 game_names.append(cleaned_title)
                 self.vprint(f"  Episode: '{title}' -> Game: '{cleaned_title}' (Published: {pub_date})")
-        
+
         print(f"Extracted {len(game_names)} game names from episodes")
         return game_names
     
@@ -240,21 +252,45 @@ class AutomatedTierListUpdater:
         """Use fuzzy matching to correlate released episodes with tier list games"""
         matched_games = set()
         match_details = []
-        
+
         def similarity(a, b):
             return SequenceMatcher(None, a.lower(), b.lower()).ratio()
-        
-        # For each game in the tier list, find the best match in released episodes
+
+        # First pass: find all exact matches (1.0 similarity)
+        # This prevents fuzzy matches from stealing exact matches
+        exact_matched_released = set()
+
         for tier_game in tier_list_games:
+            for released_game in released_games:
+                if similarity(tier_game, released_game) == 1.0:
+                    exact_matched_released.add(released_game)
+                    matched_games.add(tier_game)
+                    match_details.append({
+                        'tier_game': tier_game,
+                        'episode_title': released_game,
+                        'similarity': 1.0
+                    })
+                    self.vprint(f"  ✓ Exact match: '{tier_game}' with '{released_game}'")
+                    break  # Stop looking for this tier_game
+
+        # Second pass: fuzzy match remaining games
+        # But only match to released games that weren't exactly matched
+        unmatched_tier_games = [g for g in tier_list_games if g not in matched_games]
+
+        for tier_game in unmatched_tier_games:
             best_match = None
             best_score = 0.0
-            
+
             for released_game in released_games:
+                # Skip released games that had exact matches
+                if released_game in exact_matched_released:
+                    continue
+
                 score = similarity(tier_game, released_game)
                 if score > best_score:
                     best_score = score
                     best_match = released_game
-            
+
             # Consider it a match if similarity is high enough
             if best_score >= 0.6:  # 60% similarity threshold
                 matched_games.add(tier_game)
@@ -263,10 +299,10 @@ class AutomatedTierListUpdater:
                     'episode_title': best_match,
                     'similarity': best_score
                 })
-                self.vprint(f"  ✓ Matched '{tier_game}' with '{best_match}' (similarity: {best_score:.2f})")
+                self.vprint(f"  ✓ Fuzzy matched '{tier_game}' with '{best_match}' (similarity: {best_score:.2f})")
             else:
                 self.vprint(f"  ✗ No good match for '{tier_game}' (best: '{best_match}' at {best_score:.2f})")
-        
+
         print(f"Matched {len(matched_games)} games from tier list with released episodes")
         return matched_games, match_details
     

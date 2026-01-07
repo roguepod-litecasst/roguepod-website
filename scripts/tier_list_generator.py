@@ -215,32 +215,42 @@ class TierListGenerator:
         """Generate the visual tier list"""
         # Configuration - match TierMaker style
         game_height = 120  # Height of each game image
-        tier_height = game_height  # Tier height same as game height
         tier_label_width = 100
-        
+        max_games_per_row = 9  # Maximum games per row before wrapping
+        row_spacing = 10  # Spacing between rows within a tier
+
         # Calculate the actual width needed by checking image dimensions
         # Steam header images are typically 460x215, so when resized to height 120:
         estimated_image_width = int((460/215) * game_height)  # ~257px
-        
-        # Calculate dimensions dynamically with NO margins between games
-        max_games_in_tier = max(len(games) for games in tiers.values()) if tiers else 0
-        
-        # Calculate canvas width: label + (images with no gaps between them)
-        if max_games_in_tier > 0:
-            canvas_width = tier_label_width + (max_games_in_tier * estimated_image_width)
-        else:
-            canvas_width = tier_label_width + 200
-            
-        canvas_height = len(tiers) * tier_height
-        
-        print(f"Canvas size: {canvas_width}x{canvas_height} (max {max_games_in_tier} games per tier)")
+
+        # Calculate dimensions dynamically
+        # Canvas width is based on max_games_per_row (not total games in tier)
+        canvas_width = tier_label_width + (max_games_per_row * estimated_image_width)
+
+        # Calculate total canvas height by summing each tier's height
+        # Each tier's height depends on how many rows it needs
+        import math
+        canvas_height = 0
+        tier_heights = {}  # Store calculated height for each tier
+
+        tier_order = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
+        for tier in tier_order:
+            if tier not in tiers:
+                continue
+            num_games = len(tiers[tier])
+            num_rows = math.ceil(num_games / max_games_per_row)
+            tier_height = num_rows * game_height + (num_rows - 1) * row_spacing
+            tier_heights[tier] = tier_height
+            canvas_height += tier_height
+
+        print(f"Canvas size: {canvas_width}x{canvas_height} (max {max_games_per_row} games per row)")
         
         # Create canvas with dark background like TierMaker
         canvas = Image.new('RGB', (canvas_width, canvas_height), color='#1a1a1a')
-        
-        # Calculate font size based on tier height for better scaling
-        # Use 25% of tier height as base, but ensure minimum and maximum sizes
-        base_font_size = int(tier_height * 0.25)  # 25% of tier height (much smaller)
+
+        # Calculate font size based on game height for better scaling
+        # Use 25% of game height as base, but ensure minimum and maximum sizes
+        base_font_size = int(game_height * 0.25)  # 25% of game height
         font_size = max(16, min(base_font_size, 36))  # Between 16 and 36
         
         try:
@@ -256,62 +266,67 @@ class TierListGenerator:
                     # Fallback to default font, but make it bigger
                     tier_font = ImageFont.load_default()
                     print(f"Warning: Using default font instead of TrueType font")
-        
-        print(f"Using font size: {font_size}px (tier height: {tier_height}px)")
-        
+
+        print(f"Using font size: {font_size}px (game height: {game_height}px)")
+
         current_y = 0
-        
+
         # Process each tier
-        tier_order = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
-        
         for tier_index, tier in enumerate(tier_order):
             if tier not in tiers:
                 continue
-                
+
             games = tiers[tier]
-            
-            # Draw tier label background
-            tier_bg = Image.new('RGB', (tier_label_width, tier_height), 
+            tier_height = tier_heights[tier]
+
+            # Draw tier label background (spans all rows in this tier)
+            tier_bg = Image.new('RGB', (tier_label_width, tier_height),
                               color=self.tier_colors[tier])
             canvas.paste(tier_bg, (0, current_y))
-            
-            # Draw tier label text with better positioning
+
+            # Draw tier label text centered in the tier label area
             draw = ImageDraw.Draw(canvas)
-            
+
             # Get text bounding box for precise centering
             bbox = draw.textbbox((0, 0), tier, font=tier_font)
             text_width = bbox[2] - bbox[0]
             text_height = bbox[3] - bbox[1]
-            
-            # Center the text both horizontally and vertically
+
+            # Center the text both horizontally and vertically in the label area
             text_x = (tier_label_width - text_width) // 2
             text_y = current_y + (tier_height - text_height) // 2
-            
+
             # Draw the text (no shadow)
             draw.text((text_x, text_y), tier, fill='black', font=tier_font)
-            
-            # Add games to this tier with NO gaps
+
+            # Add games to this tier with wrapping after max_games_per_row
             game_x = tier_label_width
-            
+            game_y = current_y
+
             for i, game_name in enumerate(games):
                 print(f"Processing {game_name}...")
-                
+
+                # Check if we need to wrap to next row
+                if i > 0 and i % max_games_per_row == 0:
+                    game_x = tier_label_width  # Reset to start of new row
+                    game_y += game_height + row_spacing  # Move to next row
+
                 # Get game image
                 game_img = self.get_steam_header_image(game_name)
                 game_img = self.resize_image(game_img, game_height)
-                
-                # Paste game image directly adjacent to previous (no margin)
-                canvas.paste(game_img, (game_x, current_y))
-                
-                # Update position for next game (no gap)
+
+                # Paste game image at current position
+                canvas.paste(game_img, (game_x, game_y))
+
+                # Move x position for next game (no gap between games in same row)
                 game_x += game_img.width
-            
+
             # Draw subtle tier separator line (except for last tier)
             if tier_index < len([t for t in tier_order if t in tiers]) - 1:
                 draw = ImageDraw.Draw(canvas)
                 line_y = current_y + tier_height
                 draw.line([(0, line_y), (canvas_width, line_y)], fill='#444444', width=1)
-            
+
             current_y += tier_height
         
         # Save the tier list
