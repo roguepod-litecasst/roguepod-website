@@ -52,10 +52,16 @@ class AutomatedTierListUpdater:
         self.rss_url = "https://feeds.acast.com/public/shows/roguepod-litecast"
         self.google_doc_id = "1nCm7kf_10FCEs5HKVEQyyivV50e7XrAzgueP2oSPTt8"
         self.credentials_path = credentials_path or "credentials.json"
-        
+
+        # Hard-coded name mappings for episode titles that don't match tier list exactly
+        # Maps: episode_title -> tier_list_name
+        self.name_mappings = {
+            "Spelunky HD": "Spelunky",
+        }
+
         # Initialize the tier list generator
         self.generator = TierListGenerator(verbose=verbose)
-        
+
         # Initialize Google Docs service
         self.docs_service = None
         if GOOGLE_API_AVAILABLE:
@@ -142,28 +148,34 @@ class AutomatedTierListUpdater:
     def extract_game_names_from_episodes(self, episodes):
         """Extract game names from episode titles"""
         game_names = []
-        
+
         for episode in episodes:
             title = episode['title']
             pub_date = episode['pub_date']
-            
+
             # Clean up the title to extract game name
             # Remove common podcast prefixes/suffixes
             cleaned_title = title
-            
+
             # Remove episode numbers (e.g., "Episode 1:", "Ep. 2:", etc.)
             cleaned_title = re.sub(r'^(Episode\s*\d+:?\s*|Ep\.?\s*\d+:?\s*)', '', cleaned_title, flags=re.IGNORECASE)
-            
+
             # Remove common suffixes
             cleaned_title = re.sub(r'\s*-\s*(Review|Discussion|Podcast).*$', '', cleaned_title, flags=re.IGNORECASE)
-            
+
             # Clean up extra whitespace
             cleaned_title = cleaned_title.strip()
-            
+
+            # Apply hard-coded name mappings
+            if cleaned_title in self.name_mappings:
+                original_title = cleaned_title
+                cleaned_title = self.name_mappings[cleaned_title]
+                self.vprint(f"  Applied name mapping: '{original_title}' -> '{cleaned_title}'")
+
             if cleaned_title:
                 game_names.append(cleaned_title)
                 self.vprint(f"  Episode: '{title}' -> Game: '{cleaned_title}' (Published: {pub_date})")
-        
+
         print(f"Extracted {len(game_names)} game names from episodes")
         return game_names
     
