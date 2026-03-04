@@ -70,7 +70,26 @@ jobs:
         git add public/tierlist.png
         git add scripts/steam_images/  # Update cached images if new games added
         git commit -m "🎮 Automated tier list update - $(date +'%Y-%m-%d %H:%M UTC')"
-        git push
+
+        # Pull and rebase to handle any new commits that appeared on remote
+        git pull --rebase origin main
+
+        # Push with retry logic in case of race conditions
+        max_retries=3
+        retry_count=0
+        until git push || [ $retry_count -eq $max_retries ]; do
+          retry_count=$((retry_count + 1))
+          echo "Push failed, attempt $retry_count of $max_retries"
+          if [ $retry_count -lt $max_retries ]; then
+            sleep 2
+            git pull --rebase origin main
+          fi
+        done
+
+        if [ $retry_count -eq $max_retries ]; then
+          echo "Failed to push after $max_retries attempts"
+          exit 1
+        fi
     
     - name: Build website
       if: steps.check_changes.outputs.changed == 'true'
