@@ -61,40 +61,81 @@
     }(window.location))
   </script>
 
-  <!-- Structured Data -->
+  <!-- Structured Data: Podcast Series -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "PodcastSeries",
     "name": "RoguePod LiteCast",
-    "description": "RoguePod LiteCast reviews roguelite and action roguelike games and ranks them in our quest to build the ultimate tier list. Danny and David discuss games like Slay the Spire, Hades, Dead Cells, Balatro, Risk of Rain, and The Binding of Isaac.",
+    "description": "RoguePod LiteCast reviews roguelite and action roguelike games and ranks them in our quest to build the ultimate tier list. Danny and David discuss games like Slay the Spire, Hades, Dead Cells, Balatro, Risk of Rain, and The Binding of Isaac. New episodes every other Wednesday.",
     "url": "https://roguepod.show",
     "image": "https://roguepod.show/cover-art.png",
+    "keywords": "roguelite podcast, roguelike podcast, roguelite review, roguelike review, indie game podcast, gaming podcast, tier list, Slay the Spire, Hades, Dead Cells, Balatro, Risk of Rain, Binding of Isaac, FTL, Into the Breach, Spelunky, Rogue Legacy, Gunfire Reborn",
     "author": [
       {
         "@type": "Person",
-        "name": "Danny"
+        "name": "Danny",
+        "url": "https://roguepod.show"
       },
       {
-        "@type": "Person", 
-        "name": "David"
+        "@type": "Person",
+        "name": "David",
+        "url": "https://roguepod.show"
       }
     ],
     "genre": ["Gaming", "Video Games", "Roguelike", "Roguelite", "Indie Games"],
     "inLanguage": "en-US",
+    "webFeed": "https://feeds.acast.com/public/shows/roguepod-litecast",
+    "sameAs": [
+      "https://podcasts.apple.com/gb/podcast/roguepod-litecast/id1774367401",
+      "https://open.spotify.com/show/0LGkjkg8uVVMg5y6slJiua",
+      "https://www.youtube.com/@RoguePodLiteCast",
+      "https://www.tiktok.com/@roguepodlitecast",
+      "https://discord.gg/EEwq9VGGKb",
+      "https://feeds.acast.com/public/shows/roguepod-litecast"
+    ],
     "publisher": {
       "@type": "Organization",
       "name": "RoguePod LiteCast",
-      "url": "https://roguepod.show"
+      "url": "https://roguepod.show",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://roguepod.show/cover-art.png"
+      }
     },
     "potentialAction": {
       "@type": "ListenAction",
       "target": [
-        "https://podcasts.apple.com/gb/podcast/roguepod-litecast/id1774367401",
-        "https://open.spotify.com/show/0LGkjkg8uVVMg5y6slJiua",
-        "https://feeds.acast.com/public/shows/roguepod-litecast"
+        {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://podcasts.apple.com/gb/podcast/roguepod-litecast/id1774367401",
+          "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"]
+        },
+        {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://open.spotify.com/show/0LGkjkg8uVVMg5y6slJiua",
+          "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"]
+        },
+        {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://feeds.acast.com/public/shows/roguepod-litecast",
+          "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"]
+        }
       ]
     }
+  }
+  </script>
+
+  <!-- Structured Data: Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "RoguePod LiteCast",
+    "url": "https://roguepod.show",
+    "description": "The home of RoguePod LiteCast — a roguelite and roguelike review podcast by Danny and David.",
+    "inLanguage": "en-US",
+    "keywords": "roguelite podcast, roguelike podcast, roguelite tier list, roguelike tier list"
   }
   </script>
 </head>

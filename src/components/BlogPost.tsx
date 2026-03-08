@@ -60,14 +60,23 @@ const BlogPost: React.FC = () => {
         // Parse markdown to HTML
         const htmlContent = await marked(content);
 
-        setPost({
+        const postData = {
           title: data.title,
           date: data.date,
           author: data.author,
           excerpt: data.excerpt,
           slug: data.slug,
           content: htmlContent
-        });
+        };
+
+        setPost(postData);
+        document.title = `${data.title} | RoguePod LiteCast`;
+
+        // Update meta description for this post
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && data.excerpt) {
+          metaDesc.setAttribute('content', data.excerpt);
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load post');
       } finally {
@@ -76,6 +85,10 @@ const BlogPost: React.FC = () => {
     };
 
     loadPost();
+
+    return () => {
+      document.title = 'RoguePod LiteCast';
+    };
   }, [slug]);
 
   if (loading) {
