@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>RoguePod LiteCast</title>
@@ -12,24 +12,23 @@
       // to the new url with only a query string and hash fragment,
       // e.g. https://www.foo.tld/one/two?a=b&c=d#qwe, becomes
       // https://www.foo.tld/?/one/two&a=b~and~c=d#qwe
-      // Note: this 404.html file must be at least 512 bytes for it to work
-      // with Internet Explorer (it is currently > 512 bytes)
-
-      // If you're creating an SPA with a custom domain, you should use
-      // index.html instead of 404.html
       var pathSegmentsToKeep = 0;
 
       var l = window.location;
-      l.replace(
+      var redirectUrl =
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
         l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
         l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
         (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-
+        l.hash;
+      l.replace(redirectUrl);
     </script>
+    <!-- Fallback for non-JS environments: redirect to home -->
+    <meta http-equiv="refresh" content="0; url=/">
   </head>
   <body>
+    <p style="font-family: sans-serif; text-align: center; margin-top: 4rem; color: #555;">
+      Redirecting to <a href="/">RoguePod LiteCast</a>&hellip;
+    </p>
   </body>
 </html>
