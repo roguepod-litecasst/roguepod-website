@@ -1,0 +1,33 @@
+# RoguePod LiteCast
+
+> RoguePod LiteCast is a podcast dedicated to reviewing roguelite and roguelike games. Hosted by Danny and David, new episodes release every other Wednesday.
+
+RoguePod LiteCast is the go-to podcast for fans of roguelite and roguelike video games. Each episode, hosts Danny and David review a different roguelite game and place it on their definitive tier list — ranking games from S-tier to D-tier based on how good they are *as a roguelite*, not just as a game overall.
+
+## What We Cover
+
+Games reviewed include: Slay the Spire, Hades, Dead Cells, Balatro, Risk of Rain 2, The Binding of Isaac, FTL: Faster Than Light, Into the Breach, Spelunky, Rogue Legacy, Gunfire Reborn, Mewgenics, and many more roguelite and roguelike titles.
+
+## What Makes a Good Roguelite?
+
+The hosts evaluate games through a roguelite-specific lens: run variety, build diversity, meta-progression, replayability, and the feeling of each run being fresh and meaningful.
+
+## Listen
+
+- Apple Podcasts: https://podcasts.apple.com/gb/podcast/roguepod-litecast/id1774367401
+- Spotify: https://open.spotify.com/show/0LGkjkg8uVVMg5y6slJiua
+- RSS Feed: https://feeds.acast.com/public/shows/roguepod-litecast
+- YouTube: https://www.youtube.com/@RoguePodLiteCast
+
+## Community
+
+- Discord: https://discord.gg/EEwq9VGGKb
+- TikTok: https://www.tiktok.com/@roguepodlitecast
+
+## Companion Articles
+
+Written reviews and companion articles for select episodes: https://roguepod.show/blog
+
+## Contact
+
+host@roguepod.show
