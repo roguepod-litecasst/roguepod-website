@@ -1,0 +1,107 @@
+================================================================================
+HOW TO ADD A BLOG POST TO ROGUEPOD WEBSITE
+================================================================================
+
+STEP 1: CREATE THE MARKDOWN FILE
+---------------------------------
+Create a new file in: public/blog/your-post-name.md
+(Use lowercase, hyphens instead of spaces)
+
+Example: public/blog/dead-cells-review.md
+
+
+STEP 2: WRITE YOUR POST
+---------------------------------
+Copy the template from: public/blog/POST_TEMPLATE.md
+Fill in your content.
+
+IMPORTANT: Set published to true when ready to publish!
+    published: false  (draft - won't show on website)
+    published: true   (published - will show on website)
+
+
+STEP 3: TEST LOCALLY
+---------------------------------
+If dev server is running, it should auto-refresh.
+Go to: http://localhost:3000/blog
+
+If not running:
+    npm start
+
+Then visit: http://localhost:3000/blog
+
+
+STEP 4: SAVE AS DRAFT (OPTIONAL)
+---------------------------------
+You can commit your draft without publishing it:
+
+    git add public/blog/your-post-name.md
+    git commit -m "Draft: Your Post Title"
+    git push
+
+Your draft is now saved to git but won't show on the website!
+
+To preview locally:
+    npm start
+    Visit: http://localhost:3000/blog/your-post-name
+
+
+STEP 5: PUBLISH TO WEBSITE
+---------------------------------
+When you're ready to publish:
+
+1. Change published: false to published: true in your post
+2. Commit and deploy:
+
+    git add public/blog/your-post-name.md
+    git commit -m "Publish blog post: Your Post Title"
+    git push
+    npm run build
+    npm run deploy
+
+NOTE: Posts are automatically discovered! Just drop the .md file in
+public/blog/ and it will be found when you run npm start or npm run build.
+No need to edit any code!
+
+
+THAT'S IT! Your post is now live at roguepod.show/blog
+
+================================================================================
+DRAFT WORKFLOW
+================================================================================
+
+SAVE DRAFTS:
+    published: false  →  Won't show on website, can commit to git safely
+
+PREVIEW DRAFTS:
+    npm start
+    Go to: http://localhost:3000/blog/your-post-slug
+    (Won't appear in blog list, but accessible by direct URL)
+
+PUBLISH:
+    Change published: true  →  Will show on website after deploy
+
+================================================================================
+MARKDOWN TIPS
+================================================================================
+
+# Heading 1
+## Heading 2
+### Heading 3
+
+**Bold text**
+*Italic text*
+
+- Bullet point
+- Another bullet
+
+1. Numbered item
+2. Another numbered item
+
+[Link text](https://example.com)
+
+> This is a quote
+
+`inline code`
+
+================================================================================

@@ -1,0 +1,13 @@
+# Google API credentials - NEVER commit these!
+credentials.json
+
+# Debug output
+debug/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Temporary files
+*.tmp
+*.log
