@@ -25,7 +25,14 @@ class TierListGenerator:
         
         # Load cached game IDs
         self.game_id_cache = self.load_game_id_cache()
-        
+
+        # Hard-coded Steam App ID overrides for games whose short tier list name
+        # doesn't match their full Steam title well enough for the search API.
+        # Maps: lowercase game name -> Steam App ID
+        self.steam_id_overrides = {
+            "vampire crawlers": 3265700,
+        }
+
         # TierMaker-style colors
         self.tier_colors = {
             'S': '#ff7f7f',  # Red
@@ -59,12 +66,18 @@ class TierListGenerator:
     
     def search_steam_game(self, game_name):
         """Search for a game on Steam and return the app ID"""
-        # Check cache first
         cache_key = game_name.lower().strip()
+
+        # Check hard-coded overrides first (for games whose short name won't search well)
+        if cache_key in self.steam_id_overrides:
+            self.vprint(f"Using hard-coded Steam ID for {game_name}: {self.steam_id_overrides[cache_key]}")
+            return self.steam_id_overrides[cache_key]
+
+        # Check cache
         if cache_key in self.game_id_cache:
             self.vprint(f"Found {game_name} in cache: {self.game_id_cache[cache_key]}")
             return self.game_id_cache[cache_key]
-        
+
         self.vprint(f"Searching Steam for: {game_name}")
         
         try:
