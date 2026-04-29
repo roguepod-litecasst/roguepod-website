@@ -58,6 +58,7 @@ class AutomatedTierListUpdater:
         self.name_mappings = {
             "Spelunky HD": "Spelunky",
             "Vampire Crawlers": "Vampire Crawlers: The Turbo Wildcard from Vampire Survivors",
+            "Vampire Crawlers: The Turbo Wildcard from Vampire Survivors": "Vampire Crawlers",
         }
 
         # Initialize the tier list generator
