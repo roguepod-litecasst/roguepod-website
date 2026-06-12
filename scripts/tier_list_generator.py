@@ -164,21 +164,35 @@ class TierListGenerator:
         
         if app_id:
             try:
-                # Download the header image
+                # Try the standard CDN URL first
                 header_url = f"https://cdn.akamai.steamstatic.com/steam/apps/{app_id}/header.jpg"
-                
+
                 self.vprint(f"Downloading header image for {game_name} (ID: {app_id})")
-                
+
                 response = requests.get(header_url, timeout=15)
+
+                # Some newer games use a hashed URL; fall back to appdetails for the real URL
+                if response.status_code == 404:
+                    self.vprint(f"Standard CDN URL 404 for {game_name}, fetching URL from appdetails API")
+                    details_url = f"https://store.steampowered.com/api/appdetails?appids={app_id}&filters=basic"
+                    details_resp = requests.get(details_url, timeout=10)
+                    details_resp.raise_for_status()
+                    details_data = details_resp.json()
+                    header_url = details_data.get(str(app_id), {}).get("data", {}).get("header_image")
+                    if not header_url:
+                        raise ValueError(f"No header_image in appdetails for app {app_id}")
+                    self.vprint(f"Using appdetails header URL: {header_url}")
+                    response = requests.get(header_url, timeout=15)
+
                 response.raise_for_status()
-                
+
                 # Save to cache
                 with open(image_path, 'wb') as f:
                     f.write(response.content)
-                
+
                 # Open and return the image
                 return Image.open(image_path)
-                
+
             except Exception as e:
                 self.vprint(f"Error downloading header image for {game_name}: {e}")
         
