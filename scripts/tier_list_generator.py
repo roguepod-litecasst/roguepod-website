@@ -19,12 +19,16 @@ from urllib.parse import quote
 
 
 class TierListGenerator:
-    # Layout defaults (production look). generate_tier_list() accepts overrides
-    # so sample/preview renders can experiment without touching these.
-    TILE_WIDTH = 170            # width of each game tile; height is 3:2 of this
-    MAX_GAMES_PER_ROW = 12      # games per row before wrapping within a tier
+    # Layout defaults (production look, picked by Danny 2026-07-09).
+    # generate_tier_list() accepts overrides so sample renders can experiment.
+    TILE_WIDTH = 150            # width of each game tile; height is 3:2 of this
+    MAX_GAMES_PER_ROW = 14      # games per row before wrapping within a tier
     ROW_GAP = 0                 # px between wrapped rows inside one tier (keep 0: no visible break)
     TIER_LABEL_WIDTH = 110      # width of the colored tier-letter column
+    LABEL_GAP = 6               # px between the label column and the first tile
+    TIER_BAND = 6               # px dark band separating tiers
+    LETTER_OUTLINE = 4          # dark outline on tier letters (readability on light colors)
+    BACKGROUND = '#121316'
 
     def __init__(self, verbose=False):
         self.verbose = verbose
@@ -44,15 +48,15 @@ class TierListGenerator:
             "vampire crawlers": 3265700,
         }
 
-        # TierMaker-style colors
+        # Saturated take on the TierMaker palette (white letters on top)
         self.tier_colors = {
-            'S': '#ff7f7f',  # Red
-            'A': '#ffbf7f',  # Orange
-            'B': '#ffdf7f',  # Yellow
-            'C': '#bfff7f',  # Light Green
-            'D': '#7fff7f',  # Green
-            'E': '#7fffff',  # Cyan
-            'F': '#7f7fff'   # Blue
+            'S': '#e5484d',  # Red
+            'A': '#f0883e',  # Orange
+            'B': '#eac54f',  # Yellow
+            'C': '#8ec44a',  # Light Green
+            'D': '#46b26b',  # Green
+            'E': '#3bb8c3',  # Cyan
+            'F': '#6674de'   # Blue
         }
 
     def vprint(self, message):
@@ -402,33 +406,31 @@ class TierListGenerator:
 
         tile_height = (tile_width * 3) // 2  # 2:3 vertical capsule aspect
 
-        canvas_width = tier_label_width + max_games_per_row * tile_width
+        canvas_width = (tier_label_width + self.LABEL_GAP
+                        + max_games_per_row * tile_width)
 
         tier_order = ['S', 'A', 'B', 'C', 'D', 'E', 'F']
+        present_tiers = [t for t in tier_order if t in tiers]
         tier_heights = {}
-        canvas_height = 0
-        for tier in tier_order:
-            if tier not in tiers:
-                continue
+        for tier in present_tiers:
             num_rows = math.ceil(len(tiers[tier]) / max_games_per_row)
-            tier_height = num_rows * tile_height + (num_rows - 1) * row_gap
-            tier_heights[tier] = tier_height
-            canvas_height += tier_height
+            tier_heights[tier] = num_rows * tile_height + (num_rows - 1) * row_gap
+        canvas_height = (sum(tier_heights.values())
+                         + self.TIER_BAND * (len(present_tiers) - 1))
 
         print(f"Canvas size: {canvas_width}x{canvas_height} "
               f"(tiles {tile_width}x{tile_height}, max {max_games_per_row} per row)")
 
-        # Dark background like TierMaker
-        canvas = Image.new('RGB', (canvas_width, canvas_height), color='#1a1a1a')
+        canvas = Image.new('RGB', (canvas_width, canvas_height),
+                           color=self.BACKGROUND)
 
         # Tier letter font scales with tile size
-        font_size = max(24, min(int(tile_height * 0.28), 84))
+        font_size = max(24, min(int(tile_height * 0.19), 84))
         tier_font = self._load_font(font_size, bold=True)
 
         current_y = 0
-        present_tiers = [t for t in tier_order if t in tiers]
 
-        for tier_index, tier in enumerate(present_tiers):
+        for tier in present_tiers:
             games = tiers[tier]
             tier_height = tier_heights[tier]
 
@@ -437,17 +439,24 @@ class TierListGenerator:
                                 color=self.tier_colors[tier])
             canvas.paste(tier_bg, (0, current_y))
 
+            # White tier letter with dark outline + drop shadow so it reads
+            # on the lighter tier colors
             draw = ImageDraw.Draw(canvas)
-            bbox = draw.textbbox((0, 0), tier, font=tier_font)
+            bbox = draw.textbbox((0, 0), tier, font=tier_font,
+                                 stroke_width=self.LETTER_OUTLINE)
             text_x = (tier_label_width - (bbox[2] - bbox[0])) // 2 - bbox[0]
             text_y = current_y + (tier_height - (bbox[3] - bbox[1])) // 2 - bbox[1]
-            draw.text((text_x, text_y), tier, fill='black', font=tier_font)
+            outline = dict(stroke_width=self.LETTER_OUTLINE, stroke_fill='#26272b')
+            draw.text((text_x + 3, text_y + 3), tier, fill='#26272b',
+                      font=tier_font, **outline)
+            draw.text((text_x, text_y), tier, fill='white',
+                      font=tier_font, **outline)
 
             for i, game_name in enumerate(games):
                 print(f"Processing {game_name}...")
 
                 row, col = divmod(i, max_games_per_row)
-                game_x = tier_label_width + col * tile_width
+                game_x = tier_label_width + self.LABEL_GAP + col * tile_width
                 game_y = current_y + row * (tile_height + row_gap)
 
                 game_img = self.get_game_tile_image(game_name)
@@ -457,13 +466,7 @@ class TierListGenerator:
 
                 canvas.paste(game_img, (game_x, game_y))
 
-            # Subtle separator line between tiers (except after the last)
-            if tier_index < len(present_tiers) - 1:
-                draw = ImageDraw.Draw(canvas)
-                line_y = current_y + tier_height
-                draw.line([(0, line_y), (canvas_width, line_y)], fill='#444444', width=1)
-
-            current_y += tier_height
+            current_y += tier_height + self.TIER_BAND
 
         canvas.save(output_path, 'PNG', optimize=True)
         print(f"Tier list saved as {output_path}")
