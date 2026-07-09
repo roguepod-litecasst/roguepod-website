@@ -27,3 +27,6 @@ scripts/credentials.json
 scripts/debug/
 *.Zone.Identifier
 __pycache__/
+
+# WSL download metadata
+*Zone.Identifier
