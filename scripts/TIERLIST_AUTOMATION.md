@@ -66,6 +66,13 @@ Check in this order:
    account still has read access to the doc.
 5. **Steam image issues** don't block the update — missing images become
    placeholder tiles. Hashed-CDN-URL lookups were fixed in commit 81681c2.
+   If the action log shows `⚠️ No confident Steam match for '<game>'`, the
+   search scorer rejected all candidates (better a named placeholder than the
+   wrong game's art) — add the game to `steam_id_overrides` in
+   `tier_list_generator.py` with its real app ID. If a *wrong* image ever
+   ships, also delete that game's entries from `steam_images/game_ids.json`
+   and its cached `.jpg`s, or the bad ID sticks. Matching logic is unit-tested
+   in `test_steam_matching.py` (offline, run `python3 test_steam_matching.py`).
 
 ## Running locally
 
