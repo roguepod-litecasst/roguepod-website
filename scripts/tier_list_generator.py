@@ -110,30 +110,17 @@ class TierListGenerator:
                 best_score = 0
 
                 for item in data['items']:
-                    item_name = item.get('name', '').lower()
-                    search_name = game_name.lower()
-
-                    # Calculate similarity score
-                    score = self._calculate_name_similarity(search_name, item_name)
-
-                    # Bonus points for exact matches or very close matches
-                    if search_name == item_name:
-                        score += 1.0  # Perfect match bonus
-                    elif search_name in item_name or item_name in search_name:
-                        score += 0.5  # Substring match bonus
-
-                    # Penalty for sequels when not searching for them
-                    if not any(num in search_name for num in ['2', '3', '4', '5', 'ii', 'iii', 'iv', 'v']):
-                        if any(num in item_name for num in ['2', '3', '4', '5', 'ii', 'iii', 'iv', 'v']):
-                            score -= 0.3  # Penalty for sequels
-
-                    self.vprint(f"  {item_name}: score {score:.2f}")
+                    score = self._score_candidate(game_name, item.get('name', ''))
+                    self.vprint(f"  {item.get('name', '')}: score {score:.2f}")
 
                     if score > best_score:
                         best_score = score
                         best_match = item
 
-                if best_match:
+                # A wrong match is worse than no match: the wrong game's art
+                # would be rendered AND the bad ID cached. Below the threshold
+                # we bail out and let the caller draw a named placeholder.
+                if best_match and best_score >= self.MIN_MATCH_SCORE:
                     app_id = best_match['id']
 
                     # Cache the result
@@ -143,7 +130,9 @@ class TierListGenerator:
                     self.vprint(f"✅ Best match: '{best_match['name']}' (ID: {app_id}, score: {best_score:.2f})")
                     return app_id
                 else:
-                    self.vprint(f"No good matches found for {game_name}")
+                    print(f"⚠️  No confident Steam match for '{game_name}' "
+                          f"(best score {best_score:.2f}); add it to steam_id_overrides "
+                          f"in tier_list_generator.py if the search name is unusual")
                     return None
             else:
                 self.vprint(f"No Steam results found for {game_name}")
@@ -153,10 +142,72 @@ class TierListGenerator:
             self.vprint(f"Error searching Steam for {game_name}: {e}")
             return None
 
-    def _calculate_name_similarity(self, name1, name2):
-        """Calculate similarity between two game names"""
+    # Reject search matches scoring below this (see _score_candidate; an
+    # exact or substring match scores well above it, a fuzzy-only match on a
+    # similar-but-different title falls below it).
+    MIN_MATCH_SCORE = 0.75
+
+    # Word-level replacements applied during normalization
+    ROMAN_NUMERALS = {'ii': '2', 'iii': '3', 'iv': '4',
+                      'vi': '6', 'vii': '7', 'viii': '8', 'ix': '9'}
+
+    # Store entries that are not the game itself
+    NON_GAME_TOKENS = ('soundtrack', 'ost', 'demo', 'playtest', 'dlc',
+                       'bundle', 'artbook', 'art book', 'beta')
+
+    def _normalize_name(self, name):
+        """Normalize a game name for comparison: lowercase, strip trademark
+        symbols and punctuation, unify roman/arabic numerals."""
+        name = name.lower()
+        name = re.sub(r'[™®©]', '', name)
+        name = name.replace('&', ' and ')
+        name = re.sub(r'[^\w\s]', ' ', name)
+        words = [self.ROMAN_NUMERALS.get(w, w) for w in name.split()]
+        return ' '.join(words)
+
+    def _sequel_numbers(self, normalized_name):
+        """Sequel numbers present as whole words ('spelunky 2' -> {'2'})."""
+        return set(re.findall(r'\b[2-9]\b', normalized_name))
+
+    def _score_candidate(self, search_name, item_name):
+        """Score how well a Steam search result matches the searched name.
+
+        All checks operate on normalized names and whole words — substring
+        checks on raw names caused wrong matches (the letter 'v' or 'iv'
+        inside a word used to count as a sequel marker).
+        """
         from difflib import SequenceMatcher
-        return SequenceMatcher(None, name1, name2).ratio()
+
+        search_norm = self._normalize_name(search_name)
+        item_norm = self._normalize_name(item_name)
+
+        score = SequenceMatcher(None, search_norm, item_norm).ratio()
+
+        if search_norm == item_norm:
+            score += 1.0  # Perfect match bonus
+        elif search_norm in item_norm or item_norm in search_norm:
+            score += 0.5  # Substring match bonus
+
+        # Sequel handling: compare the sets of whole-word sequel numbers
+        search_nums = self._sequel_numbers(search_norm)
+        item_nums = self._sequel_numbers(item_norm)
+        if item_nums - search_nums:
+            score -= 0.5  # item is a sequel we didn't search for
+        if search_nums - item_nums:
+            score -= 0.5  # we searched for a sequel; item isn't it
+        if search_nums and search_nums == item_nums:
+            score += 0.2  # sequel numbers line up exactly
+
+        # Demote soundtracks/demos/DLC unless explicitly searched for
+        item_words = set(item_norm.split())
+        search_words = set(search_norm.split())
+        for token in self.NON_GAME_TOKENS:
+            token_words = set(token.split())
+            if token_words <= item_words and not token_words <= search_words:
+                score -= 0.6
+                break
+
+        return score
 
     def _safe_filename(self, game_name):
         safe_name = re.sub(r'[^\w\s-]', '', game_name).strip()
@@ -178,7 +229,9 @@ class TierListGenerator:
         ]
         for url in candidates:
             try:
-                resp = requests.head(url, timeout=10)
+                resp = requests.head(url, timeout=10, allow_redirects=True)
+                if resp.status_code == 405:  # CDN rejects HEAD; probe with GET
+                    resp = requests.get(url, timeout=10, stream=True)
                 if resp.status_code == 200:
                     return url
             except requests.RequestException:
@@ -209,6 +262,23 @@ class TierListGenerator:
 
         return None
 
+    def _download_image(self, url, image_path):
+        """Download an image, verify it decodes, and cache it. Returns the
+        opened Image, or None on any failure (nothing is cached on failure,
+        so a transient error doesn't poison the cache)."""
+        try:
+            response = requests.get(url, timeout=15)
+            response.raise_for_status()
+            with open(image_path, 'wb') as f:
+                f.write(response.content)
+            Image.open(image_path).verify()  # decode check; verify() closes
+            return Image.open(image_path)
+        except Exception as e:
+            self.vprint(f"Error downloading image {url}: {e}")
+            if os.path.exists(image_path):
+                os.remove(image_path)
+            return None
+
     def get_game_tile_image(self, game_name):
         """Get the vertical (600x900) capsule image for a game, falling back to
         a composed vertical tile if no capsule art exists."""
@@ -227,15 +297,11 @@ class TierListGenerator:
         if app_id:
             capsule_url = self._find_capsule_url(app_id)
             if capsule_url:
-                try:
-                    self.vprint(f"Downloading capsule for {game_name}: {capsule_url}")
-                    response = requests.get(capsule_url, timeout=15)
-                    response.raise_for_status()
-                    with open(image_path, 'wb') as f:
-                        f.write(response.content)
-                    return Image.open(image_path)
-                except Exception as e:
-                    self.vprint(f"Error downloading capsule for {game_name}: {e}")
+                self.vprint(f"Downloading capsule for {game_name}: {capsule_url}")
+                img = self._download_image(capsule_url, image_path)
+                if img is not None:
+                    return img
+                self.vprint(f"Capsule download failed for {game_name}")
             else:
                 self.vprint(f"No vertical capsule found for {game_name} (app {app_id})")
 
@@ -305,36 +371,29 @@ class TierListGenerator:
         app_id = self.search_steam_game(game_name)
 
         if app_id:
+            self.vprint(f"Downloading header image for {game_name} (ID: {app_id})")
+
+            # Try the standard CDN URL first
+            header_url = f"https://cdn.akamai.steamstatic.com/steam/apps/{app_id}/header.jpg"
+            img = self._download_image(header_url, image_path)
+            if img is not None:
+                return img
+
+            # Some newer games use a hashed URL; ask appdetails for the real one
             try:
-                # Try the standard CDN URL first
-                header_url = f"https://cdn.akamai.steamstatic.com/steam/apps/{app_id}/header.jpg"
-
-                self.vprint(f"Downloading header image for {game_name} (ID: {app_id})")
-
-                response = requests.get(header_url, timeout=15)
-
-                # Some newer games use a hashed URL; fall back to appdetails for the real URL
-                if response.status_code == 404:
-                    self.vprint(f"Standard CDN URL 404 for {game_name}, fetching URL from appdetails API")
-                    details_url = f"https://store.steampowered.com/api/appdetails?appids={app_id}&filters=basic"
-                    details_resp = requests.get(details_url, timeout=10)
-                    details_resp.raise_for_status()
-                    details_data = details_resp.json()
-                    header_url = details_data.get(str(app_id), {}).get("data", {}).get("header_image")
-                    if not header_url:
-                        raise ValueError(f"No header_image in appdetails for app {app_id}")
+                self.vprint(f"Standard CDN URL failed for {game_name}, fetching URL from appdetails API")
+                details_url = f"https://store.steampowered.com/api/appdetails?appids={app_id}&filters=basic"
+                details_resp = requests.get(details_url, timeout=10)
+                details_resp.raise_for_status()
+                details_data = details_resp.json()
+                header_url = details_data.get(str(app_id), {}).get("data", {}).get("header_image")
+                if header_url:
                     self.vprint(f"Using appdetails header URL: {header_url}")
-                    response = requests.get(header_url, timeout=15)
-
-                response.raise_for_status()
-
-                # Save to cache
-                with open(image_path, 'wb') as f:
-                    f.write(response.content)
-
-                # Open and return the image
-                return Image.open(image_path)
-
+                    img = self._download_image(header_url, image_path)
+                    if img is not None:
+                        return img
+                else:
+                    self.vprint(f"No header_image in appdetails for app {app_id}")
             except Exception as e:
                 self.vprint(f"Error downloading header image for {game_name}: {e}")
 
