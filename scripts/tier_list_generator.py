@@ -46,6 +46,9 @@ class TierListGenerator:
         # Maps: lowercase game name -> Steam App ID
         self.steam_id_overrides = {
             "vampire crawlers": 3265700,
+            # Steam search ranked the "Supporter Pack" DLC above the base game
+            # (closer title length); pin the base game's app ID.
+            "everything is crab": 3526710,
         }
 
         # Saturated take on the TierMaker palette (white letters on top)
@@ -153,7 +156,7 @@ class TierListGenerator:
 
     # Store entries that are not the game itself
     NON_GAME_TOKENS = ('soundtrack', 'ost', 'demo', 'playtest', 'dlc',
-                       'bundle', 'artbook', 'art book', 'beta')
+                       'bundle', 'artbook', 'art book', 'beta', 'supporter pack')
 
     def _normalize_name(self, name):
         """Normalize a game name for comparison: lowercase, strip trademark
