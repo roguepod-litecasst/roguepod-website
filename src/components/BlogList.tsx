@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowIcon } from './Icons';
 
 interface BlogPostPreview {
   title: string;
@@ -40,6 +41,8 @@ const BlogList: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Articles | RoguePod LiteCast';
+
     const loadPosts = async () => {
       try {
         // Fetch the auto-generated blog index
@@ -80,96 +83,53 @@ const BlogList: React.FC = () => {
     loadPosts();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="text-gray-400 text-xl">Loading posts...</div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-900">
-      <div className="container mx-auto px-4 py-12 max-w-5xl">
-        {/* Header */}
-        <header className="text-center mb-12">
-          <Link
-            to="/"
-            className="inline-block mb-6 text-indigo-400 hover:text-indigo-300 transition-colors duration-200 font-medium"
-          >
-            ← Back to Home
-          </Link>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-            Companion Articles
-          </h1>
-          <p className="text-xl text-gray-400">
-            We occasionally summarize our podcast reviews in article form here.
-          </p>
-        </header>
+    <div className="mx-auto max-w-3xl px-5 pb-8 pt-32 sm:px-8 sm:pt-40">
+      <header>
+        <p className="eyebrow">Articles</p>
+        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">Companion articles</h1>
+        <p className="mt-4 text-base leading-relaxed text-bone-200">
+          We occasionally write up our reviews in article form. Everything here has a matching
+          podcast episode.
+        </p>
+      </header>
 
-        {/* Posts Grid */}
-        <div className="grid gap-8 md:grid-cols-2">
+      {loading ? (
+        <div className="mt-12 space-y-4">
+          {Array.from({ length: 2 }).map((_, index) => (
+            <div key={index} className="h-32 animate-pulse border border-ink-600 bg-ink-800" />
+          ))}
+        </div>
+      ) : posts.length > 0 ? (
+        <div className="rule mt-12">
           {posts.map((post) => (
-            <article
-              key={post.slug}
-              className="bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-700"
-            >
-              <div className="p-8">
-                {/* Date */}
-                <time className="text-sm text-indigo-400 font-semibold uppercase tracking-wide">
+            <article key={post.slug} className="rule -mt-px">
+              <Link to={`/blog/${post.slug}`} className="group block py-8">
+                <time
+                  dateTime={post.date}
+                  className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400"
+                >
                   {new Date(post.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
                   })}
                 </time>
-
-                {/* Title */}
-                <h2 className="mt-3 text-2xl font-bold text-white hover:text-indigo-400 transition-colors">
-                  <Link to={`/blog/${post.slug}`}>
-                    {post.title}
-                  </Link>
+                <h2 className="mt-3 font-display text-xl font-semibold text-bone-50 transition-colors group-hover:text-signal-bright sm:text-2xl">
+                  {post.title}
                 </h2>
-
-                {/* Excerpt */}
-                <p className="mt-3 text-gray-300 leading-relaxed">
-                  {post.excerpt}
-                </p>
-
-                {/* Author & Read More */}
-                <div className="mt-6 flex items-center justify-between">
-                  <span className="text-sm text-gray-500">
-                    By {post.author}
-                  </span>
-                  <Link
-                    to={`/blog/${post.slug}`}
-                    className="text-indigo-400 font-semibold hover:text-indigo-300 transition-colors"
-                  >
-                    Read more →
-                  </Link>
-                </div>
-              </div>
+                <p className="mt-3 leading-relaxed text-bone-200">{post.excerpt}</p>
+                <span className="mt-4 inline-flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-[0.08em] text-bone-100">
+                  Read
+                  <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
             </article>
           ))}
         </div>
-
-        {/* Empty State */}
-        {posts.length === 0 && (
-          <div className="text-center text-gray-400 text-xl">
-            No posts yet. Check back soon!
-          </div>
-        )}
-
-        {/* Footer CTA */}
-        <div className="mt-16 text-center">
-          <Link
-            to="/"
-            className="inline-block bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-all duration-200 shadow-lg"
-          >
-            Back to Home
-          </Link>
-        </div>
-      </div>
+      ) : (
+        <p className="mt-12 text-bone-300">No articles yet — check back soon.</p>
+      )}
     </div>
   );
 };

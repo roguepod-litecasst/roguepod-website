@@ -51,6 +51,15 @@ jobs:
           python automated_tierlist_updater.py --verbose
         fi
     
+    - name: Refresh episode data
+      # Snapshots the RSS feed for the home page and exports card art from the
+      # Steam capsule cache the tier list step just updated. Never fatal: the
+      # site falls back to the committed snapshot.
+      continue-on-error: true
+      run: |
+        node scripts/fetch-episodes.js
+        python scripts/export_episode_art.py
+
     - name: Check for changes
       id: check_changes
       run: |
@@ -69,6 +78,7 @@ jobs:
         git config --local user.name "GitHub Action"
         git add public/tierlist.png
         git add scripts/steam_images/  # Update cached images if new games added
+        git add public/episodes.json public/episode-art/  # Refreshed episode snapshot
         git commit -m "🎮 Automated tier list update - $(date +'%Y-%m-%d %H:%M UTC')"
 
         # Pull and rebase to handle any new commits that appeared on remote

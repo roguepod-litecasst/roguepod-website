@@ -18,15 +18,68 @@ React + TypeScript single-page app, Create React App build, Tailwind CSS.
 
 ### 1. The website (`src/`, `public/`)
 
-- `src/App.tsx` — everything: home page and the tier list view (toggled via
-  `#tierlist` URL hash). The tier list view just displays `/tierlist.png`.
+Single scrolling landing page plus the blog. `src/App.tsx` is just the router
+and page chrome (`SiteHeader` / `SiteFooter`); the home page lives in
+`src/pages/Home.tsx` and composes four sections:
+
+- `components/Hero.tsx` — glitch art band + wordmark + stat strip.
+- `components/TierListSection.tsx` — `/tierlist.png` with a click-to-expand
+  lightbox. Carries `id="tierlist"`, which is how the old `#tierlist` links
+  keep working (they now scroll to the section instead of swapping views).
+- `components/EpisodesSection.tsx` — episode cards + the Acast player.
+- `components/ListenSection.tsx` — platforms, Patreon block, community links.
+
+Shared bits: `src/data/site.tsx` (all outbound URLs and standing copy — edit
+copy there, not in components), `src/data/episodes.ts` (feed snapshot hook),
+`src/components/Icons.tsx`.
+
+Design tokens live in `tailwind.config.js`, sampled from the show art: `ink`
+(near-black surfaces), `bone` (text), `signal` (the `#FE0100` wordmark red),
+`glitch` (secondary accents), `tier` (S–F badge colours). Fonts are Space
+Grotesk for display and Inter for body.
+
+Brand assets in `public/brand/` are exported from the Photoshop files in
+`design/` (gitignored — they're ~195 MB and must never land in `public/`,
+which CRA copies verbatim into the deploy). Regenerate them with the snippet
+in `scripts/export_episode_art.py`'s sibling workflow if the source art
+changes. The hero art is pixel art and is rendered with
+`image-rendering: pixelated` — resize it with NEAREST, not LANCZOS, or it
+turns to mush when the browser scales it up.
+
 - `src/components/BlogPost.tsx` / `BlogList.tsx` — blog. Posts are markdown
   files in `public/blog/` with YAML frontmatter (title, date, author, excerpt,
-  slug), indexed by `public/blog-index.json`.
+  slug), indexed by `public/blog-index.json`. The blog is primarily for SEO —
+  it's linked from the footer only, not the main nav.
 - **When adding a blog post**: update `public/blog-index.json` AND
   `public/sitemap.xml`; consider `public/llms.txt` too. See `BLOG_GUIDE.md`.
 - `public/index.html` carries all SEO meta tags and JSON-LD schema — edit
   carefully.
+
+**Only name games on the site that have a released episode.** The meta
+description, keywords, JSON-LD and `llms.txt` previously listed FTL, Dead
+Cells and Gunfire Reborn, none of which have been covered. Check the feed
+before adding a title to any copy.
+
+### 1b. Episode data (`scripts/fetch-episodes.js`, `export_episode_art.py`)
+
+The Acast feed sends **no CORS headers**, so the browser cannot read it. The
+episode list is snapshotted at build time instead:
+
+- `scripts/fetch-episodes.js` runs on `npm start` / `npm run build` and writes
+  `public/episodes.json` (latest 12 episodes + a total count). Bonus episodes
+  are excluded from both — they're not reviews and get no tier. Detection
+  checks `<itunes:episodeType>` *and* a `Bonus:` title prefix, because at least
+  one bonus episode is tagged `full` in the feed. If the fetch fails the
+  existing snapshot is kept, so the build never breaks offline.
+- `scripts/export_episode_art.py` writes `public/episode-art/<slug>.webp` from
+  the Steam capsules the tier list pipeline already caches, reusing
+  `TierListGenerator._safe_filename` so naming stays in sync. Cards fall back
+  to a typographic tile when art is missing, so this step is optional and the
+  JS build needs no Python.
+
+Freshness is tied to the tier list workflow: it refreshes episode data, and
+deploys only when `tierlist.png` actually changed. That's the same event as a
+new episode landing on the list, so the two stay aligned.
 
 ### 2. The automated tier list (`scripts/`)
 
@@ -66,6 +119,9 @@ intentionally seamless (no gap) — keep it that way.
 
 ## Hard constraints
 
+- **Never put large source files in `public/`.** CRA copies that directory
+  verbatim into `build/`, so anything dropped there ships to the live site.
+  Photoshop sources belong in `design/` (gitignored).
 - **`public/tierlist.png` must keep that exact path/filename.** A Discord bot
   in a separate repo (`../rogue-bot/`) downloads
   `https://roguepod.show/tierlist.png` and reposts it to Discord, detecting

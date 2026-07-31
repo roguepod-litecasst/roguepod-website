@@ -30,3 +30,9 @@ __pycache__/
 
 # WSL download metadata
 *Zone.Identifier
+
+# Source design files (Photoshop). Huge, and nothing in the build reads them —
+# web-ready assets are exported to public/brand/ instead.
+/design/
+*.psd
+*.psb
