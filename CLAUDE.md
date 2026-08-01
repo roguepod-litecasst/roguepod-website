@@ -89,7 +89,24 @@ episode list is snapshotted at build time instead:
   to a typographic tile when art is missing, so this step is optional and the
   JS build needs no Python.
 - `scripts/export_share_cards.py` writes `public/episode-share/<slug>.jpg`, the
-  1200x630 social preview cards.
+  1200x630 social preview cards, plus `public/brand/share-card.jpg` (the
+  site-wide `og:image`). Each episode card uses that episode's own capsule
+  blurred as its background, so the set is colour-varied without per-episode
+  work. Three things about it are load-bearing:
+  - **Fonts are vendored in `scripts/fonts/`** (Space Grotesk + Inter variable
+    TTFs, SIL OFL, licences alongside). CI has no fonts installed, and PIL
+    fails *silently* to DejaVu Sans — which is how these cards spent a year set
+    in a face that appears nowhere on the site.
+  - **Save with `subsampling=0`.** The JPEG default is 4:2:0, which stores
+    chroma at half resolution. Red-on-ink text is almost pure chroma, so the
+    red eyebrow is the one element that visibly disintegrates without it.
+  - **Small red text is `#FF3B30`** (`signal.bright`), not the `#FE0100`
+    wordmark red, which has too little luminance over ink to hold an edge.
+
+  The cards deliberately say nothing about where a game landed on the tier
+  list — they're an invitation to listen, not a summary of the verdict. That
+  also means they don't depend on the tier data, so a card can be built the day
+  an episode drops rather than waiting on the Wednesday tier run.
 
 Both Python steps write images only; `fetch-episodes.js` picks them up by
 checking whether the file exists, so run it *after* them (the workflow runs it

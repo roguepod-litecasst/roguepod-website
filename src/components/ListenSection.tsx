@@ -57,8 +57,7 @@ const ListenSection: React.FC = () => (
         </span>
         <h3 className="mt-4 font-display text-lg font-semibold text-bone-50">Email the show</h3>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-bone-200">
-          For anything that doesn&apos;t fit in a Discord message — feedback, corrections, or
-          getting in touch about your game.
+          Want us to cover your game? Shoot us an email and we&apos;ll check it out!
         </p>
         <a
           href={`mailto:${SITE.email}`}
