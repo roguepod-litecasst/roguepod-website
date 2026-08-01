@@ -31,9 +31,10 @@ const DefinitionsSection: React.FC = () => (
         fall under the category of &ldquo;roguelites&rdquo;.
       </p>
       <p>
-        More recently, people began referring to games with procedural generation, permadeath, and
-        no metaprogression as &ldquo;roguelikes&rdquo; and those with metaprogression as
-        &ldquo;roguelites&rdquo;.
+        Since the early days, there was another strain of thought that referred to games with
+        procedural generation, permadeath, and no metaprogression as &ldquo;roguelikes&rdquo; and
+        those with metaprogression as &ldquo;roguelites&rdquo;. This has slowly become the more
+        common terminology when discussing these games.
       </p>
       <p>
         Language continues to evolve, but we don&apos;t want to change the name of the show, so
