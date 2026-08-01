@@ -40,6 +40,19 @@ export const PatreonIcon: React.FC<IconProps> = ({ className = base }) => (
   </svg>
 );
 
+/** Simplified monochrome marks — the icon row is single-colour throughout. */
+export const PocketCastsIcon: React.FC<IconProps> = ({ className = base }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6a8.4 8.4 0 0 1 8.4 8.4h-2.4A6 6 0 0 0 12 6V3.6zm0 4.2a4.2 4.2 0 0 1 4.2 4.2h-2.1A2.1 2.1 0 0 0 12 9.9V7.8zM9.6 9.9l5.4 3.3-5.4 3.3V9.9z" />
+  </svg>
+);
+
+export const OvercastIcon: React.FC<IconProps> = ({ className = base }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4a9.6 9.6 0 1 1 0 19.2 9.6 9.6 0 0 1 0-19.2zm0 2.7a1.5 1.5 0 0 0-1.44 1.08l-1.8 6.6a1.5 1.5 0 0 0 2.13 1.74L12 14.4l1.11.12a1.5 1.5 0 0 0 2.13-1.74l-1.8-6.6A1.5 1.5 0 0 0 12 5.1zm0 3.9.72 2.64L12 12l-.72-.36L12 9z" />
+  </svg>
+);
+
 export const RssIcon: React.FC<IconProps> = ({ className = base }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <circle cx="6.18" cy="17.82" r="2.18" />

@@ -1,6 +1,13 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowIcon, AppleIcon, RssIcon, SpotifyIcon } from '../components/Icons';
+import {
+  AppleIcon,
+  ArrowIcon,
+  OvercastIcon,
+  PocketCastsIcon,
+  RssIcon,
+  SpotifyIcon,
+} from '../components/Icons';
 import { formatLongDate, isoDate, useEpisodes } from '../data/episodes';
 import { SITE } from '../data/site';
 
@@ -41,13 +48,23 @@ const Episode: React.FC = () => {
     );
   }
 
-  // Apple resolves per-episode at build time; Spotify has no unauthenticated
-  // way to get an episode URL, so it points at the show.
-  const listenLinks = [
-    episode.apple && { href: episode.apple, label: 'Apple Podcasts', icon: <AppleIcon />, exact: true },
-    { href: SITE.spotify, label: 'Spotify', icon: <SpotifyIcon />, exact: false },
-    { href: episode.link, label: 'Acast', icon: <RssIcon />, exact: true },
-  ].filter(Boolean) as { href: string; label: string; icon: React.ReactNode; exact: boolean }[];
+  /*
+   * Apple and Acast resolve to this exact episode; Apple's comes from the
+   * iTunes lookup at build time. Spotify, Pocket Casts and Overcast have no
+   * unauthenticated way to resolve an episode URL, so they're listed
+   * separately as show-level follow links rather than pretending to be exact.
+   */
+  const episodeLinks = [
+    episode.apple && { href: episode.apple, label: 'Apple Podcasts', icon: <AppleIcon /> },
+    { href: episode.link, label: 'Acast', icon: <RssIcon /> },
+  ].filter(Boolean) as { href: string; label: string; icon: React.ReactNode }[];
+
+  const showLinks = [
+    { href: SITE.spotify, label: 'Spotify', icon: <SpotifyIcon /> },
+    { href: SITE.pocketCasts, label: 'Pocket Casts', icon: <PocketCastsIcon /> },
+    { href: SITE.overcast, label: 'Overcast', icon: <OvercastIcon /> },
+    { href: SITE.rss, label: 'RSS', icon: <RssIcon /> },
+  ];
 
   return (
     <div className="mx-auto max-w-content px-5 pb-8 pt-32 sm:px-8 sm:pt-40">
@@ -112,7 +129,7 @@ const Episode: React.FC = () => {
               Listen to this episode
             </h2>
             <div className="mt-4 flex flex-wrap gap-3">
-              {listenLinks.map((link) => (
+              {episodeLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -124,7 +141,6 @@ const Episode: React.FC = () => {
                     {link.icon}
                   </span>
                   {link.label}
-                  {!link.exact && <span className="text-xs text-bone-400">(show)</span>}
                 </a>
               ))}
               {episode.audio && (
@@ -135,6 +151,26 @@ const Episode: React.FC = () => {
                   Download MP3
                 </a>
               )}
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400">
+                Follow the show
+              </span>
+              {showLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 text-sm font-medium text-bone-200 transition-colors hover:text-bone-50"
+                >
+                  <span className="h-4 w-4 text-bone-300 transition-colors group-hover:text-signal-bright">
+                    {link.icon}
+                  </span>
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
 

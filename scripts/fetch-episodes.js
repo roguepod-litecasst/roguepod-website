@@ -113,6 +113,8 @@ const slugify = (title) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 /**
  * Game art comes from the tier list pipeline's Steam capsule cache, exported to
  * public/episode-art/ by scripts/export_episode_art.py. A brand new episode may
@@ -185,7 +187,16 @@ async function main() {
       const guid = tag(item, 'guid');
       const blocks = describe(tag(item, 'description'));
       const slug = slugify(title);
+
+      /*
+       * Lead the description with "<Game> podcast: ..." for search. Applied
+       * here rather than in the page so the rendered copy, the meta
+       * description and the og:description are always the same string.
+       */
       const firstProse = blocks.find((b) => !b.list);
+      if (firstProse && !new RegExp(`^${escapeRegExp(title)}\\s+podcast:`, 'i').test(firstProse.text)) {
+        firstProse.text = `${title} podcast: ${firstProse.text}`;
+      }
 
       return {
         slug,

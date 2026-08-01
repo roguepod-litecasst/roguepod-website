@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { SITE } from '../data/site';
 import { jumpTo } from '../lib/scroll';
 
-type NavItem = { label: string; href: string };
+type NavItem = { label: string; href: string; route?: boolean };
 
+/** `route: true` navigates to a page; the rest are in-page anchors. */
 const NAV: NavItem[] = [
-  { label: 'Episodes', href: '/#episodes' },
+  { label: 'Episodes', href: '/episodes', route: true },
   { label: 'Tier list', href: '/#tierlist' },
-  { label: 'Community', href: '/#listen' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
 /**
@@ -43,18 +44,28 @@ const SiteHeader: React.FC = () => {
         </Link>
 
         <nav className="flex items-center gap-1 sm:gap-2">
-          {NAV.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              // On the home page these are in-page jumps; elsewhere the href
-              // navigates normally because the target isn't in the document.
-              onClick={jumpTo(item.href.replace('/', ''))}
-              className="rounded px-2.5 py-2 text-sm font-medium text-bone-200 transition-colors hover:text-bone-50 sm:px-3"
-            >
-              {item.label}
-            </a>
-          ))}
+          {NAV.map((item) =>
+            item.route ? (
+              <Link
+                key={item.href}
+                to={item.href}
+                className="rounded px-2.5 py-2 text-sm font-medium text-bone-200 transition-colors hover:text-bone-50 sm:px-3"
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a
+                key={item.href}
+                href={item.href}
+                // On the home page these are in-page jumps; elsewhere the href
+                // navigates normally because the target isn't in the document.
+                onClick={jumpTo(item.href.replace('/', ''))}
+                className="rounded px-2.5 py-2 text-sm font-medium text-bone-200 transition-colors hover:text-bone-50 sm:px-3"
+              >
+                {item.label}
+              </a>
+            )
+          )}
           <a
             href={SITE.patreon}
             target="_blank"

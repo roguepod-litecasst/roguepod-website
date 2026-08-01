@@ -2,6 +2,8 @@ import React from 'react';
 import {
   AppleIcon,
   MailIcon,
+  OvercastIcon,
+  PocketCastsIcon,
   RssIcon,
   SpotifyIcon,
   TikTokIcon,
@@ -22,6 +24,10 @@ export const SITE = {
   rss: 'https://feeds.acast.com/public/shows/roguepod-litecast',
   apple: 'https://podcasts.apple.com/gb/podcast/roguepod-litecast/id1774367401',
   spotify: 'https://open.spotify.com/show/0LGkjkg8uVVMg5y6slJiua',
+  // Both resolve from the Apple show id. Note Overcast's web view bounces
+  // logged-out desktop visitors to a login page; on mobile it opens the app.
+  pocketCasts: 'https://pca.st/itunes/1774367401',
+  overcast: 'https://overcast.fm/itunes1774367401',
   youtube: 'https://www.youtube.com/@RoguePodLiteCast',
   tiktok: 'https://www.tiktok.com/@roguepodlitecast',
   survey: 'https://forms.gle/Wqiao5narTMChSFr5',
@@ -40,6 +46,8 @@ export type PlatformLink = {
 export const PLATFORMS: PlatformLink[] = [
   { href: SITE.spotify, label: 'Spotify', icon: <SpotifyIcon /> },
   { href: SITE.apple, label: 'Apple Podcasts', icon: <AppleIcon /> },
+  { href: SITE.pocketCasts, label: 'Pocket Casts', icon: <PocketCastsIcon /> },
+  { href: SITE.overcast, label: 'Overcast', icon: <OvercastIcon /> },
   { href: SITE.rss, label: 'RSS', icon: <RssIcon /> },
 ];
 

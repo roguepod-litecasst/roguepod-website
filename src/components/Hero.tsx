@@ -27,61 +27,72 @@ const Hero: React.FC<HeroProps> = ({ episodeCount }) => (
       />
       {/* Scrims: hold the left side dark enough for text, let the art breathe on
           the right, then fade the band into the page at the bottom. */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/80 to-transparent sm:via-ink-900/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-transparent to-ink-900/55" />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/85 to-ink-900/55" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/30 to-ink-900/65" />
     </div>
 
     <div className="mx-auto max-w-content px-5 pb-16 pt-32 sm:px-8 sm:pb-24 sm:pt-40">
-      <p className="eyebrow animate-rise">{SITE.eyebrow}</p>
-
-      <h1 className="animate-rise mt-4">
+      <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+      {/* Cover art is the show's real logo, glitch border and all. It leads on
+          mobile and sits opposite the copy from lg up. */}
+      <h1 className="animate-rise order-first lg:order-last">
         <img
-          src="/brand/wordmark.png"
+          src="/brand/cover-720.webp"
+          srcSet="/brand/cover-480.webp 480w, /brand/cover-720.webp 720w, /brand/cover-1080.webp 1080w"
+          sizes="(min-width: 1024px) 22rem, (min-width: 640px) 20rem, 100vw"
           alt="RoguePod LiteCast"
-          width={1200}
-          height={837}
-          className="w-full max-w-[19rem] sm:max-w-[26rem]"
+          width={720}
+          height={720}
+          className="w-full max-w-[17rem] border border-ink-600 shadow-2xl sm:max-w-[20rem] lg:max-w-[22rem]"
+          style={{ imageRendering: 'pixelated' }}
+          fetchPriority="high"
         />
       </h1>
 
-      <p
-        className="animate-rise mt-8 max-w-2xl font-display text-2xl font-semibold leading-[1.15] tracking-[-0.02em] text-bone-50 sm:text-4xl"
-        style={{ animationDelay: '60ms' }}
-      >
-        {SITE.tagline}
-      </p>
+      <div className="min-w-0">
+        <p className="eyebrow animate-rise">{SITE.eyebrow}</p>
 
-      <p
-        className="animate-rise mt-5 max-w-xl text-base leading-relaxed text-bone-200 sm:text-lg"
-        style={{ animationDelay: '120ms' }}
-      >
-        {SITE.blurb}
-      </p>
+        <p
+          className="animate-rise mt-4 max-w-2xl font-display text-2xl font-semibold leading-[1.15] tracking-[-0.02em] text-bone-50 sm:text-4xl"
+          style={{ animationDelay: '60ms' }}
+        >
+          {SITE.tagline}
+        </p>
 
-      <div
-        className="animate-rise mt-9 flex flex-wrap items-center gap-3"
-        style={{ animationDelay: '180ms' }}
-      >
-        <a
-          href="#tierlist"
-          onClick={jumpTo('#tierlist')}
-          className="group inline-flex items-center gap-2.5 bg-signal px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-signal-dim"
+        <p
+          className="animate-rise mt-5 max-w-xl text-base leading-relaxed text-bone-200 sm:text-lg"
+          style={{ animationDelay: '120ms' }}
         >
-          See the tier list
-          <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </a>
-        <a
-          href="#episodes"
-          onClick={jumpTo('#episodes')}
-          className="inline-flex items-center gap-2.5 border border-ink-500 bg-ink-900/60 px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-bone-100 backdrop-blur-sm transition-colors hover:border-bone-300 hover:text-bone-50"
+          {SITE.blurb}
+        </p>
+
+        <div
+          className="animate-rise mt-9 flex flex-wrap items-center gap-3"
+          style={{ animationDelay: '180ms' }}
         >
-          Latest episodes
-        </a>
+          <a
+            href="#tierlist"
+            onClick={jumpTo('#tierlist')}
+            className="group inline-flex items-center gap-2.5 bg-signal px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-signal-dim"
+          >
+            See the tier list
+            <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href="#episodes"
+            onClick={jumpTo('#episodes')}
+            className="inline-flex items-center gap-2.5 border border-ink-500 bg-ink-900/60 px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-bone-100 backdrop-blur-sm transition-colors hover:border-bone-300 hover:text-bone-50"
+          >
+            Latest episodes
+          </a>
+        </div>
+        </div>
       </div>
 
-      {/* Straight-to-the-show links, for people who just want to hit play. */}
+      {/* Straight-to-the-show links, for people who just want to hit play.
+          Full width below the grid so all five fit on one line. */}
       <div
-        className="animate-rise mt-7 flex flex-wrap items-center gap-x-5 gap-y-3"
+        className="animate-rise mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-ink-600/70 pt-6"
         style={{ animationDelay: '240ms' }}
       >
         <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400">
