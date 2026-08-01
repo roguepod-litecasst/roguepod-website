@@ -52,13 +52,18 @@ jobs:
         fi
     
     - name: Refresh episode data
-      # Snapshots the RSS feed for the home page and exports card art from the
-      # Steam capsule cache the tier list step just updated. Never fatal: the
-      # site falls back to the committed snapshot.
+      # Snapshots the RSS feed, then exports the card art and social share cards
+      # from the Steam capsule cache the tier list step just updated. Never
+      # fatal: the site falls back to the committed snapshot.
       continue-on-error: true
       run: |
         node scripts/fetch-episodes.js
         python scripts/export_episode_art.py
+        python scripts/export_share_cards.py
+        # Re-run so newly exported art/cards are referenced in episodes.json.
+        node scripts/fetch-episodes.js
+        # Regenerate here too, so the committed copy matches what gets deployed.
+        node scripts/generate-sitemap.js
 
     - name: Check for changes
       id: check_changes
@@ -78,7 +83,8 @@ jobs:
         git config --local user.name "GitHub Action"
         git add public/tierlist.png
         git add scripts/steam_images/  # Update cached images if new games added
-        git add public/episodes.json public/episode-art/  # Refreshed episode snapshot
+        # Refreshed episode snapshot, card art, share cards and sitemap
+        git add public/episodes.json public/episode-art/ public/episode-share/ public/sitemap.xml
         git commit -m "🎮 Automated tier list update - $(date +'%Y-%m-%d %H:%M UTC')"
 
         # Pull and rebase to handle any new commits that appeared on remote

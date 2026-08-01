@@ -1,114 +1,986 @@
 {
-  "generatedAt": "2026-07-31T23:00:30.846Z",
+  "generatedAt": "2026-08-01T02:11:34.827Z",
   "episodeCount": 47,
   "episodes": [
     {
+      "slug": "everything-is-crab",
       "title": "Everything is Crab",
       "publishedAt": "Wed, 22 Jul 2026 09:00:00 GMT",
       "number": 47,
       "duration": "1h 48m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/6a5f8f25c74821d4596a88f9",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a5f8f25c74821d4596a88f9",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a5f8f25c74821d4596a88f9/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/everything-is-crab/id1774367401?i=1000777854135",
       "art": "/episode-art/everything-is-crab.webp",
-      "blurb": "This week we play the evolutionary survivors-lite Everything is Crab and add it to the ultimate roguelite tier list!"
+      "share": "/episode-share/everything-is-crab.jpg",
+      "blurb": "This week we play the evolutionary survivors-lite Everything is Crab and add it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "This week we play the evolutionary survivors-lite Everything is Crab and add it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "gambonanza",
       "title": "Gambonanza",
       "publishedAt": "Wed, 08 Jul 2026 09:00:00 GMT",
       "number": 46,
       "duration": "1h 34m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/6a4c7699e4f7d40f061e78a3",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a4c7699e4f7d40f061e78a3",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a4c7699e4f7d40f061e78a3/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/gambonanza/id1774367401?i=1000775933916",
       "art": "/episode-art/gambonanza.webp",
-      "blurb": "This week we play the tactical tiny chess roguelite Gambonanza and add it to the ultimate roguelite tier list!"
+      "share": "/episode-share/gambonanza.jpg",
+      "blurb": "This week we play the tactical tiny chess roguelite Gambonanza and add it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "This week we play the tactical tiny chess roguelite Gambonanza and add it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "spiritfall",
       "title": "Spiritfall",
       "publishedAt": "Wed, 24 Jun 2026 09:00:00 GMT",
       "number": 45,
       "duration": "1h 45m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/6a3ac926bfa923903749d733",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a3ac926bfa923903749d733",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a3ac926bfa923903749d733/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/spiritfall/id1774367401?i=1000774013652",
       "art": "/episode-art/spiritfall.webp",
-      "blurb": "This week we play the platform-fighter / Hades mashup Spiritfall and add it to the ultimate roguelite tier list!"
+      "share": "/episode-share/spiritfall.jpg",
+      "blurb": "This week we play the platform-fighter / Hades mashup Spiritfall and add it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "This week we play the platform-fighter / Hades mashup Spiritfall and add it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "minos",
       "title": "Minos",
       "publishedAt": "Wed, 10 Jun 2026 09:00:00 GMT",
       "number": 44,
       "duration": "1h 29m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/6a28cab7a917ce4c70a1905d",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a28cab7a917ce4c70a1905d",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a28cab7a917ce4c70a1905d/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/minos/id1774367401?i=1000772005002",
       "art": "/episode-art/minos.webp",
-      "blurb": "This week we play the maze-building game MINOS and add it to the ultimate roguelite tier list!"
+      "share": "/episode-share/minos.jpg",
+      "blurb": "This week we play the maze-building game MINOS and add it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "This week we play the maze-building game MINOS and add it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "the-binding-of-isaac-rebirth",
       "title": "The Binding of Isaac: Rebirth",
       "publishedAt": "Wed, 27 May 2026 09:00:00 GMT",
       "number": 43,
       "duration": "2h 12m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/6a166b7dcb11d38a8b0c6258",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a166b7dcb11d38a8b0c6258",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a166b7dcb11d38a8b0c6258/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/the-binding-of-isaac-rebirth/id1774367401?i=1000769797322",
       "art": "/episode-art/the-binding-of-isaac-rebirth.webp",
-      "blurb": "This week we play the foundational roguelite The Binding of Isaac: Rebirth with special guest Scott Burger of GROGPOD!"
+      "share": "/episode-share/the-binding-of-isaac-rebirth.jpg",
+      "blurb": "This week we play the foundational roguelite The Binding of Isaac: Rebirth with special guest Scott Burger of GROGPOD!",
+      "blocks": [
+        {
+          "text": "This week we play the foundational roguelite The Binding of Isaac: Rebirth with special guest Scott Burger of GROGPOD!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "scourgebringer",
       "title": "ScourgeBringer",
       "publishedAt": "Wed, 13 May 2026 09:00:00 GMT",
       "number": 42,
       "duration": "1h 30m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/69fd093544cb786b375b18f5",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/69fd093544cb786b375b18f5",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/69fd093544cb786b375b18f5/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/scourgebringer/id1774367401?i=1000767552535",
       "art": "/episode-art/scourgebringer.webp",
-      "blurb": "This week we play the juicy-game-feel-forward platformer ScourgeBringer (aka ScourgeBinder)!"
+      "share": "/episode-share/scourgebringer.jpg",
+      "blurb": "This week we play the juicy-game-feel-forward platformer ScourgeBringer (aka ScourgeBinder)!",
+      "blocks": [
+        {
+          "text": "This week we play the juicy-game-feel-forward platformer ScourgeBringer (aka ScourgeBinder)!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "vampire-crawlers-the-turbo-wildcard-from-vampire-survivors",
       "title": "Vampire Crawlers: The Turbo Wildcard from Vampire Survivors",
       "publishedAt": "Wed, 29 Apr 2026 09:00:00 GMT",
       "number": 41,
       "duration": "1h 44m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/69f0f7af2f651f55f50fcfa0",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/69f0f7af2f651f55f50fcfa0",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/69f0f7af2f651f55f50fcfa0/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/vampire-crawlers-the-turbo-wildcard-from-vampire/id1774367401?i=1000764266498",
       "art": "/episode-art/vampire-crawlers-the-turbo-wildcard-from-vampire-survivors.webp",
-      "blurb": "This week we add the dungeon crawler deck builder hybrid Vampire Crawlers: The Turbo Wildcard from Vampire Survivors to the ultimate roguelite tier list!"
+      "share": "/episode-share/vampire-crawlers-the-turbo-wildcard-from-vampire-survivors.jpg",
+      "blurb": "This week we add the dungeon crawler deck builder hybrid Vampire Crawlers: The Turbo Wildcard from Vampire Survivors to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "This week we add the dungeon crawler deck builder hybrid Vampire Crawlers: The Turbo Wildcard from Vampire Survivors to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "inscryption",
       "title": "Inscryption",
       "publishedAt": "Wed, 15 Apr 2026 09:00:00 GMT",
       "number": 40,
       "duration": "1h 36m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/69d5623d086c93c18b4a0113",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/69d5623d086c93c18b4a0113",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/69d5623d086c93c18b4a0113/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/inscryption/id1774367401?i=1000761500521",
       "art": "/episode-art/inscryption.webp",
-      "blurb": "This week we add the genre-defying deckbuilder INSCRYPTION to the ultimate roguelite tier list! Note we had some audio issues in this episode and had to use David's backup audio in a handful of spots."
+      "share": "/episode-share/inscryption.jpg",
+      "blurb": "This week we add the genre-defying deckbuilder INSCRYPTION to the ultimate roguelite tier list! Note we had some audio issues in this episode and had to use David's backup audio in a handful of spots.",
+      "blocks": [
+        {
+          "text": "This week we add the genre-defying deckbuilder INSCRYPTION to the ultimate roguelite tier list! Note we had some audio issues in this episode and had to use David's backup audio in a handful of spots.",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "gnomes",
       "title": "Gnomes",
       "publishedAt": "Wed, 01 Apr 2026 09:00:00 GMT",
       "number": 39,
       "duration": "1h 39m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/69cbf2fce8519e977f659ed3",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/69cbf2fce8519e977f659ed3",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/69cbf2fce8519e977f659ed3/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/gnomes/id1774367401?i=1000758617518",
       "art": "/episode-art/gnomes.webp",
-      "blurb": "This week we add the tower defense roguelite GNOMES to the ultimate roguelite tier list!"
+      "share": "/episode-share/gnomes.jpg",
+      "blurb": "This week we add the tower defense roguelite GNOMES to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "This week we add the tower defense roguelite GNOMES to the ultimate roguelite tier list!",
+          "list": false
+        },
+        {
+          "text": "CORRECTIONS:",
+          "list": false
+        },
+        {
+          "text": "Gnomes never had an EA period, just a large popular demo",
+          "list": true
+        },
+        {
+          "text": "Blueberries, not huckleberries.",
+          "list": true
+        },
+        {
+          "text": "There's no maze.game app, Danny had just saved a link to the browser site on his phone.",
+          "list": true
+        }
+      ]
     },
     {
+      "slug": "slay-the-spire-2",
       "title": "Slay the Spire 2",
       "publishedAt": "Wed, 18 Mar 2026 09:00:00 GMT",
       "number": 38,
       "duration": "2h 6m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/69b99227d01741341b50d487",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/69b99227d01741341b50d487",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/69b99227d01741341b50d487/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/slay-the-spire-2/id1774367401?i=1000755925562",
       "art": "/episode-art/slay-the-spire-2.webp",
-      "blurb": "This week we add the highly anticipated sequel Slay the Spire 2 to the ultimate roguelite tier list."
+      "share": "/episode-share/slay-the-spire-2.jpg",
+      "blurb": "This week we add the highly anticipated sequel Slay the Spire 2 to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add the highly anticipated sequel Slay the Spire 2 to the ultimate roguelite tier list.",
+          "list": false
+        },
+        {
+          "text": "CORRECTION: We realized that Slay the Spire 2 did not in fact set the concurrent steam player record for all games. That is held by PUBG, but STS2 did set it for roguelites.",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "mewgenics",
       "title": "Mewgenics",
       "publishedAt": "Wed, 04 Mar 2026 10:00:00 GMT",
       "number": 37,
       "duration": "1h 57m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/69a19be80b98e7a136ace6dc",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/69a19be80b98e7a136ace6dc",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/69a19be80b98e7a136ace6dc/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/mewgenics/id1774367401?i=1000753024729",
       "art": "/episode-art/mewgenics.webp",
-      "blurb": "This week we add the long awaited cat breeding tactical RPG Mewgenics to the ultimate roguelite tier list."
+      "share": "/episode-share/mewgenics.jpg",
+      "blurb": "This week we add the long awaited cat breeding tactical RPG Mewgenics to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add the long awaited cat breeding tactical RPG Mewgenics to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
     },
     {
+      "slug": "star-of-providence",
       "title": "Star of Providence",
       "publishedAt": "Wed, 18 Feb 2026 10:00:00 GMT",
       "number": 36,
       "duration": "1h 36m",
       "link": "https://shows.acast.com/roguepod-litecast/episodes/699498693ba25772fed13bac",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/699498693ba25772fed13bac",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/699498693ba25772fed13bac/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/star-of-providence/id1774367401?i=1000750294821",
       "art": "/episode-art/star-of-providence.webp",
-      "blurb": "This week we add the arcade shoot-em-up inspired Star of Providence to the ultimate roguelite tier list."
+      "share": "/episode-share/star-of-providence.jpg",
+      "blurb": "This week we add the arcade shoot-em-up inspired Star of Providence to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add the arcade shoot-em-up inspired Star of Providence to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "cloverpit",
+      "title": "CloverPit",
+      "publishedAt": "Wed, 04 Feb 2026 10:00:00 GMT",
+      "number": 35,
+      "duration": "1h 33m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/697a3dc0b4be99fbd8403755",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/697a3dc0b4be99fbd8403755",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/697a3dc0b4be99fbd8403755/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/cloverpit/id1774367401?i=1000747998887",
+      "art": "/episode-art/cloverpit.webp",
+      "share": "/episode-share/cloverpit.jpg",
+      "blurb": "This week we add demonic slot machine game CloverPit to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add demonic slot machine game CloverPit to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "spelunky-2",
+      "title": "Spelunky 2",
+      "publishedAt": "Wed, 21 Jan 2026 10:00:00 GMT",
+      "number": 34,
+      "duration": "1h 40m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/696182b788da0c07c1cd10f3",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/696182b788da0c07c1cd10f3",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/696182b788da0c07c1cd10f3/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/spelunky-2/id1774367401?i=1000746022964",
+      "art": "/episode-art/spelunky-2.webp",
+      "share": "/episode-share/spelunky-2.jpg",
+      "blurb": "This week we add great sequel Spelunky 2 to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add great sequel Spelunky 2 to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "spelunky-hd",
+      "title": "Spelunky HD",
+      "publishedAt": "Wed, 07 Jan 2026 10:00:00 GMT",
+      "number": 33,
+      "duration": "1h 37m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/695d77bbd1ba84fb8f1232ec",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/695d77bbd1ba84fb8f1232ec",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/695d77bbd1ba84fb8f1232ec/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/spelunky-hd/id1774367401?i=1000744106801",
+      "art": "/episode-art/spelunky-hd.webp",
+      "share": "/episode-share/spelunky-hd.jpg",
+      "blurb": "This week we add the iconic roguelite platformer Spelunky HD to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add the iconic roguelite platformer Spelunky HD to the ultimate roguelite tier list.",
+          "list": false
+        },
+        {
+          "text": "The making of Spelunky on noclip: https://www.youtube.com/watch?v=jv434Xyybqc",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "coal-llc",
+      "title": "Coal LLC",
+      "publishedAt": "Wed, 24 Dec 2025 10:00:00 GMT",
+      "number": 32,
+      "duration": "1h 44m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/694a0029184761c0211e6d27",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/694a0029184761c0211e6d27",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/694a0029184761c0211e6d27/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/coal-llc/id1774367401?i=1000742578462",
+      "art": "/episode-art/coal-llc.webp",
+      "share": "/episode-share/coal-llc.jpg",
+      "blurb": "This week we add the throwback flash-style mining roguelite Coal LLC to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add the throwback flash-style mining roguelite Coal LLC to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "megabonk",
+      "title": "Megabonk",
+      "publishedAt": "Wed, 10 Dec 2025 10:00:00 GMT",
+      "number": 31,
+      "duration": "1h 28m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6938e22234867e026d08f61c",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6938e22234867e026d08f61c",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6938e22234867e026d08f61c/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/megabonk/id1774367401?i=1000740625341",
+      "art": "/episode-art/megabonk.webp",
+      "share": "/episode-share/megabonk.jpg",
+      "blurb": "This week we add the 3d survivors-like Megabonk to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we add the 3d survivors-like Megabonk to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "backpack-hero",
+      "title": "Backpack Hero",
+      "publishedAt": "Wed, 26 Nov 2025 10:00:00 GMT",
+      "number": 30,
+      "duration": "1h 36m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6925e4141874a1556df7d551",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6925e4141874a1556df7d551",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6925e4141874a1556df7d551/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/backpack-hero/id1774367401?i=1000738501675",
+      "art": "/episode-art/backpack-hero.webp",
+      "share": "/episode-share/backpack-hero.jpg",
+      "blurb": "This week katerblossom from the great NO SMALL GAMES podcast joins us to add the dungeon crawler inventory-management game Backpack Hero to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week katerblossom from the great NO SMALL GAMES podcast joins us to add the dungeon crawler inventory-management game Backpack Hero to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "hades",
+      "title": "Hades",
+      "publishedAt": "Wed, 12 Nov 2025 10:00:00 GMT",
+      "number": 29,
+      "duration": "1h 29m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/690e5a4f6d62d4e03d8791c1",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/690e5a4f6d62d4e03d8791c1",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/690e5a4f6d62d4e03d8791c1/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/hades/id1774367401?i=1000736403824",
+      "art": "/episode-art/hades.webp",
+      "share": "/episode-share/hades.jpg",
+      "blurb": "This week we we add the 2020 GOTY Hades to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week we we add the 2020 GOTY Hades to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "risk-of-rain-returns",
+      "title": "Risk of Rain Returns",
+      "publishedAt": "Wed, 29 Oct 2025 09:00:00 GMT",
+      "number": 28,
+      "duration": "1h 41m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/690135b491e8d679a08efeb1",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/690135b491e8d679a08efeb1",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/690135b491e8d679a08efeb1/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/risk-of-rain-returns/id1774367401?i=1000734019556",
+      "art": "/episode-art/risk-of-rain-returns.webp",
+      "share": "/episode-share/risk-of-rain-returns.jpg",
+      "blurb": "This week on RoguePod LiteCast we add the looter shooter platformer Risk of Rain Returns to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "This week on RoguePod LiteCast we add the looter shooter platformer Risk of Rain Returns to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "diceomancer",
+      "title": "Diceomancer",
+      "publishedAt": "Wed, 15 Oct 2025 09:00:00 GMT",
+      "number": 27,
+      "duration": "1h 42m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/68ee9d0906cd1a7c23aa0e19",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/68ee9d0906cd1a7c23aa0e19",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/68ee9d0906cd1a7c23aa0e19/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/diceomancer/id1774367401?i=1000731959280",
+      "art": "/episode-art/diceomancer.webp",
+      "share": "/episode-share/diceomancer.jpg",
+      "blurb": "This week we cover the deckbuilder that lets you cheat, Diceomancer with guest JB, the game director from the previously covered Drop Duchy!",
+      "blocks": [
+        {
+          "text": "This week we cover the deckbuilder that lets you cheat, Diceomancer with guest JB, the game director from the previously covered Drop Duchy!",
+          "list": false
+        },
+        {
+          "text": "We talk Drop Duchy for the first few minutes, if you'd like you can skip to the Diceomancer section starting at 7:48.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "birdigo",
+      "title": "Birdigo",
+      "publishedAt": "Wed, 01 Oct 2025 09:00:00 GMT",
+      "number": 26,
+      "duration": "1h 27m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/68d5b834abe298be1f8fb011",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/68d5b834abe298be1f8fb011",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/68d5b834abe298be1f8fb011/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/birdigo/id1774367401?i=1000729487942",
+      "art": "/episode-art/birdigo.webp",
+      "share": "/episode-share/birdigo.jpg",
+      "blurb": "On this episode of RoguePod LiteCast, Emily from the indie gaming podast No Small Games helps discuss the Scrabble Balatro-like Birdigo to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast, Emily from the indie gaming podast No Small Games helps discuss the Scrabble Balatro-like Birdigo to the ultimate roguelite tier list.",
+          "list": false
+        },
+        {
+          "text": "Check out the No Small Games podcast: https://nosmallgames.com/",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "curious-expedition",
+      "title": "Curious Expedition",
+      "publishedAt": "Wed, 17 Sep 2025 09:00:00 GMT",
+      "number": 25,
+      "duration": "1h 45m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/68c887b3666ba430d6e871fd",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/68c887b3666ba430d6e871fd",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/68c887b3666ba430d6e871fd/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/curious-expedition/id1774367401?i=1000727174183",
+      "art": "/episode-art/curious-expedition.webp",
+      "share": "/episode-share/curious-expedition.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the roguelite expedition simulator Curious Expedition to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the roguelite expedition simulator Curious Expedition to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "flocking-hell",
+      "title": "Flocking Hell",
+      "publishedAt": "Wed, 03 Sep 2025 09:00:00 GMT",
+      "number": 24,
+      "duration": "1h 35m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/68b776d5b4b4b9b3d2aade09",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/68b776d5b4b4b9b3d2aade09",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/68b776d5b4b4b9b3d2aade09/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/flocking-hell/id1774367401?i=1000724715112",
+      "art": "/episode-art/flocking-hell.webp",
+      "share": "/episode-share/flocking-hell.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the bite-sized strategy roguelite Flocking Hell to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the bite-sized strategy roguelite Flocking Hell to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "nuclear-throne",
+      "title": "Nuclear Throne",
+      "publishedAt": "Wed, 20 Aug 2025 09:00:00 GMT",
+      "number": 23,
+      "duration": "1h 45m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/68a4f6d573bf5b6298b87abe",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/68a4f6d573bf5b6298b87abe",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/68a4f6d573bf5b6298b87abe/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/nuclear-throne/id1774367401?i=1000722781165",
+      "art": "/episode-art/nuclear-throne.webp",
+      "share": "/episode-share/nuclear-throne.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the post-apocalyptic roguelite top-down shooter Nuclear Throne to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the post-apocalyptic roguelite top-down shooter Nuclear Throne to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "one-step-from-eden",
+      "title": "One Step From Eden",
+      "publishedAt": "Wed, 06 Aug 2025 09:00:00 GMT",
+      "number": 22,
+      "duration": "1h 48m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/689239a534f09da0e53bf4f0",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/689239a534f09da0e53bf4f0",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/689239a534f09da0e53bf4f0/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/one-step-from-eden/id1774367401?i=1000720868417",
+      "art": "/episode-art/one-step-from-eden.webp",
+      "share": "/episode-share/one-step-from-eden.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the real-time tactics game One Step From Eden to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the real-time tactics game One Step From Eden to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "loop-hero",
+      "title": "Loop Hero",
+      "publishedAt": "Wed, 23 Jul 2025 09:00:00 GMT",
+      "number": 21,
+      "duration": "1h 17m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/687ffd5cf6d4262b0790a5d4",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/687ffd5cf6d4262b0790a5d4",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/687ffd5cf6d4262b0790a5d4/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/loop-hero/id1774367401?i=1000718655662",
+      "art": "/episode-art/loop-hero.webp",
+      "share": "/episode-share/loop-hero.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the autobattler roguelite Loop Hero to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the autobattler roguelite Loop Hero to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "drop-duchy",
+      "title": "Drop Duchy",
+      "publishedAt": "Wed, 09 Jul 2025 09:00:00 GMT",
+      "number": 20,
+      "duration": "1h 34m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/686b4bcb3b5dc9fc22cbeb22",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/686b4bcb3b5dc9fc22cbeb22",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/686b4bcb3b5dc9fc22cbeb22/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/drop-duchy/id1774367401?i=1000716471201",
+      "art": "/episode-art/drop-duchy.webp",
+      "share": "/episode-share/drop-duchy.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the tetris-deckbuilder mashup Drop Duchy to the ultimate roguelite tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the tetris-deckbuilder mashup Drop Duchy to the ultimate roguelite tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "enter-the-gungeon",
+      "title": "Enter the Gungeon",
+      "publishedAt": "Wed, 25 Jun 2025 09:00:00 GMT",
+      "number": 19,
+      "duration": "1h 45m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/685ae611f42ce0122444de02",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/685ae611f42ce0122444de02",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/685ae611f42ce0122444de02/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/enter-the-gungeon/id1774367401?i=1000714479191",
+      "art": "/episode-art/enter-the-gungeon.webp",
+      "share": "/episode-share/enter-the-gungeon.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the bullet hell roguelite Enter the Gungeon to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the bullet hell roguelite Enter the Gungeon to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "brotato",
+      "title": "Brotato",
+      "publishedAt": "Wed, 11 Jun 2025 09:00:00 GMT",
+      "number": 18,
+      "duration": "1h 31m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6847ac96d61256a5782f484d",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6847ac96d61256a5782f484d",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6847ac96d61256a5782f484d/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/brotato/id1774367401?i=1000712412839",
+      "art": "/episode-art/brotato.webp",
+      "share": "/episode-share/brotato.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the survivors-like roguelite Brotato to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the survivors-like roguelite Brotato to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "against-the-storm",
+      "title": "Against the Storm",
+      "publishedAt": "Wed, 28 May 2025 09:00:00 GMT",
+      "number": 17,
+      "duration": "1h 45m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/68368d8e7b483718e014b9b8",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/68368d8e7b483718e014b9b8",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/68368d8e7b483718e014b9b8/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/against-the-storm/id1774367401?i=1000710255444",
+      "art": "/episode-art/against-the-storm.webp",
+      "share": "/episode-share/against-the-storm.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the city builder roguelite Against the Storm to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the city builder roguelite Against the Storm to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "heat-signature",
+      "title": "Heat Signature",
+      "publishedAt": "Wed, 14 May 2025 09:00:00 GMT",
+      "number": 16,
+      "duration": "1h 40m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/681e6a6c58009636d556d687",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/681e6a6c58009636d556d687",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/681e6a6c58009636d556d687/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/heat-signature/id1774367401?i=1000708432335",
+      "art": "/episode-art/heat-signature.webp",
+      "share": "/episode-share/heat-signature.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the top-down stealth defenestration game Heat Signature to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the top-down stealth defenestration game Heat Signature to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "downwell",
+      "title": "Downwell",
+      "publishedAt": "Wed, 30 Apr 2025 09:00:00 GMT",
+      "number": 15,
+      "duration": "1h 44m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6810d75553ed55514883b269",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6810d75553ed55514883b269",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6810d75553ed55514883b269/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/downwell/id1774367401?i=1000705526775",
+      "art": "/episode-art/downwell.webp",
+      "share": "/episode-share/downwell.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the precision platformer Downwell to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the precision platformer Downwell to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "into-the-breach",
+      "title": "Into the Breach",
+      "publishedAt": "Wed, 16 Apr 2025 09:00:00 GMT",
+      "number": 14,
+      "duration": "1h 56m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67fd90a1771bf6d1b8138e62",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67fd90a1771bf6d1b8138e62",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67fd90a1771bf6d1b8138e62/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/into-the-breach/id1774367401?i=1000703717130",
+      "art": "/episode-art/into-the-breach.webp",
+      "share": "/episode-share/into-the-breach.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the tactics/puzzle classic Into the Breach to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the tactics/puzzle classic Into the Breach to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "slay-the-spire",
+      "title": "Slay the Spire",
+      "publishedAt": "Wed, 02 Apr 2025 09:00:00 GMT",
+      "number": 13,
+      "duration": "2h 13m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67ecaec902e789100fe427cc",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67ecaec902e789100fe427cc",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67ecaec902e789100fe427cc/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/slay-the-spire/id1774367401?i=1000701873828",
+      "art": "/episode-art/slay-the-spire.webp",
+      "share": "/episode-share/slay-the-spire.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the genre defining deckbuilder roguelite Slay the Spire to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the genre defining deckbuilder roguelite Slay the Spire to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "peglin",
+      "title": "Peglin",
+      "publishedAt": "Wed, 19 Mar 2025 09:00:00 GMT",
+      "number": 12,
+      "duration": "1h 36m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67d5a75f4fe212e561b8284e",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67d5a75f4fe212e561b8284e",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67d5a75f4fe212e561b8284e/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/peglin/id1774367401?i=1000699792329",
+      "art": "/episode-art/peglin.webp",
+      "share": "/episode-share/peglin.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the pachinko deckbuilder roguelite Peglin to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the pachinko deckbuilder roguelite Peglin to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "tiny-rogues",
+      "title": "Tiny Rogues",
+      "publishedAt": "Wed, 05 Mar 2025 10:00:00 GMT",
+      "number": 11,
+      "duration": "1h 34m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67c78e7748f26a4bcac506cc",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67c78e7748f26a4bcac506cc",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67c78e7748f26a4bcac506cc/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/tiny-rogues/id1774367401?i=1000697835468",
+      "art": "/episode-art/tiny-rogues.webp",
+      "share": "/episode-share/tiny-rogues.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add Tiny Rogues to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add Tiny Rogues to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "fights-in-tight-spaces",
+      "title": "Fights in Tight Spaces",
+      "publishedAt": "Wed, 19 Feb 2025 10:00:00 GMT",
+      "number": 10,
+      "duration": "1h 39m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67b250c54d9bd1092c812797",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67b250c54d9bd1092c812797",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67b250c54d9bd1092c812797/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/fights-in-tight-spaces/id1774367401?i=1000693955207",
+      "art": "/episode-art/fights-in-tight-spaces.webp",
+      "share": "/episode-share/fights-in-tight-spaces.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add Fights in Tight Spaces to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add Fights in Tight Spaces to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "luck-be-a-landlord",
+      "title": "Luck be a Landlord",
+      "publishedAt": "Wed, 05 Feb 2025 10:00:00 GMT",
+      "number": 9,
+      "duration": "1h 45m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67a11a5ff0aed667c51ba904",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67a11a5ff0aed667c51ba904",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67a11a5ff0aed667c51ba904/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/luck-be-a-landlord/id1774367401?i=1000689255025",
+      "art": "/episode-art/luck-be-a-landlord.webp",
+      "share": "/episode-share/luck-be-a-landlord.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the slot machine capitalism simulator Luck be a Landlord to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the slot machine capitalism simulator Luck be a Landlord to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "returnal",
+      "title": "Returnal",
+      "publishedAt": "Wed, 22 Jan 2025 10:00:51 GMT",
+      "number": 8,
+      "duration": "1h 42m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/677eacc3172a299f316f9fc7",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/677eacc3172a299f316f9fc7",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/677eacc3172a299f316f9fc7/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/returnal/id1774367401?i=1000684991850",
+      "art": "/episode-art/returnal.webp",
+      "share": "/episode-share/returnal.jpg",
+      "blurb": "On this episode of RoguePod LiteCast we add the AAA sci-fi shooter Returnal (TM) to the tier list.",
+      "blocks": [
+        {
+          "text": "On this episode of RoguePod LiteCast we add the AAA sci-fi shooter Returnal (TM) to the tier list.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "barony",
+      "title": "Barony",
+      "publishedAt": "Wed, 08 Jan 2025 10:00:02 GMT",
+      "number": 7,
+      "duration": "1h 25m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/677c20f9b2b69b369b64ed3b",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/677c20f9b2b69b369b64ed3b",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/677c20f9b2b69b369b64ed3b/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/barony/id1774367401?i=1000683160521",
+      "art": "/episode-art/barony.webp",
+      "share": "/episode-share/barony.jpg",
+      "blurb": "This week on RoguePod LiteCast we dive into the voxelated dungeons of Barony.",
+      "blocks": [
+        {
+          "text": "This week on RoguePod LiteCast we dive into the voxelated dungeons of Barony.",
+          "list": false
+        },
+        {
+          "text": "Interview with the dev: https://indiegraph.wordpress.com/2013/12/11/interview-with-the-creator-of-barony/",
+          "list": false
+        },
+        {
+          "text": "LyciantYT channel: https://www.youtube.com/@LyciantYT",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "balatro",
+      "title": "Balatro",
+      "publishedAt": "Wed, 25 Dec 2024 10:00:57 GMT",
+      "number": 6,
+      "duration": "1h 45m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67622ce2e33879c628a7982b",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67622ce2e33879c628a7982b",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67622ce2e33879c628a7982b/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/balatro/id1774367401?i=1000681648672",
+      "art": "/episode-art/balatro.webp",
+      "share": "/episode-share/balatro.jpg",
+      "blurb": "This week on RoguePod LiteCast get into the hit game of the year nominee, Balatro.",
+      "blocks": [
+        {
+          "text": "This week on RoguePod LiteCast get into the hit game of the year nominee, Balatro.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "noita",
+      "title": "Noita",
+      "publishedAt": "Wed, 11 Dec 2024 10:00:43 GMT",
+      "number": 5,
+      "duration": "1h 23m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6759132806a9d87b2ee03f83",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6759132806a9d87b2ee03f83",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6759132806a9d87b2ee03f83/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/noita/id1774367401?i=1000679994361",
+      "art": "/episode-art/noita.webp",
+      "share": "/episode-share/noita.jpg",
+      "blurb": "This week we discuss the falling-sand-like platformer, Noita",
+      "blocks": [
+        {
+          "text": "This week we discuss the falling-sand-like platformer, Noita",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "shogun-showdown",
+      "title": "Shogun Showdown",
+      "publishedAt": "Wed, 27 Nov 2024 11:54:16 GMT",
+      "number": 4,
+      "duration": "1h 16m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67470867b1164bf6aa7070ae",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67470867b1164bf6aa7070ae",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67470867b1164bf6aa7070ae/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/shogun-showdown/id1774367401?i=1000678402329",
+      "art": "/episode-art/shogun-showdown.webp",
+      "share": "/episode-share/shogun-showdown.jpg",
+      "blurb": "This week we discuss the new tactics roguelite, Shogun Showdown",
+      "blocks": [
+        {
+          "text": "This week we discuss the new tactics roguelite, Shogun Showdown",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "rogue-legacy",
+      "title": "Rogue Legacy",
+      "publishedAt": "Wed, 13 Nov 2024 10:00:36 GMT",
+      "number": 3,
+      "duration": "1h 13m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/67342f034c734dcbd0d4a02a",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/67342f034c734dcbd0d4a02a",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/67342f034c734dcbd0d4a02a/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/rogue-legacy/id1774367401?i=1000676780544",
+      "art": "/episode-art/rogue-legacy.webp",
+      "share": "/episode-share/rogue-legacy.jpg",
+      "blurb": "This week we discuss the original \"rogue-vania,\" Rogue Legacy",
+      "blocks": [
+        {
+          "text": "This week we discuss the original \"rogue-vania,\" Rogue Legacy",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "we-who-are-about-to-die",
+      "title": "We Who Are About to Die",
+      "publishedAt": "Wed, 30 Oct 2024 09:00:12 GMT",
+      "number": 2,
+      "duration": "1h 16m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6720f93cfab47fdf26101414",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6720f93cfab47fdf26101414",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6720f93cfab47fdf26101414/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/we-who-are-about-to-die/id1774367401?i=1000674982575",
+      "art": "/episode-art/we-who-are-about-to-die.webp",
+      "share": "/episode-share/we-who-are-about-to-die.jpg",
+      "blurb": "This week we discuss the early access, phsyics-based gladiator roguelite We Who Are About To Die.",
+      "blocks": [
+        {
+          "text": "This week we discuss the early access, phsyics-based gladiator roguelite We Who Are About To Die.",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "crypt-of-the-necrodancer",
+      "title": "Crypt of the NecroDancer",
+      "publishedAt": "Wed, 16 Oct 2024 08:00:37 GMT",
+      "number": 1,
+      "duration": "1h 16m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/670c2d45497379924697b205",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/670c2d45497379924697b205",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/670c2d45497379924697b205/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/crypt-of-the-necrodancer/id1774367401?i=1000673380015",
+      "art": "/episode-art/crypt-of-the-necrodancer.webp",
+      "share": "/episode-share/crypt-of-the-necrodancer.jpg",
+      "blurb": "This week, we’re doing our best to stay on beat while we dance through the classic Crypt of the NecroDancer. [Disclaimer: we are aware that the audio is pretty mediocre in this episode, we promise it improves in subsequent episodes]",
+      "blocks": [
+        {
+          "text": "This week, we’re doing our best to stay on beat while we dance through the classic Crypt of the NecroDancer. [Disclaimer: we are aware that the audio is pretty mediocre in this episode, we promise it improves in subsequent episodes]",
+          "list": false
+        }
+      ]
     }
   ]
 }
