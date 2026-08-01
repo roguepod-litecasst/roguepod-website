@@ -7,6 +7,7 @@ import SiteHeader from './components/SiteHeader';
 import Episode from './pages/Episode';
 import Episodes from './pages/Episodes';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => (
@@ -20,6 +21,7 @@ const App: React.FC = () => (
         <Route path="/episodes/:slug" element={<Episode />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
     <SiteFooter />

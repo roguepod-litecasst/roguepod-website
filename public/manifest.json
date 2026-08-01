@@ -9,18 +9,20 @@
       "type": "image/x-icon"
     },
     {
-      "src": "cover-art.png",
+      "src": "icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
-      "src": "cover-art.png",
+      "src": "icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
     }
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#667eea",
-  "background_color": "#1f2937"
+  "theme_color": "#08090A",
+  "background_color": "#08090A"
 }

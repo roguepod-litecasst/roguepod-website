@@ -9,11 +9,13 @@ const SiteFooter: React.FC = () => (
       <div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-sm">
           <img
-            src="/brand/wordmark-sm.png"
+            src="/brand/cover-480.webp"
             alt="RoguePod LiteCast"
             width={480}
-            height={335}
-            className="h-10 w-auto"
+            height={480}
+            className="w-24 border border-ink-600"
+            style={{ imageRendering: 'pixelated' }}
+            loading="lazy"
           />
           <p className="mt-5 text-sm leading-relaxed text-bone-300">
             A roguelite and action roguelike review podcast by Danny and David. New episodes every

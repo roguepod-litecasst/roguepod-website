@@ -16,7 +16,7 @@ export const SITE = {
   url: 'https://roguepod.show',
   eyebrow: 'RoguePod LiteCast: a roguelite podcast',
   // Straight from the show's own feed description.
-  tagline: 'Building the most comprehensive roguelite tier list, one game at a time.',
+  tagline: 'Building the most comprehensive roguelite tier list, one episode at a time.',
   blurb:
     "Every other week, Danny or David picks a roguelite to play, discuss, rate, and stack up against the games they've already covered.",
   patreon: 'https://www.patreon.com/roguepod',
