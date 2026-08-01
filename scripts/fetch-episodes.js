@@ -189,13 +189,21 @@ async function main() {
       const slug = slugify(title);
 
       /*
-       * Lead the description with "<Game> podcast: ..." for search. Applied
-       * here rather than in the page so the rendered copy, the meta
+       * Lead the description with "A Podcast Review of <Game>: ..." for search.
+       * Applied here rather than in the page so the rendered copy, the meta
        * description and the og:description are always the same string.
        */
       const firstProse = blocks.find((b) => !b.list);
-      if (firstProse && !new RegExp(`^${escapeRegExp(title)}\\s+podcast:`, 'i').test(firstProse.text)) {
-        firstProse.text = `${title} podcast: ${firstProse.text}`;
+      if (firstProse) {
+        // Strip the older "<Game> podcast:" lead-in first, so a feed or
+        // snapshot still carrying it doesn't end up with both.
+        firstProse.text = firstProse.text.replace(
+          new RegExp(`^${escapeRegExp(title)}\\s+podcast:\\s*`, 'i'),
+          ''
+        );
+        if (!new RegExp(`^A Podcast Review of ${escapeRegExp(title)}:`, 'i').test(firstProse.text)) {
+          firstProse.text = `A Podcast Review of ${title}: ${firstProse.text}`;
+        }
       }
 
       return {

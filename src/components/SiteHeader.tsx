@@ -33,14 +33,12 @@ const SiteHeader: React.FC = () => {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-content items-center justify-between px-5 sm:px-8">
-        <Link to="/" className="flex items-center" aria-label="RoguePod LiteCast — home">
-          <img
-            src="/brand/wordmark-sm.png"
-            alt="RoguePod LiteCast"
-            width={480}
-            height={335}
-            className="h-9 w-auto sm:h-10"
-          />
+        <Link
+          to="/"
+          className="rounded font-display text-sm font-semibold uppercase tracking-[0.18em] text-bone-50 transition-colors hover:text-signal"
+          aria-label="RoguePod LiteCast — home"
+        >
+          Home
         </Link>
 
         <nav className="flex items-center gap-1 sm:gap-2">
