@@ -18,7 +18,9 @@ export const SITE = {
   // Straight from the show's own feed description.
   tagline: 'Building the most comprehensive roguelite tier list, one episode at a time.',
   blurb:
-    "Every other week, Danny or David picks a roguelite to play, discuss, rate, and stack up against the games they've already covered.",
+    'A podcast hosted by friends who like playing and talking about rogue games. Every other ' +
+    'Wednesday Danny or David picks a roguelite or action roguelike to play and discuss, then ' +
+    "stack up against all other games they've covered.",
   patreon: 'https://www.patreon.com/roguepod',
   discord: 'https://discord.gg/EEwq9VGGKb',
   rss: 'https://feeds.acast.com/public/shows/roguepod-litecast',

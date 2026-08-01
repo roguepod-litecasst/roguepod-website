@@ -13,8 +13,15 @@ import ScrollToTop from './components/ScrollToTop';
 const App: React.FC = () => (
   <div className="flex min-h-screen flex-col bg-ink-900">
     <ScrollToTop />
+    {/* Visually hidden until focused, so keyboard users can skip the nav. */}
+    <a
+      href="#main"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-signal focus:px-5 focus:py-3 focus:font-display focus:text-sm focus:font-semibold focus:uppercase focus:tracking-[0.08em] focus:text-white"
+    >
+      Skip to content
+    </a>
     <SiteHeader />
-    <main className="flex-1">
+    <main id="main" className="flex-1">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/episodes" element={<Episodes />} />

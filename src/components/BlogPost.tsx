@@ -57,8 +57,15 @@ const BlogPost: React.FC = () => {
         const markdown = await response.text();
         const { data, content } = parseFrontmatter(markdown);
 
+        /*
+         * Posts tend to repeat their own title as an H1 at the top of the body,
+         * which renders twice because the frontmatter title is already the
+         * page's H1. Drop a leading H1 so the post only ever has one.
+         */
+        const body = content.replace(/^\s*#\s+.*(\r?\n)+/, '');
+
         // Parse markdown to HTML
-        const htmlContent = await marked(content);
+        const htmlContent = await marked(body);
 
         const postData = {
           title: data.title,
