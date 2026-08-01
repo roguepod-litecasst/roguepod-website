@@ -17,10 +17,7 @@ const SiteFooter: React.FC = () => (
             style={{ imageRendering: 'pixelated' }}
             loading="lazy"
           />
-          <p className="mt-5 text-sm leading-relaxed text-bone-300">
-            A roguelite and action roguelike review podcast by Danny and David. New episodes every
-            other Wednesday.
-          </p>
+          <p className="mt-5 text-sm leading-relaxed text-bone-300">{SITE.description}</p>
           <a
             href={`mailto:${SITE.email}`}
             className="mt-5 inline-flex items-center gap-2.5 text-sm font-medium text-bone-100 transition-colors hover:text-signal-bright"

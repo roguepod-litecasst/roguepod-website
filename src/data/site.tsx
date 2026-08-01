@@ -21,6 +21,11 @@ export const SITE = {
     'We like playing roguelites, so we started a podcast to talk about them. We spend two weeks ' +
     "playing a game, then review it on the show and rank it against every other game we've " +
     'covered. Tune in every other Wednesday!',
+  // The short "what is this show" paragraph that sits under the cover art in
+  // the footer card. Kept separate from `blurb`, which is the hero pitch.
+  description:
+    'RoguePod LiteCast is a roguelite and action roguelike review podcast! We cover the GOATs, ' +
+    'new releases, and tiny games without much reach. New episodes every other Wednesday.',
   patreon: 'https://www.patreon.com/roguepod',
   discord: 'https://discord.gg/EEwq9VGGKb',
   rss: 'https://feeds.acast.com/public/shows/roguepod-litecast',

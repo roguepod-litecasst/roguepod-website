@@ -15,7 +15,9 @@ const DefinitionsSection: React.FC = () => (
   >
     <div className="max-w-2xl">
       <p className="eyebrow">Roguelite vs Roguelike</p>
-      <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+      {/* Steps down on phones like the hero tagline does — at `text-3xl` the
+          question ran to four lines at 375px and stranded "[insert game]". */}
+      <h2 className="mt-3 text-balance text-2xl font-semibold sm:text-4xl">
         But isn&apos;t [insert game] here a roguelike not a roguelite?
       </h2>
     </div>
