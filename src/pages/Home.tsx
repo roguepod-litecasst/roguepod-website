@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import DefinitionsSection from '../components/DefinitionsSection';
 import EpisodesSection from '../components/EpisodesSection';
 import Hero from '../components/Hero';
 import ListenSection from '../components/ListenSection';
@@ -53,6 +54,7 @@ const Home: React.FC = () => {
       <EpisodesSection episodes={feed.episodes} loading={loading} />
       <TierListSection />
       <ListenSection />
+      <DefinitionsSection />
     </>
   );
 };

@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { SITE } from '../data/site';
 import { jumpTo } from '../lib/scroll';
 
-type NavItem = { label: string; href: string; route?: boolean };
+type NavItem = { label: string; href: string; route?: boolean; short?: string };
 
-/** `route: true` navigates to a page; the rest are in-page anchors. */
+/**
+ * `route: true` navigates to a page; the rest are in-page anchors. `short` is
+ * the label used below `sm` — four full labels overflow a phone-width header,
+ * and the definitions link is the only one whose full title doesn't fit.
+ */
 const NAV: NavItem[] = [
   { label: 'Episodes', href: '/episodes', route: true },
-  { label: 'Tier list', href: '/#tierlist' },
+  { label: 'Tier List', href: '/#tierlist' },
   { label: 'Contact', href: '/#contact' },
+  { label: 'Roguelite vs Roguelike', href: '/#roguelite-vs-roguelike', short: 'Roguelite?' },
 ];
 
 /**
@@ -60,7 +65,14 @@ const SiteHeader: React.FC = () => {
                 onClick={jumpTo(item.href.replace('/', ''))}
                 className="rounded px-2.5 py-2 text-sm font-medium text-bone-200 transition-colors hover:text-bone-50 sm:px-3"
               >
-                {item.label}
+                {item.short ? (
+                  <>
+                    <span className="sm:hidden">{item.short}</span>
+                    <span className="hidden sm:inline">{item.label}</span>
+                  </>
+                ) : (
+                  item.label
+                )}
               </a>
             )
           )}
