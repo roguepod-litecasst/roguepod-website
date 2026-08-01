@@ -19,18 +19,18 @@ const Hero: React.FC<HeroProps> = ({ episodeCount }) => (
         sizes="100vw"
         alt=""
         aria-hidden="true"
-        className="h-full w-full object-cover opacity-90"
+        className="h-full w-full object-cover opacity-80"
         // The source is pixel art and the band gets scaled up to fill the hero;
         // smoothing turns it to mush, so keep the blocks hard-edged.
         style={{ imageRendering: 'pixelated' }}
         fetchPriority="high"
       />
-      {/* Scrims run light-to-dark left-to-right: the glitch art reads brightest
-          on the left, and the busiest side of the background sits away from the
-          cover art on the right so the two don't compete. The left is still
-          scrimmed enough to keep the headline legible. */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink-900/45 via-ink-900/70 to-ink-900/90" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/25 to-ink-900/60" />
+      {/* Two scrims put the only real texture in the top-left corner and take
+          it away everywhere else: dark behind the headline so the copy stays
+          calm, and darkest on the right so the cover art is the brightest
+          thing in the hero rather than competing with the background. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink-900/60 via-ink-900/80 to-ink-900/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-ink-900/20 via-ink-900/75 to-ink-900" />
     </div>
 
     <div className="mx-auto max-w-content px-5 pb-16 pt-32 sm:px-8 sm:pb-24 sm:pt-40">
