@@ -25,10 +25,12 @@ const Hero: React.FC<HeroProps> = ({ episodeCount }) => (
         style={{ imageRendering: 'pixelated' }}
         fetchPriority="high"
       />
-      {/* Scrims: hold the left side dark enough for text, let the art breathe on
-          the right, then fade the band into the page at the bottom. */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/85 to-ink-900/55" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/30 to-ink-900/65" />
+      {/* Scrims run light-to-dark left-to-right: the glitch art reads brightest
+          on the left, and the busiest side of the background sits away from the
+          cover art on the right so the two don't compete. The left is still
+          scrimmed enough to keep the headline legible. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink-900/45 via-ink-900/70 to-ink-900/90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/25 to-ink-900/60" />
     </div>
 
     <div className="mx-auto max-w-content px-5 pb-16 pt-32 sm:px-8 sm:pb-24 sm:pt-40">

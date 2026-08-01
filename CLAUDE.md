@@ -48,7 +48,10 @@ Grotesk for display and Inter for body.
 
 Brand assets in `public/brand/` are exported from the Photoshop files in
 `design/` (gitignored — they're ~195 MB and must never land in `public/`,
-which CRA copies verbatim into the deploy). Regenerate them with the snippet
+which CRA copies verbatim into the deploy). `design/logo-refs/` is the one
+tracked exception: the official Pocket Casts and Overcast SVGs the platform
+icons in `src/components/Icons.tsx` were traced from, recoloured to
+`currentColor` so the icon row stays single-colour. Regenerate them with the snippet
 in `scripts/export_episode_art.py`'s sibling workflow if the source art
 changes. The hero art is pixel art and is rendered with
 `image-rendering: pixelated` — resize it with NEAREST, not LANCZOS, or it

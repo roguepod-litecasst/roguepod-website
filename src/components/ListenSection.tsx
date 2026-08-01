@@ -79,7 +79,7 @@ const ListenSection: React.FC = () => (
             Monthly bonus episodes on Patreon
           </h3>
           <p className="mt-1.5 max-w-md text-sm leading-relaxed text-bone-200">
-            Extra episodes every month, plus support for the show.
+            Extra bonus episode every month, plus support for the show.
           </p>
         </div>
       </div>

@@ -40,16 +40,46 @@ export const PatreonIcon: React.FC<IconProps> = ({ className = base }) => (
   </svg>
 );
 
-/** Simplified monochrome marks — the icon row is single-colour throughout. */
+/*
+ * Pocket Casts and Overcast are traced from the official marks (kept in
+ * design/logo-refs/), recoloured to currentColor so the icon row stays
+ * single-colour like every other platform icon.
+ */
 export const PocketCastsIcon: React.FC<IconProps> = ({ className = base }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 3.6a8.4 8.4 0 0 1 8.4 8.4h-2.4A6 6 0 0 0 12 6V3.6zm0 4.2a4.2 4.2 0 0 1 4.2 4.2h-2.1A2.1 2.1 0 0 0 12 9.9V7.8zM9.6 9.9l5.4 3.3-5.4 3.3V9.9z" />
+  <svg className={className} viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M16 32c8.837 0 16-7.163 16-16S24.837 0 16 0 0 7.163 0 16s7.163 16 16 16Zm0-28.444C9.127 3.556 3.556 9.127 3.556 16c0 6.873 5.571 12.444 12.444 12.444v-3.11A9.333 9.333 0 1 1 25.333 16h3.111c0-6.874-5.571-12.445-12.444-12.445ZM8.533 16A7.467 7.467 0 0 0 16 23.467v-2.715A4.751 4.751 0 1 1 20.752 16h2.715a7.467 7.467 0 0 0-14.934 0Z"
+    />
   </svg>
 );
 
 export const OvercastIcon: React.FC<IconProps> = ({ className = base }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4a9.6 9.6 0 1 1 0 19.2 9.6 9.6 0 0 1 0-19.2zm0 2.7a1.5 1.5 0 0 0-1.44 1.08l-1.8 6.6a1.5 1.5 0 0 0 2.13 1.74L12 14.4l1.11.12a1.5 1.5 0 0 0 2.13-1.74l-1.8-6.6A1.5 1.5 0 0 0 12 5.1zm0 3.9.72 2.64L12 12l-.72-.36L12 9z" />
+  // viewBox is cropped to the artwork bounds (the source has wide padding for a
+  // rounded-square app tile) and the stroke thickened, so it carries the same
+  // optical weight as the solid icons beside it at 16px.
+  <svg
+    className={className}
+    viewBox="62 62 388 388"
+    strokeLinecap="round"
+    strokeWidth={28}
+    aria-hidden="true"
+  >
+    <g fill="none" stroke="currentColor">
+      <circle cx="255" cy="255" r="175" />
+      <path d="m160 181.1s-24.2 27.3-24.2 75 24.2 73.9 24.2 73.9" />
+      <path d="m352.8 181.1s24.2 27.3 24.2 75-24.2 73.9-24.2 73.9" />
+      <path d="m314.2 213s16.3 20.3 15.9 43c-.5 27.3-15.7 42.3-15.7 42.3" />
+      <path d="m197.8 213s-16.3 20.3-15.9 43c.5 27.3 15.7 42.3 15.7 42.3" />
+    </g>
+    <g fill="currentColor">
+      <circle cx="255" cy="255" r="32" />
+      <path d="m260.4 284.9-22.7-6.1-37.8 141.2 22.7 6.1z" />
+      <path d="m251.6 284.7 22.6-6 37.6 141.3-22.6 6z" />
+      <path d="m230.6 360.9 8.4-8.6 58.2 56.7-8.4 8.6z" />
+      <path d="m279.9 361.2-7.6-7.7-57.7 57.3 7.6 7.7z" />
+    </g>
   </svg>
 );
 

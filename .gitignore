@@ -33,6 +33,9 @@ __pycache__/
 
 # Source design files (Photoshop). Huge, and nothing in the build reads them —
 # web-ready assets are exported to public/brand/ instead.
-/design/
+# design/logo-refs/ is the exception: tiny SVGs the platform icons were traced
+# from, worth keeping so the icons can be re-derived.
+/design/*
+!/design/logo-refs/
 *.psd
 *.psb

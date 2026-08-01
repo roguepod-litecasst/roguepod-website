@@ -103,7 +103,7 @@ test('an unknown episode slug renders a not-found state', async () => {
 test('the episode index lists every episode', async () => {
   renderAt('/episodes');
 
-  expect(await screen.findByRole('heading', { name: /Every episode/i })).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /^Episodes$/i })).toBeInTheDocument();
   // Count renders only once the snapshot has loaded.
-  expect(await screen.findByText(/47 episodes/i)).toBeInTheDocument();
+  expect(await screen.findByText(/47 total/i)).toBeInTheDocument();
 });
