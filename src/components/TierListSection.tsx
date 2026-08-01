@@ -37,7 +37,7 @@ const TierListSection: React.FC = () => {
   }, [expanded]);
 
   return (
-    <section id="tierlist" className="mx-auto max-w-content scroll-mt-20 px-5 pt-20 sm:px-8 sm:pt-28">
+    <section id="tierlist" className="mx-auto max-w-content px-5 pt-20 sm:px-8 sm:pt-28">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
           <p className="eyebrow">The tier list</p>

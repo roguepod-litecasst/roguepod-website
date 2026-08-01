@@ -22,8 +22,29 @@ const Home: React.FC = () => {
    */
   useEffect(() => {
     if (!hash) return;
-    const target = document.querySelector(hash);
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const align = () => {
+      const target = document.querySelector(hash);
+      // 'instant', not 'auto' — 'auto' defers to the CSS scroll-behavior, which
+      // is smooth, and a deep link should land rather than animate down.
+      target?.scrollIntoView({ behavior: 'instant' as ScrollBehavior, block: 'start' });
+    };
+
+    align();
+
+    /*
+     * On a cold load the first alignment happens before the web fonts swap in,
+     * which reflows the hero and leaves the target ~115px off. Re-align once
+     * fonts and any remaining images have settled.
+     */
+    const timer = window.setTimeout(align, 300);
+    document.fonts?.ready.then(align).catch(() => {});
+    window.addEventListener('load', align);
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('load', align);
+    };
   }, [hash]);
 
   return (

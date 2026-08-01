@@ -22,7 +22,7 @@ const LinkTile: React.FC<{ link: PlatformLink }> = ({ link }) => (
  * in the hero, not here.
  */
 const ListenSection: React.FC = () => (
-  <section id="contact" className="mx-auto max-w-content scroll-mt-20 px-5 pt-20 sm:px-8 sm:pt-28">
+  <section id="contact" className="mx-auto max-w-content px-5 pt-20 sm:px-8 sm:pt-28">
     <div className="max-w-2xl">
       <p className="eyebrow">Contact</p>
       <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Get in touch</h2>

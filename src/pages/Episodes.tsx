@@ -12,7 +12,8 @@ const Episodes: React.FC = () => {
   return (
     <div className="mx-auto max-w-content px-5 pb-8 pt-32 sm:px-8 sm:pt-40">
       <header className="max-w-2xl">
-        <h1 className="text-3xl font-semibold sm:text-4xl">Episodes</h1>
+        <p className="eyebrow">Episodes</p>
+        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">All episodes</h1>
       </header>
 
       {loading ? (

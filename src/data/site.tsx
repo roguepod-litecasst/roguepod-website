@@ -14,7 +14,7 @@ export const SITE = {
   title: 'RoguePod LiteCast',
   email: 'host@roguepod.show',
   url: 'https://roguepod.show',
-  eyebrow: 'A podcast about roguelites',
+  eyebrow: 'RoguePod LiteCast: a roguelite podcast',
   // Straight from the show's own feed description.
   tagline: 'Building the most comprehensive roguelite tier list, one game at a time.',
   blurb:

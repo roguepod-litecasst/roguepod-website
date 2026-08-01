@@ -7,8 +7,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Offset anchor scrolling so section headings clear the sticky header. */
-    scroll-padding-top: 5rem;
+    /*
+     * Deliberately no scroll-padding-top. Sections already carry ~7rem of top
+     * padding, which is more than enough to clear the 4rem fixed header, and
+     * adding scroll-padding on top of that (plus scroll-margin on the section)
+     * stacked three offsets and dropped anchor targets into mid-screen.
+     */
   }
 
   body {
