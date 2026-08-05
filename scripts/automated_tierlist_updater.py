@@ -331,12 +331,44 @@ class AutomatedTierListUpdater:
         total_filtered = sum(len(games) for games in filtered_tiers.values())
         
         print(f"\nFiltered tier list: {total_filtered}/{total_original} games have released episodes")
-        
+
         for tier in ['S', 'A', 'B', 'C', 'D', 'E', 'F']:
             if tier in filtered_tiers:
                 print(f"  {tier} Tier: {', '.join(filtered_tiers[tier])}")
-        
+
+        self.warn_about_unplaced_episodes(released_games, match_details)
+
         return filtered_tiers, match_details
+
+    def warn_about_unplaced_episodes(self, released_games, match_details):
+        """Flag released episodes that no tier line in the doc accounts for.
+
+        This is the Gambonanza failure mode: the episode is out, but the game
+        was never added to an `X Tier:` line, so it's silently dropped and the
+        run reports "already up to date". Bonus episodes are expected to be
+        unplaced — they're not reviews and get no tier.
+        """
+        placed = {detail['episode_title'] for detail in match_details}
+        unplaced = [
+            game for game in released_games
+            if game not in placed and not game.lower().startswith('bonus')
+        ]
+
+        if not unplaced:
+            return
+
+        print("\n⚠️  Released episodes with no tier placement:")
+        for game in unplaced:
+            print(f"  - {game}")
+        print("  Add them to an 'X Tier:' line in the Google Doc, or add a")
+        print("  name_mappings entry if the title just doesn't match.")
+
+        # Surfaces on the run's page, so a missed game is visible without
+        # reading the log.
+        if os.environ.get('GITHUB_ACTIONS'):
+            print(f"::warning::Released but not on any tier line: {', '.join(unplaced)}")
+
+        return unplaced
     
     def save_debug_info(self, released_games, match_details, output_dir="debug"):
         """Save debug information to files"""

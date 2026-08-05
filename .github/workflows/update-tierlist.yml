@@ -17,11 +17,31 @@ on:
         required: false
         default: 'false'
         type: boolean
+      force_deploy:
+        description: 'Rebuild and deploy even if nothing changed (use to recover a missed week)'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   update-tierlist:
     runs-on: ubuntu-latest
-    
+
+    env:
+      # Every path the pipeline writes, in one place. The change check and the
+      # commit step both read it, so they can't drift apart: a generated file
+      # missing from this list stays unstaged after the commit, and
+      # `git pull --rebase` then refuses to run on a dirty worktree — which is
+      # exactly how the 2026-08-05 run lost the Pathogenic update.
+      GENERATED_PATHS: >-
+        public/tierlist.png
+        public/episodes.json
+        public/episode-art
+        public/episode-share
+        public/sitemap.xml
+        public/brand
+        scripts/steam_images
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -68,67 +88,105 @@ jobs:
     - name: Check for changes
       id: check_changes
       run: |
-        if git diff --quiet HEAD -- public/tierlist.png; then
-          echo "changed=false" >> $GITHUB_OUTPUT
-          echo "No changes to tier list"
-        else
+        echo "Working tree after the refresh:"
+        git status --porcelain
+        # `git status --porcelain`, not `git diff HEAD`: a brand-new episode's
+        # art and share card are *untracked*, and git diff never sees those.
+        if [ -n "$(git status --porcelain -- $GENERATED_PATHS)" ]; then
           echo "changed=true" >> $GITHUB_OUTPUT
-          echo "Tier list updated"
+          echo "Generated files changed — will commit and deploy"
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "Nothing changed — tier list and episode data are already up to date"
         fi
-    
+        # Reported separately so the summary can tell "new game on the tier
+        # list" apart from "only the episode list moved".
+        if git diff --quiet HEAD -- public/tierlist.png; then
+          echo "tierlist_changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "tierlist_changed=true" >> $GITHUB_OUTPUT
+        fi
+
     - name: Commit and push changes
       if: steps.check_changes.outputs.changed == 'true'
       run: |
+        set -euo pipefail
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add public/tierlist.png
-        git add scripts/steam_images/  # Update cached images if new games added
-        # Refreshed episode snapshot, card art, share cards and sitemap
-        git add public/episodes.json public/episode-art/ public/episode-share/ public/sitemap.xml
+
+        # -A so new episode art/share cards (untracked) and any removals are
+        # staged too, not just modifications to files git already knows about.
+        git add -A -- $GENERATED_PATHS
         git commit -m "🎮 Automated tier list update - $(date +'%Y-%m-%d %H:%M UTC')"
 
-        # Pull and rebase to handle any new commits that appeared on remote
-        git pull --rebase origin main
+        # Anything the pipeline wrote that isn't in GENERATED_PATHS would be
+        # left behind here. --autostash keeps that from aborting the rebase,
+        # but it still means the list needs updating, so say so loudly.
+        leftover="$(git status --porcelain)"
+        if [ -n "$leftover" ]; then
+          echo "::warning::Unstaged files left after commit — add them to GENERATED_PATHS:"
+          echo "$leftover"
+        fi
 
-        # Push with retry logic in case of race conditions
-        max_retries=3
-        retry_count=0
-        until git push || [ $retry_count -eq $max_retries ]; do
-          retry_count=$((retry_count + 1))
-          echo "Push failed, attempt $retry_count of $max_retries"
-          if [ $retry_count -lt $max_retries ]; then
-            sleep 2
-            git pull --rebase origin main
+        # Rebase onto whatever landed on main while this run was working.
+        # --autostash so a stray dirty file can never abort the push again.
+        git pull --rebase --autostash origin main
+
+        pushed=false
+        for attempt in 1 2 3; do
+          if git push origin HEAD:main; then
+            pushed=true
+            break
           fi
+          echo "Push failed (attempt $attempt of 3), rebasing and retrying"
+          sleep 2
+          git pull --rebase --autostash origin main
         done
 
-        if [ $retry_count -eq $max_retries ]; then
-          echo "Failed to push after $max_retries attempts"
+        if [ "$pushed" != "true" ]; then
+          echo "::error::Failed to push after 3 attempts"
           exit 1
         fi
-    
+
     - name: Build website
-      if: steps.check_changes.outputs.changed == 'true'
+      if: steps.check_changes.outputs.changed == 'true' || inputs.force_deploy
       run: |
         npm install
         npm run build
-    
+
     - name: Deploy to GitHub Pages
-      if: steps.check_changes.outputs.changed == 'true'
+      if: steps.check_changes.outputs.changed == 'true' || inputs.force_deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./build
     
+    # always(), so a run that dies partway through still explains itself in the
+    # summary instead of leaving a bare red X nobody notices until the next
+    # episode drops.
     - name: Create summary
+      if: always()
       run: |
         echo "## 🎮 Tier List Update Results" >> $GITHUB_STEP_SUMMARY
         echo "- **Timestamp:** $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
-        if [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
-          echo "- **Status:** ✅ Tier list updated and deployed successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- **Action:** New tier list generated, committed, and website deployed" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ job.status }}" != "success" ]; then
+          echo "- **Status:** ❌ Run failed — the tier list on the site is unchanged" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** Check the failed step above, then re-run this workflow" >> $GITHUB_STEP_SUMMARY
+          echo "  from the Actions tab (tick **force_deploy** if the files were" >> $GITHUB_STEP_SUMMARY
+          echo "  already committed but never deployed)." >> $GITHUB_STEP_SUMMARY
+        elif [ "${{ steps.check_changes.outputs.changed }}" = "true" ]; then
+          echo "- **Status:** ✅ Committed and deployed" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check_changes.outputs.tierlist_changed }}" = "true" ]; then
+            echo "- **Tier list image:** updated" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- **Tier list image:** unchanged (episode data refreshed only)" >> $GITHUB_STEP_SUMMARY
+          fi
+        elif [ "${{ inputs.force_deploy }}" = "true" ]; then
+          echo "- **Status:** ✅ Nothing changed, redeployed anyway (force_deploy)" >> $GITHUB_STEP_SUMMARY
         else
           echo "- **Status:** ℹ️ No changes needed" >> $GITHUB_STEP_SUMMARY
-          echo "- **Action:** Tier list is already up to date, no deployment needed" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action:** Tier list and episode data are already up to date" >> $GITHUB_STEP_SUMMARY
+          echo "  (if an episode just dropped, check it's on an \`X Tier:\` line" >> $GITHUB_STEP_SUMMARY
+          echo "  in the Google Doc — see the warning above, if any)." >> $GITHUB_STEP_SUMMARY
         fi
         echo "- **Manual trigger:** Available in Actions tab" >> $GITHUB_STEP_SUMMARY

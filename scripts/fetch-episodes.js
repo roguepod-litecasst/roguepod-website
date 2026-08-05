@@ -153,6 +153,18 @@ async function fetchAppleUrls() {
   }
 }
 
+const readJson = (file) => {
+  try {
+    return JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch {
+    return null;
+  }
+};
+
+/** Everything in the snapshot except the timestamp it was written at. */
+const sameEpisodes = (a, b) =>
+  JSON.stringify({ ...a, generatedAt: null }) === JSON.stringify({ ...b, generatedAt: null });
+
 async function main() {
   let xml;
   try {
@@ -238,7 +250,26 @@ async function main() {
     episodes: games.map(({ bonus, publishedMs, ...ep }) => ep),
   };
 
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(payload, null, 2));
+  /*
+   * Keep the previous timestamp when nothing else moved. Otherwise every
+   * `npm start` and every CI run rewrites this file, so `git status` can't be
+   * used to answer "did a new episode land?" — the deploy check in
+   * .github/workflows/update-tierlist.yml relies on that being a real signal,
+   * and a stale timestamp diff is what leaves an uncommitted episodes.json
+   * sitting in the working tree after local development.
+   */
+  const previous = readJson(OUTPUT_FILE);
+  if (previous && sameEpisodes(previous, payload)) {
+    payload.generatedAt = previous.generatedAt;
+  }
+
+  const serialised = JSON.stringify(payload, null, 2);
+  if (previous && serialised === JSON.stringify(previous, null, 2)) {
+    console.log(`Episode data unchanged (${games.length} game episodes)`);
+    return;
+  }
+
+  fs.writeFileSync(OUTPUT_FILE, serialised);
   console.log(
     `Fetched ${parsed.length} released items → ${games.length} game episodes ` +
       `(${parsed.length - games.length} bonus excluded), ` +

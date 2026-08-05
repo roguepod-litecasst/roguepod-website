@@ -1,4 +1,10 @@
-Pillow>=9.0.0
+# Pillow is pinned, not floated. The tier list PNG and the share card JPEGs are
+# committed to the repo, and the workflow decides whether to deploy by asking
+# whether those bytes changed. A different Pillow in CI than on the machine that
+# last generated them re-encodes every image identically-looking but
+# byte-different, which turns a quiet week into a full-image diff. Bump it
+# deliberately, then regenerate and commit the images in the same change.
+Pillow==11.2.1
 requests>=2.25.0
 google-api-python-client>=2.0.0
 google-auth>=2.0.0

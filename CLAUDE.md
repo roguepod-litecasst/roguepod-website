@@ -112,9 +112,12 @@ Both Python steps write images only; `fetch-episodes.js` picks them up by
 checking whether the file exists, so run it *after* them (the workflow runs it
 twice for exactly this reason).
 
-Freshness is tied to the tier list workflow: it refreshes episode data, and
-deploys only when `tierlist.png` actually changed. That's the same event as a
-new episode landing on the list, so the two stay aligned.
+Freshness is tied to the tier list workflow: it refreshes episode data and
+deploys when anything it generates changed — the tier list image, the episode
+snapshot, the card art, the share cards or the sitemap. The paths are listed
+once as `GENERATED_PATHS` at the top of the job; **anything new the pipeline
+writes has to be added there**, or it won't be committed and it can wedge the
+push (see the 2026-08-05 entry in `scripts/TIERLIST_AUTOMATION.md`).
 
 ### 1c. Prerendering (`scripts/prerender.js`)
 
