@@ -140,7 +140,13 @@ jobs:
           fi
           echo "Push failed (attempt $attempt of 3), rebasing and retrying"
           sleep 2
-          git pull --rebase --autostash origin main
+          # Non-fatal under `set -e`, so a failed rebase still reaches the
+          # explicit error below rather than exiting the step unexplained.
+          if ! git pull --rebase --autostash origin main; then
+            echo "Rebase onto origin/main failed"
+            git rebase --abort || true
+            break
+          fi
         done
 
         if [ "$pushed" != "true" ]; then
