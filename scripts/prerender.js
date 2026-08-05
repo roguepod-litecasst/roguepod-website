@@ -29,7 +29,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { readPosts } = require('./blog-posts');
+const { readPosts, renderBody } = require('./blog-posts');
 
 const BUILD_DIR = path.join(__dirname, '../build');
 const EPISODES_JSON = path.join(__dirname, '../public/episodes.json');
@@ -233,9 +233,6 @@ async function main() {
   // --- Blog ----------------------------------------------------------------
   const posts = readPosts();
   if (posts.length > 0) {
-    // marked is ESM-only, so it can't be required at the top of a CJS script.
-    const { marked } = await import('marked');
-
     const blogUrl = `${SITE_URL}/blog/`;
     const blogTitle = 'Blog | RoguePod LiteCast';
     const blogDescription =
@@ -312,7 +309,7 @@ async function main() {
           <p style="color:#878D97;">${escapeHtml(post.date)}${
             post.author ? ` · By ${escapeHtml(post.author)}` : ''
           }</p>
-          ${await marked(post.body)}
+          ${await renderBody(post)}
           <p><a style="color:#FF3B30;" href="/blog/">All articles</a></p>
         </div>`
       );

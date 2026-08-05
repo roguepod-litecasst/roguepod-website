@@ -26,15 +26,34 @@ const EPISODE = {
   blocks: [{ text: 'This week we play Everything is Crab.', list: false }],
 };
 
+const POST = {
+  slug: 'mewgenics-review',
+  title: 'Mewgenics Podcast Review',
+  date: '2026-03-04',
+  author: 'Danny',
+  excerpt: 'A quick review of Mewgenics.',
+  html: '<p>The cats are, in fact, genetic.</p>',
+};
+
 beforeEach(() => {
-  // The home page reads the build-time feed snapshot.
-  global.fetch = jest.fn().mockResolvedValue({
-    ok: true,
-    json: async () => ({
-      generatedAt: '2026-07-22T00:00:00.000Z',
-      episodeCount: 47,
-      episodes: [EPISODE],
-    }),
+  /*
+   * Everything the app loads at runtime is build-time JSON: the feed snapshot,
+   * the blog index, and one file per post. No markdown is fetched — the
+   * sources don't ship (scripts/blog-posts.js).
+   */
+  global.fetch = jest.fn().mockImplementation((url: string) => {
+    const body =
+      url === '/blog-index.json'
+        ? [{ slug: POST.slug, title: POST.title, date: POST.date, author: POST.author, excerpt: POST.excerpt }]
+        : url === `/blog/${POST.slug}.json`
+          ? POST
+          : {
+              generatedAt: '2026-07-22T00:00:00.000Z',
+              episodeCount: 47,
+              episodes: [EPISODE],
+            };
+
+    return Promise.resolve({ ok: true, json: async () => body });
   }) as unknown as typeof fetch;
 });
 
@@ -106,6 +125,28 @@ test('the episode index lists every episode', async () => {
   expect(await screen.findByRole('heading', { name: /All episodes/i })).toBeInTheDocument();
   // Count renders only once the snapshot has loaded.
   expect(await screen.findByText(/47 total/i)).toBeInTheDocument();
+});
+
+test('the blog list renders from the index alone', async () => {
+  renderAt('/blog');
+
+  expect(await screen.findByRole('heading', { name: POST.title })).toBeInTheDocument();
+  expect(screen.getByText(POST.excerpt)).toBeInTheDocument();
+
+  // One request, and never for a markdown source: the sources don't ship.
+  const requested = (global.fetch as jest.Mock).mock.calls.map((call) => call[0]);
+  expect(requested).toEqual(['/blog-index.json']);
+});
+
+test('a blog post renders the prebuilt HTML', async () => {
+  renderAt(`/blog/${POST.slug}`);
+
+  expect(await screen.findByRole('heading', { name: POST.title })).toBeInTheDocument();
+  expect(screen.getByText(/The cats are, in fact, genetic/i)).toBeInTheDocument();
+
+  const requested = (global.fetch as jest.Mock).mock.calls.map((call) => call[0]);
+  expect(requested).toEqual([`/blog/${POST.slug}.json`]);
+  expect(requested.some((url: string) => String(url).endsWith('.md'))).toBe(false);
 });
 
 /*

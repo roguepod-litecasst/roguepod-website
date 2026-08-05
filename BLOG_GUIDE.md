@@ -1,89 +1,93 @@
-# Blog Feature Guide
+# Blog Guide
 
-## Overview
-The RoguePod website now includes a blog feature where you can write posts about game releases, reviews, and podcast updates.
+Written companion articles for episodes. Linked from the footer, not the main
+nav — the blog exists mainly for search.
 
-## Adding a New Blog Post
+## Adding a post
 
-### 1. Create a Markdown File
-
-Create a new `.md` file in the `public/blog/` directory. Use a descriptive filename that matches your slug:
+Create one markdown file in **`content/blog/`** and that's the whole job. The
+build generates the index, the JSON the site loads, the sitemap entry and the
+prerendered page.
 
 ```
-public/blog/your-post-slug.md
+content/blog/your-post-slug.md
 ```
 
-### 2. Add Frontmatter
+`content/blog/POST_TEMPLATE.md` is a starting point. Copy it, don't edit it —
+the build skips it by name.
 
-Every blog post must start with YAML frontmatter containing metadata:
+### Frontmatter
+
+Every post starts with YAML frontmatter. All six fields are required:
 
 ```yaml
 ---
 title: "Your Post Title"
-date: "2025-12-04"
+date: "2026-08-05"
 author: "Danny & David"
-excerpt: "A brief summary of your post (1-2 sentences)"
+excerpt: "A brief summary, 1-2 sentences. This is the meta description and the blurb on /blog."
 slug: "your-post-slug"
+published: true
 ---
 ```
 
-### 3. Write Your Content
+- `slug` decides the URL: `roguepod.show/blog/your-post-slug/`. Keep it
+  matching the filename — lowercase, hyphens.
+- **`published: false` means the post doesn't exist** as far as the build is
+  concerned: no page, no sitemap entry, nothing served. That's how you park a
+  draft in the repo.
+- `date` is the publish date. It sets the initial `lastmod`; after that, edits
+  advance it automatically (see the sitemap section of `CLAUDE.md`).
 
-After the frontmatter, write your post content in Markdown:
+### Body
+
+Standard markdown. A leading `# H1` is stripped — the frontmatter `title`
+already supplies the page heading, so keeping one in the body is harmless.
+
+Images go in **`public/blog/`** and are referenced root-absolutely:
 
 ```markdown
-# Main Heading
-
-Your content here...
-
-## Subheading
-
-- Bullet points
-- Work great
-
-**Bold text** and *italic text* are supported.
-
-[Links work too](https://example.com)
+![Alt text that describes the screenshot](/blog/your-screenshot.png)
 ```
 
-### 4. Register the Post
+Root-absolute matters: pages live at `/blog/<slug>/`, so a relative path would
+resolve one directory too deep. The first image in a post becomes its social
+card; if a post has none, the site-wide share card is used.
 
-Open `src/components/BlogList.tsx` and add your new post filename to the `postFiles` array (around line 18):
+### Preview it
 
-```typescript
-const postFiles = [
-  'welcome-to-roguepod-blog',
-  'slay-the-spire-deep-dive',
-  'your-post-slug'  // Add your new post here
-];
+```bash
+npm start
 ```
 
-### 5. Test Locally
+Then `localhost:3000/blog` and `localhost:3000/blog/your-post-slug`.
 
-Run `npm start` and navigate to:
-- `http://localhost:3000/blog` - View all posts
-- `http://localhost:3000/blog/your-post-slug` - View your specific post
+## Why the markdown lives outside `public/`
 
-## URLs
+CRA copies `public/` verbatim into the deploy. While the sources sat there,
+every post was served twice — once as the real page, and once as raw
+`text/markdown` at `/blog/<slug>.md` — a duplicate document with no way to mark
+it non-canonical, since GitHub Pages can't set an `X-Robots-Tag` and a
+`robots.txt` Disallow would have blocked the fetch the page itself relied on.
 
-Once deployed, your blog will be available at:
-- `roguepod.show/blog` - Blog list
-- `roguepod.show/blog/your-post-slug` - Individual posts
-- `roguepod.show/#tierlist` - Tier list (unchanged)
+So `scripts/generate-blog-index.js` renders the markdown at build time into
+`public/blog/<slug>.json` and `public/blog-index.json`, and the app loads those.
+The markdown never ships. Images stay in `public/blog/` because they're meant to
+be fetched.
 
-## Markdown Features Supported
+**Don't move the sources back into `public/`,** and don't add a runtime fetch of
+anything that duplicates a page's text.
 
-- Headings (H1-H6)
-- Bold and italic text
-- Links
-- Lists (ordered and unordered)
-- Code blocks
-- Blockquotes
-- Images
+## What the build does with a post
 
-## Tips
+| Step | Output |
+|---|---|
+| `scripts/generate-blog-index.js` | `public/blog-index.json`, `public/blog/<slug>.json` |
+| `scripts/generate-sitemap.js` | a `/blog/<slug>/` entry with a real `lastmod` |
+| `scripts/prerender.js` | `build/blog/<slug>/index.html` — meta, OG tags, `BlogPosting` JSON-LD, and the article text for crawlers |
 
-- Use descriptive slugs (lowercase, hyphens instead of spaces)
-- Keep excerpts concise (1-2 sentences)
-- Posts are sorted by date automatically (newest first)
-- The slug in the frontmatter must match your filename (without .md)
+That last one is not optional. GitHub Pages returns a real HTTP **404** for any
+path with no file behind it, so a post that isn't prerendered is invisible to
+search regardless of what the sitemap claims.
+
+`scripts/validate-sitemap.js` fails the build if any of this goes wrong.

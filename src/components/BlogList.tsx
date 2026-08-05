@@ -2,39 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from './Icons';
 
+/*
+ * blog-index.json carries everything this page renders — written by
+ * scripts/generate-blog-index.js, already filtered to published posts and
+ * sorted newest first. It used to hold filenames only, so rendering a list of
+ * summaries meant downloading the full markdown of every post to read its
+ * frontmatter.
+ */
 interface BlogPostPreview {
   title: string;
   date: string;
   author: string;
   excerpt: string;
   slug: string;
-  published: boolean;
 }
-
-// Simple frontmatter parser for browser
-const parseFrontmatter = (markdown: string) => {
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-  const match = markdown.match(frontmatterRegex);
-
-  if (!match) {
-    return { data: {}, content: markdown };
-  }
-
-  const frontmatterText = match[1];
-  const content = match[2];
-
-  const data: Record<string, string> = {};
-  frontmatterText.split('\n').forEach(line => {
-    const colonIndex = line.indexOf(':');
-    if (colonIndex > -1) {
-      const key = line.substring(0, colonIndex).trim();
-      const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
-      data[key] = value;
-    }
-  });
-
-  return { data, content };
-};
 
 const BlogList: React.FC = () => {
   const [posts, setPosts] = useState<BlogPostPreview[]>([]);
@@ -45,34 +26,10 @@ const BlogList: React.FC = () => {
 
     const loadPosts = async () => {
       try {
-        // Fetch the auto-generated blog index
-        const indexResponse = await fetch('/blog-index.json');
-        const postFiles: string[] = await indexResponse.json();
+        const response = await fetch('/blog-index.json');
+        const index: BlogPostPreview[] = await response.json();
 
-        const postPromises = postFiles.map(async (filename) => {
-          const response = await fetch(`/blog/${filename}.md`);
-          const markdown = await response.text();
-          const { data } = parseFrontmatter(markdown);
-
-          return {
-            title: data.title,
-            date: data.date,
-            author: data.author,
-            excerpt: data.excerpt,
-            slug: data.slug,
-            published: data.published === 'true'
-          };
-        });
-
-        const loadedPosts = await Promise.all(postPromises);
-
-        // Filter to only show published posts
-        const publishedPosts = loadedPosts.filter(post => post.published);
-
-        // Sort by date, newest first
-        publishedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-        setPosts(publishedPosts);
+        setPosts(index);
       } catch (err) {
         console.error('Failed to load posts:', err);
       } finally {

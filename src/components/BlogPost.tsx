@@ -1,40 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { marked } from 'marked';
 
+/*
+ * Posts are fetched as pre-rendered JSON, written by
+ * scripts/generate-blog-index.js. The markdown sources deliberately never ship
+ * — see scripts/blog-posts.js — so there's no frontmatter to parse and no
+ * markdown renderer in the bundle.
+ */
 interface BlogPostData {
   title: string;
   date: string;
   author: string;
   excerpt: string;
   slug: string;
-  content: string;
+  html: string;
 }
-
-// Simple frontmatter parser for browser
-const parseFrontmatter = (markdown: string) => {
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
-  const match = markdown.match(frontmatterRegex);
-
-  if (!match) {
-    return { data: {}, content: markdown };
-  }
-
-  const frontmatterText = match[1];
-  const content = match[2];
-
-  const data: Record<string, string> = {};
-  frontmatterText.split('\n').forEach(line => {
-    const colonIndex = line.indexOf(':');
-    if (colonIndex > -1) {
-      const key = line.substring(0, colonIndex).trim();
-      const value = line.substring(colonIndex + 1).trim().replace(/^["']|["']$/g, '');
-      data[key] = value;
-    }
-  });
-
-  return { data, content };
-};
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -48,35 +28,14 @@ const BlogPost: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        // Fetch the markdown file
-        const response = await fetch(`/blog/${slug}.md`);
+        const response = await fetch(`/blog/${slug}.json`);
         if (!response.ok) {
           throw new Error('Post not found');
         }
 
-        const markdown = await response.text();
-        const { data, content } = parseFrontmatter(markdown);
+        const data: BlogPostData = await response.json();
 
-        /*
-         * Posts tend to repeat their own title as an H1 at the top of the body,
-         * which renders twice because the frontmatter title is already the
-         * page's H1. Drop a leading H1 so the post only ever has one.
-         */
-        const body = content.replace(/^\s*#\s+.*(\r?\n)+/, '');
-
-        // Parse markdown to HTML
-        const htmlContent = await marked(body);
-
-        const postData = {
-          title: data.title,
-          date: data.date,
-          author: data.author,
-          excerpt: data.excerpt,
-          slug: data.slug,
-          content: htmlContent
-        };
-
-        setPost(postData);
+        setPost(data);
         document.title = `${data.title} | RoguePod LiteCast`;
 
         // Update meta description for this post
@@ -164,7 +123,7 @@ const BlogPost: React.FC = () => {
             prose-blockquote:border-l-2 prose-blockquote:border-signal prose-blockquote:text-bone-200 prose-blockquote:not-italic
             prose-img:border prose-img:border-ink-600
             prose-hr:border-ink-600"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </article>
     </div>
