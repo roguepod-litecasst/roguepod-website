@@ -24,9 +24,13 @@ The hosts evaluate games through a roguelite-specific lens: run variety, build d
 - Discord: https://discord.gg/EEwq9VGGKb
 - TikTok: https://www.tiktok.com/@roguepodlitecast
 
+## Episodes
+
+Every episode has its own page, listed at https://roguepod.show/episodes/
+
 ## Companion Articles
 
-Written reviews and companion articles for select episodes: https://roguepod.show/blog
+Written reviews and companion articles for select episodes: https://roguepod.show/blog/
 
 ## Contact
 

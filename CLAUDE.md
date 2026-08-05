@@ -122,14 +122,32 @@ push (see the 2026-08-05 entry in `scripts/TIERLIST_AUTOMATION.md`).
 ### 1c. Prerendering (`scripts/prerender.js`)
 
 Runs after the CRA build and writes `build/episodes/<slug>/index.html` for every
-episode, plus `build/episodes/index.html`.
+episode, `build/episodes/index.html`, `build/blog/<slug>/index.html` for every
+published post and `build/blog/index.html`.
 
 **Why it's mandatory, not an optimisation:** Reddit, Discord and search crawlers
 don't execute JavaScript. Without prerendering every episode URL returns the same
 `index.html`, so every episode shared on Reddit previews with an identical
 title, description and image. Each generated file carries its own `<title>`,
-meta description, Open Graph / Twitter tags, canonical URL, `PodcastEpisode`
-JSON-LD, and a static content block inside `#root` that React replaces on mount.
+meta description, Open Graph / Twitter tags, canonical URL, JSON-LD
+(`PodcastEpisode` / `BlogPosting`), and a static content block inside `#root`
+that React replaces on mount.
+
+For the blog the stakes are higher than a bad preview. GitHub Pages has no SPA
+rewrite: a path with no file behind it is served by `404.html` with a real HTTP
+**404**. The redirect script in there rescues browsers, but a crawler sees a 404
+and leaves. Until the blog was prerendered, `/blog` and every post were in the
+sitemap and returning 404 to everything that fetched them — so
+**a new route that isn't prerendered is not indexable, no matter what the
+sitemap says.**
+
+**URLs end in a trailing slash.** Pages serves a directory's `index.html` only
+at `/episodes/<slug>/` and 301s the bare path to it, and Google counts a
+redirecting sitemap URL as an error. So the slashed form is canonical
+everywhere: `prerender.js` writes it into `<link rel="canonical">`,
+`generate-sitemap.js` emits it, and `validate-sitemap.js` fails the build on
+any `<loc>` without it. React Router matches either form, so in-app `<Link>`s
+don't need it (there's a test pinning that).
 
 **`"homepage"` in package.json must stay `"/"`.** With `"."` CRA emits relative
 asset paths (`./static/...`), which resolve against `/episodes/<slug>/` and
@@ -137,8 +155,33 @@ asset paths (`./static/...`), which resolve against `/episodes/<slug>/` and
 404-redirect keeps the browser at `/` while `index.html` loads. `prerender.js`
 hard-fails the build if it detects relative asset paths.
 
-`scripts/generate-sitemap.js` builds `public/sitemap.xml` from the episode
-snapshot and blog index — it is no longer maintained by hand.
+### 1d. Sitemap (`scripts/generate-sitemap.js`, `validate-sitemap.js`)
+
+`generate-sitemap.js` builds `public/sitemap.xml` from the episode snapshot and
+the blog index — it is no longer maintained by hand. `scripts/blog-posts.js` is
+the one frontmatter reader it shares with `prerender.js`, so the two halves of
+the build can't disagree about which posts are published.
+
+`lastmod` comes from a fingerprint ledger, `scripts/sitemap-lastmod.json`, not
+from the publish date: publish dates never move, so an edited post or a
+corrected show note gave Google no reason to recrawl. The ledger stores a hash
+of what each page renders from; the date advances only when that hash changes.
+It's build state, so it lives outside `public/` (nothing should serve it) and
+is committed so CI and local builds agree — it's in `GENERATED_PATHS`. Delete
+it and every page gets re-seeded at its publish date, which is harmless.
+
+No `<priority>` or `<changefreq>` — Google ignores both. The homepage carries no
+`lastmod` at all; nothing in the build can honestly date the hero, the tier list
+image and the episode rail together, and a wrong `lastmod` teaches Google to
+distrust the field site-wide.
+
+`validate-sitemap.js` runs immediately after and **fails the build** on: a
+missing prolog or namespace, a `<url>` without a non-empty `<loc>`, a non-absolute
+or `www` or unslashed URL, duplicates, a malformed or future `lastmod`, a >10%
+drop in URL count against the last committed sitemap, or the vendored
+`scripts/sitemap-0.9.xsd` schema (when `xmllint` is installed — it is on CI, and
+its absence is a note, not a failure). Every deploy goes through `npm run build`,
+so nothing reaches the live site without passing.
 
 ### 2. The automated tier list (`scripts/`)
 

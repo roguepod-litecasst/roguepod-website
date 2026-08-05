@@ -107,3 +107,18 @@ test('the episode index lists every episode', async () => {
   // Count renders only once the snapshot has loaded.
   expect(await screen.findByText(/47 total/i)).toBeInTheDocument();
 });
+
+/*
+ * GitHub Pages only serves a prerendered page at its slashed path and 301s the
+ * bare one, so the sitemap and every canonical tag use the trailing-slash form
+ * (see scripts/generate-sitemap.js). That's only safe if the router still
+ * matches when someone lands on one of those URLs.
+ */
+test('routes match with a trailing slash, the form the sitemap publishes', async () => {
+  const { unmount } = renderAt(`/episodes/${EPISODE.slug}/`);
+  expect(await screen.findByRole('heading', { name: EPISODE.title })).toBeInTheDocument();
+  unmount();
+
+  renderAt('/episodes/');
+  expect(await screen.findByRole('heading', { name: /All episodes/i })).toBeInTheDocument();
+});

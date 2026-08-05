@@ -41,6 +41,7 @@ jobs:
         public/sitemap.xml
         public/brand
         scripts/steam_images
+        scripts/sitemap-lastmod.json
 
     steps:
     - name: Checkout repository
