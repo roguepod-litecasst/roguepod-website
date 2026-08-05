@@ -1,7 +1,27 @@
 {
-  "generatedAt": "2026-08-01T04:16:49.507Z",
-  "episodeCount": 47,
+  "generatedAt": "2026-08-05T13:51:56.378Z",
+  "episodeCount": 48,
   "episodes": [
+    {
+      "slug": "pathogenic",
+      "title": "Pathogenic",
+      "publishedAt": "Wed, 05 Aug 2026 09:00:00 GMT",
+      "number": 48,
+      "duration": "1h 38m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6a72180b28ead4902ce85eeb",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a72180b28ead4902ce85eeb",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a72180b28ead4902ce85eeb/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/pathogenic/id1774367401?i=1000780020720",
+      "art": "/episode-art/pathogenic.webp",
+      "share": "/episode-share/pathogenic.jpg",
+      "blurb": "A Podcast Review of Pathogenic: This week we play the new biological twin stick shooter Pathogenic and add it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Pathogenic: This week we play the new biological twin stick shooter Pathogenic and add it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "everything-is-crab",
       "title": "Everything is Crab",
