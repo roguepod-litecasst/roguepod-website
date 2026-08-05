@@ -40,6 +40,8 @@ jobs:
         public/episode-share
         public/sitemap.xml
         public/brand
+        public/blog
+        public/blog-index.json
         scripts/steam_images
         scripts/sitemap-lastmod.json
 
@@ -83,7 +85,10 @@ jobs:
         python scripts/export_share_cards.py
         # Re-run so newly exported art/cards are referenced in episodes.json.
         node scripts/fetch-episodes.js
-        # Regenerate here too, so the committed copy matches what gets deployed.
+        # Regenerate here too, so the committed copies match what gets deployed.
+        # Both run again inside `npm run build` below, but that's after the
+        # commit — anything they write there would ship without being committed.
+        node scripts/generate-blog-index.js
         node scripts/generate-sitemap.js
 
     - name: Check for changes
