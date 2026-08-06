@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   AppleIcon,
@@ -15,6 +15,23 @@ const Episode: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { feed, loading } = useEpisodes();
   const episode = feed.episodes.find((candidate) => candidate.slug === slug);
+
+  /*
+   * The Acast player is only embedded once someone asks for it, and that is
+   * load-bearing for search, not a performance nicety.
+   *
+   * The embed fetches the episode from phoenix.prod.ateam.acast.cloud, whose
+   * robots.txt is `User-agent: * / Disallow: /`. Googlebot obeys it, the fetch
+   * fails, and the player renders "The episode was not found or is
+   * unavailable." into the page. On a page whose only other unique text is a
+   * one-line blurb, that was enough for Google to classify every episode URL as
+   * a soft 404 and refuse to index it.
+   *
+   * Nothing on this domain can change Acast's robots.txt, so the fix is to not
+   * create the iframe for a client that never clicks. Everyone is served the
+   * same HTML — there's no user-agent sniffing here, so it isn't cloaking.
+   */
+  const [playerRequested, setPlayerRequested] = useState(false);
 
   useEffect(() => {
     if (!episode) return;
@@ -113,14 +130,39 @@ const Episode: React.FC = () => {
 
           {episode.embed && (
             <div className="mt-8 border border-ink-600 bg-ink-800 p-2 sm:p-3">
-              <iframe
-                src={episode.embed}
-                title={`Play ${episode.title}`}
-                width="100%"
-                height="190"
-                frameBorder="0"
-                className="w-full"
-              />
+              {playerRequested ? (
+                <iframe
+                  src={episode.embed}
+                  title={`Play ${episode.title}`}
+                  width="100%"
+                  height="190"
+                  frameBorder="0"
+                  allow="autoplay"
+                  className="w-full"
+                />
+              ) : (
+                /* Same 190px box as the iframe, so swapping them shifts nothing. */
+                <button
+                  type="button"
+                  onClick={() => setPlayerRequested(true)}
+                  aria-label={`Load the player for ${episode.title}`}
+                  className="group flex h-[190px] w-full items-center gap-4 bg-gradient-to-b from-ink-700 to-ink-800 px-4 text-left transition-colors hover:from-ink-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-signal-bright"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-signal transition-transform group-hover:scale-105 motion-reduce:transform-none">
+                    <svg viewBox="0 0 16 16" aria-hidden="true" className="ml-0.5 h-4 w-4 fill-white">
+                      <path d="M3 1.5v13l11-6.5z" />
+                    </svg>
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-display text-base font-semibold text-bone-50">
+                      Play this episode
+                    </span>
+                    <span className="mt-0.5 block text-sm text-bone-300">
+                      {episode.duration ? `${episode.duration} · ` : ''}Loads the Acast player
+                    </span>
+                  </span>
+                </button>
+              )}
             </div>
           )}
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -107,10 +108,26 @@ test('the episode page shows the player and a per-episode Apple link', async () 
     EPISODE.apple
   );
 
-  const player = document.querySelector('iframe');
-  expect(player).toHaveAttribute('src', EPISODE.embed);
-
   expect(screen.getByText(EPISODE.blurb)).toBeInTheDocument();
+});
+
+/*
+ * Googlebot doesn't click, and that's the point: the Acast embed fetches from a
+ * host whose robots.txt disallows all crawlers, so an iframe present on mount
+ * renders "The episode was not found or is unavailable" into the page and gets
+ * the URL classified as a soft 404. If this test ever goes green with the
+ * iframe on mount again, the episode pages have stopped being indexable.
+ */
+test('the Acast iframe is not created until someone asks for it', async () => {
+  renderAt('/episodes/everything-is-crab');
+
+  expect(await screen.findByRole('heading', { name: 'Everything is Crab' })).toBeInTheDocument();
+  expect(document.querySelector('iframe')).not.toBeInTheDocument();
+
+  const play = screen.getByRole('button', { name: /Load the player for Everything is Crab/i });
+  await userEvent.click(play);
+
+  expect(document.querySelector('iframe')).toHaveAttribute('src', EPISODE.embed);
 });
 
 test('an unknown episode slug renders a not-found state', async () => {
