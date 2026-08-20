@@ -1,7 +1,47 @@
 {
-  "generatedAt": "2026-08-05T13:51:56.378Z",
-  "episodeCount": 48,
+  "generatedAt": "2026-08-20T22:13:22.008Z",
+  "episodeCount": 50,
   "episodes": [
+    {
+      "slug": "dead-cells",
+      "title": "Dead Cells",
+      "publishedAt": "Thu, 20 Aug 2026 21:54:46 GMT",
+      "number": 49,
+      "duration": "1h 39m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6a8777a6c71d02aaba71fb56",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a8777a6c71d02aaba71fb56",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a8777a6c71d02aaba71fb56/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/dead-cells/id1774367401?i=1000784673156",
+      "art": "/episode-art/dead-cells.webp",
+      "share": "/episode-share/dead-cells.jpg",
+      "blurb": "A Podcast Review of Dead Cells: Sorry for the delay on this one, got some logistics mixed up and then nobody was in town to publish. This week we play one of the heavy hitters, the foundational action platformer Dead Cells and add it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Dead Cells: Sorry for the delay on this one, got some logistics mixed up and then nobody was in town to publish. This week we play one of the heavy hitters, the foundational action platformer Dead Cells and add it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
+    },
+    {
+      "slug": "notice-episode-delay",
+      "title": "Notice: Episode delay",
+      "publishedAt": "Wed, 19 Aug 2026 15:02:25 GMT",
+      "number": null,
+      "duration": "0m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6a85c5819cb9faa61a424a9c",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a85c5819cb9faa61a424a9c",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a85c5819cb9faa61a424a9c/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/notice-episode-delay/id1774367401?i=1000784368840",
+      "art": null,
+      "share": null,
+      "blurb": "A Podcast Review of Notice: Episode delay: Had a bit of a disconnect with our release for Dead Cells today and you can expect the standard episode release later this week Sorry about that!",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Notice: Episode delay: Had a bit of a disconnect with our release for Dead Cells today and you can expect the standard episode release later this week Sorry about that!",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "pathogenic",
       "title": "Pathogenic",
