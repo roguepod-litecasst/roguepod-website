@@ -96,6 +96,14 @@ episode list is snapshotted at build time instead:
   checks `<itunes:episodeType>` *and* a `Bonus:` title prefix, because at least
   one bonus episode is tagged `full` in the feed. If the fetch fails the
   existing snapshot is kept, so the build never breaks offline.
+
+  Items that shouldn't have a page at all — a housekeeping announcement like
+  "Notice: Episode delay", which reviews no game and is tagged `full` — go in
+  `EXCLUDED_SLUGS` in that script, keyed by the slug they'd otherwise get.
+  Bonus detection only drops an item from the game *count*; `EXCLUDED_SLUGS`
+  drops it from the snapshot, so it gets no card, no episode page and no
+  sitemap entry. Withhold a feed item there rather than unpublishing it in
+  Acast.
 - `scripts/export_episode_art.py` writes `public/episode-art/<slug>.webp` from
   the Steam capsules the tier list pipeline already caches, reusing
   `TierListGenerator._safe_filename` so naming stays in sync. Cards fall back

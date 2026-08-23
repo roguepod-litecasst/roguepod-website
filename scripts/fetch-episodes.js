@@ -107,6 +107,20 @@ const humanDuration = (raw) => {
 const isBonus = (episodeType, title) =>
   episodeType === 'bonus' || episodeType === 'trailer' || /^bonus\s*[:\-]/i.test(title);
 
+/**
+ * Feed items that shouldn't have a page on the site at all, keyed by the slug
+ * they'd otherwise get. Bonus detection above only demotes an item out of the
+ * game count; these are dropped outright.
+ *
+ * `notice-episode-delay` is a housekeeping announcement published 2026-08-19
+ * when an episode ran a day late. It's tagged `full` in the feed and isn't
+ * prefixed `Bonus:`, so nothing above catches it — but it reviews no game, has
+ * no capsule art and no tier, and an episode page for it is a thin page that
+ * Google reads as a soft 404. Add a slug here to withhold a feed item without
+ * having to unpublish it in Acast.
+ */
+const EXCLUDED_SLUGS = new Set(['notice-episode-delay']);
+
 const slugify = (title) =>
   title
     .toLowerCase()
@@ -239,6 +253,8 @@ async function main() {
     })
     // Scheduled-but-unreleased items shouldn't appear or be counted.
     .filter((ep) => !Number.isNaN(ep.publishedMs) && ep.publishedMs <= now)
+    // Items we've decided don't get a page (see EXCLUDED_SLUGS).
+    .filter((ep) => !EXCLUDED_SLUGS.has(ep.slug))
     .sort((a, b) => b.publishedMs - a.publishedMs);
 
   const games = parsed.filter((ep) => !ep.bonus);
@@ -272,7 +288,8 @@ async function main() {
   fs.writeFileSync(OUTPUT_FILE, serialised);
   console.log(
     `Fetched ${parsed.length} released items → ${games.length} game episodes ` +
-      `(${parsed.length - games.length} bonus excluded), ` +
+      `(${parsed.length - games.length} bonus excluded, ` +
+      `${EXCLUDED_SLUGS.size} slug withheld), ` +
       `${payload.episodes.filter((e) => e.apple).length} with Apple links`
   );
 }
