@@ -1,7 +1,31 @@
 {
-  "generatedAt": "2026-08-23T20:47:38.839Z",
-  "episodeCount": 49,
+  "generatedAt": "2026-09-02T13:17:25.815Z",
+  "episodeCount": 50,
   "episodes": [
+    {
+      "slug": "vampire-survivors",
+      "title": "Vampire Survivors",
+      "publishedAt": "Wed, 02 Sep 2026 09:00:00 GMT",
+      "number": 50,
+      "duration": "1h 33m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6a95ea20f8a2a79869b752fb",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6a95ea20f8a2a79869b752fb",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6a95ea20f8a2a79869b752fb/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/vampire-survivors/id1774367401?i=1000787387778",
+      "art": "/episode-art/vampire-survivors.webp",
+      "share": "/episode-share/vampire-survivors.jpg",
+      "blurb": "A Podcast Review of Vampire Survivors: This week we’re playing the game that spawned an entire subgenre (for better or for worse) Vampire Survivors, and adding it to the ultimate roguelite tier list",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Vampire Survivors: This week we’re playing the game that spawned an entire subgenre (for better or for worse) Vampire Survivors, and adding it to the ultimate roguelite tier list",
+          "list": false
+        },
+        {
+          "text": "The podcast/article that I referenced with Matteo Sapio, the chief strategy officer at Poncle - https://www.thegamebusiness.com/p/the-vampire-survivors-developer-is",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "dead-cells",
       "title": "Dead Cells",
