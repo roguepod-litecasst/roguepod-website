@@ -1,13 +1,32 @@
 name: Update Tier List
 
 on:
-  # Dual schedule to handle Pacific Daylight/Standard Time transitions
-  # Always runs at 2:02 AM Pacific time, adjusting for daylight savings
+  # Dual schedule to handle Pacific Daylight/Standard Time transitions, so the
+  # first attempt always lands at ~2:23 AM Pacific whatever the season.
+  #
+  # Two things about these times are deliberate:
+  #
+  #   * The minute is :23, not :02. Scheduled events are best-effort and queue
+  #     behind every other cron on the platform; the top of the hour is the
+  #     most congested slot there is. Every run this repo has ever had started
+  #     late — 35 minutes on a good week, 3h51m on 2026-06-17 — and on
+  #     2026-09-02 the trigger was dropped outright, with no run recorded.
+  #
+  #   * Each season has a second, later cron as a safety net for exactly that
+  #     dropped-trigger case. The job is idempotent — it commits and deploys
+  #     only when a file in GENERATED_PATHS actually changed — so on a week the
+  #     first attempt worked, the backup costs a couple of CI minutes and logs
+  #     "already up to date". The concurrency group on the job below keeps the
+  #     two from racing if the first one is merely running very late.
   schedule:
-    # PDT schedule (March-early November): 9:02 AM UTC = 2:02 AM PDT (UTC-7)
-    - cron: '2 9 * 3-10 3'
-    # PST schedule (early November-February): 10:02 AM UTC = 2:02 AM PST (UTC-8)
-    - cron: '2 10 * 11-12,1-2 3'
+    # PDT (March-early November): 9:23 AM UTC = 2:23 AM PDT (UTC-7)
+    - cron: '23 9 * 3-10 3'
+    # PDT backup, three hours later: 12:23 PM UTC = 5:23 AM PDT
+    - cron: '23 12 * 3-10 3'
+    # PST (early November-February): 10:23 AM UTC = 2:23 AM PST (UTC-8)
+    - cron: '23 10 * 11-12,1-2 3'
+    # PST backup, three hours later: 1:23 PM UTC = 5:23 AM PST
+    - cron: '23 13 * 11-12,1-2 3'
   
   # Allow manual triggering for testing
   workflow_dispatch:
@@ -26,6 +45,14 @@ on:
 jobs:
   update-tierlist:
     runs-on: ubuntu-latest
+
+    # The backup cron can collide with a first attempt that GitHub started
+    # hours late. Both runs would generate the same files and then race on the
+    # push, so the later one waits for the in-flight run to finish rather than
+    # running alongside it — by which point it finds nothing changed and exits.
+    concurrency:
+      group: update-tierlist
+      cancel-in-progress: false
 
     env:
       # Every path the pipeline writes, in one place. The change check and the
