@@ -7,6 +7,7 @@ import {
   PocketCastsIcon,
   RssIcon,
   SpotifyIcon,
+  YouTubeIcon,
 } from '../components/Icons';
 import { formatLongDate, isoDate, useEpisodes } from '../data/episodes';
 import { SITE } from '../data/site';
@@ -70,6 +71,8 @@ const Episode: React.FC = () => {
    * iTunes lookup at build time. Spotify, Pocket Casts and Overcast have no
    * unauthenticated way to resolve an episode URL, so they're listed
    * separately as show-level follow links rather than pretending to be exact.
+   * YouTube is show-level for a different reason: the video goes up after this
+   * page does, so a per-episode URL would be dead on the day it matters most.
    */
   const episodeLinks = [
     episode.apple && { href: episode.apple, label: 'Apple Podcasts', icon: <AppleIcon /> },
@@ -78,6 +81,7 @@ const Episode: React.FC = () => {
 
   const showLinks = [
     { href: SITE.spotify, label: 'Spotify', icon: <SpotifyIcon /> },
+    { href: SITE.youtubePodcast, label: 'YouTube', icon: <YouTubeIcon /> },
     { href: SITE.pocketCasts, label: 'Pocket Casts', icon: <PocketCastsIcon /> },
     { href: SITE.overcast, label: 'Overcast', icon: <OvercastIcon /> },
     { href: SITE.rss, label: 'RSS', icon: <RssIcon /> },

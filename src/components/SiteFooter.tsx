@@ -35,7 +35,9 @@ const SiteFooter: React.FC = () => (
             <ul className="mt-4 space-y-2.5">
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.spotify} target="_blank" rel="noopener noreferrer">Spotify</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.apple} target="_blank" rel="noopener noreferrer">Apple Podcasts</a></li>
+              <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.youtubePodcast} target="_blank" rel="noopener noreferrer">YouTube</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.pocketCasts} target="_blank" rel="noopener noreferrer">Pocket Casts</a></li>
+              <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.patreon} target="_blank" rel="noopener noreferrer">Patreon</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.overcast} target="_blank" rel="noopener noreferrer">Overcast</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.rss} target="_blank" rel="noopener noreferrer">RSS feed</a></li>
             </ul>

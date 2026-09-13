@@ -92,7 +92,8 @@ const Hero: React.FC<HeroProps> = ({ episodeCount }) => (
       </div>
 
       {/* Straight-to-the-show links, for people who just want to hit play.
-          Full width below the grid so all five fit on one line. */}
+          Full width below the grid, and the row wraps rather than scrolls —
+          it no longer fits on one line at every width. */}
       <div
         className="animate-rise mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-ink-600/70 pt-6"
         style={{ animationDelay: '240ms' }}

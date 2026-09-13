@@ -54,7 +54,7 @@ EYEBROW = "A ROGUELITE PODCAST"
 TAGLINE = ["The ultimate roguelite tier list,", "one episode at a time."]
 CADENCE = "New episode every other Wednesday"
 META = "Roguelite review podcast"
-PLATFORMS = ["Spotify", "Apple Podcasts", "Pocket Casts", "Overcast"]
+PLATFORMS = ["Spotify", "Apple Podcasts", "YouTube", "Pocket Casts"]
 
 WIDTH, HEIGHT = 1200, 630
 PAD = 54
@@ -252,7 +252,7 @@ def listen_row(card, x, y, width):
 
     # Shrink the row to fit rather than dropping a platform off the end. The
     # site-wide card gives this block ~50px less width than an episode card
-    # does, which is exactly enough to lose Overcast.
+    # does, which used to be exactly enough to lose the last pill.
     gap = 10
     for size, pad_x in ((19, 17), (18, 15), (17, 14), (16, 13)):
         pill_font = inter(size, "Medium")

@@ -3,6 +3,7 @@ import {
   AppleIcon,
   MailIcon,
   OvercastIcon,
+  PatreonIcon,
   PocketCastsIcon,
   RssIcon,
   SpotifyIcon,
@@ -36,6 +37,11 @@ export const SITE = {
   pocketCasts: 'https://pca.st/itunes/1774367401',
   overcast: 'https://overcast.fm/itunes1774367401',
   youtube: 'https://www.youtube.com/@RoguePodLiteCast',
+  // The show as a YouTube playlist, which is where full episodes live — the
+  // channel URL above is the socials link and carries clips as well. Episodes
+  // land here a little after they hit the audio feeds, so nothing links to a
+  // per-episode YouTube URL; the playlist is the whole offer.
+  youtubePodcast: 'https://www.youtube.com/playlist?list=PLFk9J0akrQME',
   tiktok: 'https://www.tiktok.com/@roguepodlitecast',
   survey: 'https://forms.gle/Wqiao5narTMChSFr5',
 };
@@ -48,12 +54,15 @@ export type PlatformLink = {
 
 /**
  * Podcast apps, shown in the hero so people can go straight to the show.
- * YouTube is deliberately not here — it doesn't carry full episodes.
+ * Patreon is in the row because the bonus episodes are audio you subscribe to
+ * like any other feed — it keeps its own block further down the page as well.
  */
 export const PLATFORMS: PlatformLink[] = [
   { href: SITE.spotify, label: 'Spotify', icon: <SpotifyIcon /> },
   { href: SITE.apple, label: 'Apple Podcasts', icon: <AppleIcon /> },
+  { href: SITE.youtubePodcast, label: 'YouTube', icon: <YouTubeIcon /> },
   { href: SITE.pocketCasts, label: 'Pocket Casts', icon: <PocketCastsIcon /> },
+  { href: SITE.patreon, label: 'Patreon', icon: <PatreonIcon /> },
   { href: SITE.overcast, label: 'Overcast', icon: <OvercastIcon /> },
   { href: SITE.rss, label: 'RSS', icon: <RssIcon /> },
 ];
@@ -61,6 +70,8 @@ export const PLATFORMS: PlatformLink[] = [
 /**
  * Secondary links in the community section. Discord and Patreon are absent —
  * they each get their own highlighted block rather than a tile in this row.
+ * The YouTube link here is the channel, not the episode playlist PLATFORMS
+ * points at: this row is where to follow the show, not where to hear it.
  */
 export const COMMUNITY: PlatformLink[] = [
   { href: SITE.youtube, label: 'YouTube', icon: <YouTubeIcon /> },
