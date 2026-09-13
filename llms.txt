@@ -17,11 +17,12 @@ The hosts evaluate games through a roguelite-specific lens: run variety, build d
 - Apple Podcasts: https://podcasts.apple.com/gb/podcast/roguepod-litecast/id1774367401
 - Spotify: https://open.spotify.com/show/0LGkjkg8uVVMg5y6slJiua
 - RSS Feed: https://feeds.acast.com/public/shows/roguepod-litecast
-- YouTube: https://www.youtube.com/@RoguePodLiteCast
+- YouTube: https://www.youtube.com/playlist?list=PLFk9J0akrQME
 
 ## Community
 
 - Discord: https://discord.gg/EEwq9VGGKb
+- YouTube channel: https://www.youtube.com/@RoguePodLiteCast
 - TikTok: https://www.tiktok.com/@roguepodlitecast
 
 ## Episodes
