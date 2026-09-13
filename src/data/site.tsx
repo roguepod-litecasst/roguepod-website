@@ -37,9 +37,9 @@ export const SITE = {
   pocketCasts: 'https://pca.st/itunes/1774367401',
   overcast: 'https://overcast.fm/itunes1774367401',
   youtube: 'https://www.youtube.com/@RoguePodLiteCast',
-  // The show as a YouTube playlist, which is where full episodes live — the
-  // channel URL above is the socials link and carries clips as well. Episodes
-  // land here a little after they hit the audio feeds, so nothing links to a
+  // The show as a YouTube playlist — the full episodes. The channel URL above
+  // is the follow/subscribe link; this is the listen link. Episodes land here
+  // a little after they hit the audio feeds, so nothing links to a
   // per-episode YouTube URL; the playlist is the whole offer.
   youtubePodcast: 'https://www.youtube.com/playlist?list=PLFk9J0akrQME',
   tiktok: 'https://www.tiktok.com/@roguepodlitecast',
@@ -71,7 +71,8 @@ export const PLATFORMS: PlatformLink[] = [
  * Secondary links in the community section. Discord and Patreon are absent —
  * they each get their own highlighted block rather than a tile in this row.
  * The YouTube link here is the channel, not the episode playlist PLATFORMS
- * points at: this row is where to follow the show, not where to hear it.
+ * points at: this row is where to follow the show, and Subscribe is a
+ * channel-level action.
  */
 export const COMMUNITY: PlatformLink[] = [
   { href: SITE.youtube, label: 'YouTube', icon: <YouTubeIcon /> },
