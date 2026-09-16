@@ -1,7 +1,27 @@
 {
-  "generatedAt": "2026-09-02T13:17:25.815Z",
-  "episodeCount": 50,
+  "generatedAt": "2026-09-16T13:34:33.309Z",
+  "episodeCount": 51,
   "episodes": [
+    {
+      "slug": "deep-rock-galactic-survivor",
+      "title": "Deep Rock Galactic: Survivor",
+      "publishedAt": "Wed, 16 Sep 2026 09:00:00 GMT",
+      "number": 51,
+      "duration": "1h 35m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6aa97c418a1508074d19d244",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6aa97c418a1508074d19d244",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6aa97c418a1508074d19d244/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/deep-rock-galactic-survivor/id1774367401?i=1000789997107",
+      "art": "/episode-art/deep-rock-galactic-survivor.webp",
+      "share": "/episode-share/deep-rock-galactic-survivor.jpg",
+      "blurb": "A Podcast Review of Deep Rock Galactic: Survivor: This week we’re continuing Survivors September with the mining spin-off Deep Rock Galactic: Survivor and adding it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Deep Rock Galactic: Survivor: This week we’re continuing Survivors September with the mining spin-off Deep Rock Galactic: Survivor and adding it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "vampire-survivors",
       "title": "Vampire Survivors",
