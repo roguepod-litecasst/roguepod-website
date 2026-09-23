@@ -149,7 +149,12 @@ test('the episode page links to its tier placement and neighbouring episodes', a
 test('the tier list page links every game to its episode', async () => {
   renderAt('/tier-list/');
 
-  expect(await screen.findByRole('heading', { name: /The roguelite tier list/i })).toBeInTheDocument();
+  expect(
+    await screen.findByRole('heading', {
+      level: 1,
+      name: "RoguePod LiteCast's Ultimate Roguelite Tier List",
+    })
+  ).toBeInTheDocument();
   const s = within(await screen.findByRole('region', { name: /Tier S/i }));
   expect(s.getByRole('link', { name: /Balatro/i })).toHaveAttribute('href', '/episodes/balatro/');
   const b = within(screen.getByRole('region', { name: /Tier B/i }));
@@ -158,12 +163,40 @@ test('the tier list page links every game to its episode', async () => {
     '/episodes/everything-is-crab/'
   );
 
-  // The PNG stays on the page as a supplement.
+  // The PNG lives on the home page only; this page is the HTML list.
   expect(
     Array.from(document.querySelectorAll('img')).some(
       (img) => img.getAttribute('src') === '/tierlist.png'
     )
-  ).toBe(true);
+  ).toBe(false);
+
+  const below = within(screen.getByRole('main'));
+  expect(below.getByRole('link', { name: /Roguelite vs Roguelike/i })).toHaveAttribute(
+    'href',
+    '/roguelite-vs-roguelike/'
+  );
+});
+
+test('the hero tier list button goes to the tier list page', async () => {
+  renderAt('/');
+
+  expect(screen.getByRole('link', { name: /See the tier list/i })).toHaveAttribute(
+    'href',
+    '/tier-list/'
+  );
+});
+
+test('roguelite vs roguelike is its own page, and the old anchor still reaches it', async () => {
+  const { unmount } = renderAt('/roguelite-vs-roguelike/');
+  expect(
+    screen.getByRole('heading', { level: 1, name: /isn.t \[insert game\] here a roguelike/i })
+  ).toBeInTheDocument();
+  unmount();
+
+  renderAt('/#roguelite-vs-roguelike');
+  expect(
+    await screen.findByRole('heading', { level: 1, name: /isn.t \[insert game\] here a roguelike/i })
+  ).toBeInTheDocument();
 });
 
 /*

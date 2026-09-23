@@ -8,6 +8,7 @@ import Episode from './pages/Episode';
 import Episodes from './pages/Episodes';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
+import RogueliteVsRoguelike from './pages/RogueliteVsRoguelike';
 import TierList from './pages/TierList';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -28,6 +29,7 @@ const App: React.FC = () => (
         <Route path="/episodes" element={<Episodes />} />
         <Route path="/episodes/:slug" element={<Episode />} />
         <Route path="/tier-list" element={<TierList />} />
+        <Route path="/roguelite-vs-roguelike" element={<RogueliteVsRoguelike />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="*" element={<NotFound />} />

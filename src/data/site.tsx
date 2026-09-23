@@ -27,6 +27,16 @@ export const SITE = {
   description:
     'RoguePod LiteCast is a roguelite and action roguelike review podcast! We cover the GOATs, ' +
     'new releases, and tiny games without much reach. New episodes every other Wednesday.',
+  // /tier-list/ intro, in the hosts' words.
+  tierListIntro: [
+    "Since October 2024 we've been playing a different roguelite or non-traditional roguelike " +
+      'game for two weeks, then discussing it on the podcast and adding it to this tier list.',
+    'We try to assess games at how good they are at embodying what we feel this genre should ' +
+      'represent: procedural-generation forward, engaging runs, and an interesting metagame to ' +
+      'keep people playing after the first win. We also of course incorporate how much fun we ' +
+      'had with the game.',
+    'Games are ordered within the tier and this list is updated after every new episode release.',
+  ],
   patreon: 'https://www.patreon.com/roguepod',
   discord: 'https://discord.gg/EEwq9VGGKb',
   rss: 'https://feeds.acast.com/public/shows/roguepod-litecast',

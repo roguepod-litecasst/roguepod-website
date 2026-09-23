@@ -164,6 +164,17 @@ function main() {
     urls.push({ loc, lastmod: lastmodFor(loc, source, TODAY) });
   }
 
+  // Static copy that lives in the page component, so the component source is
+  // what it renders from: any edit to it moves lastmod.
+  {
+    const loc = `${SITE_URL}/roguelite-vs-roguelike/`;
+    const source = fs.readFileSync(
+      path.join(__dirname, '../src/pages/RogueliteVsRoguelike.tsx'),
+      'utf8'
+    );
+    urls.push({ loc, lastmod: lastmodFor(loc, source, TODAY) });
+  }
+
   if (postUrls.length > 0) {
     urls.push({ loc: `${SITE_URL}/blog/`, lastmod: newestOf(postUrls) }, ...postUrls);
   }

@@ -11,7 +11,7 @@ const NAV: NavItem[] = [
   { label: 'Episodes', href: '/episodes/', route: true },
   { label: 'Tier List', href: '/tier-list/', route: true },
   { label: 'Contact', href: '/#contact' },
-  { label: 'Roguelite vs Roguelike', href: '/#roguelite-vs-roguelike' },
+  { label: 'Roguelite vs Roguelike', href: '/roguelite-vs-roguelike/', route: true },
 ];
 
 /**

@@ -19,7 +19,7 @@ React + TypeScript single-page app, Create React App build, Tailwind CSS.
 ### 1. The website (`src/`, `public/`)
 
 Routes: `/` (landing page), `/episodes`, `/episodes/:slug`, `/tier-list`,
-`/blog`, `/blog/:slug`. `src/App.tsx` is just the router and page chrome
+`/roguelite-vs-roguelike`, `/blog`, `/blog/:slug`. `src/App.tsx` is just the router and page chrome
 (`SiteHeader` / `SiteFooter`); the home page lives in `src/pages/Home.tsx` and
 composes four sections:
 
@@ -36,7 +36,10 @@ episode's Acast player, per-episode listen links, description, tier placement,
 the games ranked nearest it, previous/next episode links).
 `src/pages/TierList.tsx` is the tier list as HTML, every game linked to its
 episode; both render from `public/tiers.json`, which the tier list pipeline
-writes next to the PNG (section 2).
+writes next to the PNG (section 2). The PNG itself is only on the home page.
+`src/pages/RogueliteVsRoguelike.tsx` used to be the home page's last section;
+it's its own page so it can be indexed, and `Home.tsx` redirects the old
+`/#roguelite-vs-roguelike` anchor to it.
 These exist mainly so episodes can be linked from Reddit — see the prerender
 section below, without which they'd all share one link preview.
 
@@ -152,8 +155,9 @@ push (see the 2026-08-05 entry in `scripts/TIERLIST_AUTOMATION.md`).
 
 Runs after the CRA build and writes `build/index.html`,
 `build/episodes/<slug>/index.html` for every episode, `build/episodes/index.html`,
-`build/tier-list/index.html`, `build/blog/<slug>/index.html` for every published
-post and `build/blog/index.html`.
+`build/tier-list/index.html`, `build/roguelite-vs-roguelike/index.html`,
+`build/blog/<slug>/index.html` for every published post and
+`build/blog/index.html`.
 
 **Why it's mandatory, not an optimisation:** Reddit, Discord and search crawlers
 don't execute JavaScript. Without prerendering every episode URL returns the same

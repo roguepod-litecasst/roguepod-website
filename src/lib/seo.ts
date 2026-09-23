@@ -30,7 +30,9 @@ export const episodeTitle = (game: string): string => {
 export const episodeDescription = (game: string, blurb: string): string =>
   blurb || `A Podcast Review of ${game}: Danny and David review ${game} and add it to the ultimate roguelite tier list.`;
 
-export const TIER_LIST_TITLE = 'Roguelite Tier List | RoguePod LiteCast Podcast';
+export const TIER_LIST_TITLE = "RoguePod LiteCast's Ultimate Roguelite Tier List";
+
+export const DEFINITIONS_TITLE = 'Roguelite vs Roguelike | RoguePod LiteCast Podcast';
 
 /** "1h 45m" -> "PT1H45M", the ISO 8601 form schema.org durations use. */
 export const isoDuration = (human: string): string => {

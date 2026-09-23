@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PLATFORMS, SITE } from '../data/site';
 import { jumpTo } from '../lib/scroll';
 import { ArrowIcon } from './Icons';
@@ -72,14 +73,13 @@ const Hero: React.FC<HeroProps> = ({ episodeCount }) => (
           className="animate-rise mt-9 flex flex-wrap items-center gap-3"
           style={{ animationDelay: '180ms' }}
         >
-          <a
-            href="#tierlist"
-            onClick={jumpTo('#tierlist')}
+          <Link
+            to="/tier-list/"
             className="group inline-flex items-center gap-2.5 bg-signal px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-signal-dim"
           >
             See the tier list
             <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
+          </Link>
           <a
             href="#episodes"
             onClick={jumpTo('#episodes')}

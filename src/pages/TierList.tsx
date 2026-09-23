@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import TierListImage from '../components/TierListImage';
+import { ArrowIcon } from '../components/Icons';
 import { episodePath, useEpisodes } from '../data/episodes';
 import { SITE } from '../data/site';
 import { tierColor, useTiers } from '../data/tiers';
 import { TIER_LIST_TITLE } from '../lib/seo';
 
 /**
- * The tier list as HTML, every game linked to its episode page. The PNG is a
- * picture of this list, which is readable to people and useless to crawlers:
- * this page is what gives search engines the tier list itself, and one more
- * internal link to every episode.
+ * The tier list as HTML, every game linked to its episode page. The PNG (on
+ * the home page) is a picture of this list, readable to people and useless to
+ * crawlers: this page is what gives search engines the tier list itself, and
+ * one more internal link to every episode.
  *
  * Built entirely from public/tiers.json, which the tier list workflow writes
  * alongside the PNG — nothing here is maintained by hand.
@@ -29,11 +29,12 @@ const TierList: React.FC = () => {
     <div className="mx-auto max-w-content px-5 pb-8 pt-32 sm:px-8 sm:pt-40">
       <header className="max-w-2xl">
         <p className="eyebrow">The tier list</p>
-        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">The roguelite tier list</h1>
-        <p className="mt-4 text-base leading-relaxed text-bone-200">
-          We assess games as how good we feel they are at a) being a roguelite and b) being fun.
-          Games are ordered within their tier, and the list is updated after every episode.
-        </p>
+        <h1 className="mt-3 text-3xl font-semibold sm:text-4xl">{TIER_LIST_TITLE}</h1>
+        <div className="mt-4 space-y-4 text-base leading-relaxed text-bone-200">
+          {SITE.tierListIntro.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
         {gameCount > 0 && (
           <p className="mt-3 font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400">
             {gameCount} games, best first
@@ -107,22 +108,18 @@ const TierList: React.FC = () => {
         </div>
       )}
 
-      <section className="mt-16">
-        <h2 className="text-2xl font-semibold sm:text-3xl">As an image</h2>
-        <p className="mt-3 text-base leading-relaxed text-bone-200">
-          The same list, the way we post it after every episode. Think we got one wrong?{' '}
-          <a
-            href={SITE.discord}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-signal-bright underline decoration-signal/40 underline-offset-4 transition-colors hover:decoration-signal"
-          >
-            Tell us in the Discord
-          </a>
-          .
+      <div className="mt-12 flex flex-col gap-4 border border-ink-600 bg-ink-800 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm leading-relaxed text-bone-200">
+          But isn&apos;t [insert game] here a roguelike not a roguelite?
         </p>
-        <TierListImage />
-      </section>
+        <Link
+          to="/roguelite-vs-roguelike/"
+          className="group inline-flex shrink-0 items-center gap-2.5 border border-ink-500 px-5 py-3 font-display text-sm font-semibold uppercase tracking-[0.08em] text-bone-100 transition-colors hover:border-bone-300 hover:text-bone-50"
+        >
+          Roguelite vs Roguelike
+          <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Link>
+      </div>
     </div>
   );
 };

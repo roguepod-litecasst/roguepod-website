@@ -1,6 +1,7 @@
 /**
  * Renders every route to a real HTML file after the CRA build: the home page,
- * /episodes/ and each episode, /tier-list/, /blog/ and each post.
+ * /episodes/ and each episode, /tier-list/, /roguelite-vs-roguelike/, /blog/
+ * and each post.
  *
  * Reddit, Discord, Slack and search crawlers don't run JavaScript, and Google
  * only runs it later, in a second pass it schedules by how valuable the page
@@ -300,7 +301,7 @@ async function main() {
         route: '/tier-list/',
         title: ssr.TIER_LIST_TITLE,
         description:
-          `The RoguePod LiteCast roguelite tier list: all ${placed.length} games we've ` +
+          `RoguePod LiteCast's ultimate roguelite tier list: all ${placed.length} games we've ` +
           'reviewed on the podcast, ranked S to F, each linked to its episode.',
         ogType: 'website',
         image: `${SITE_URL}/tierlist.png`,
@@ -311,7 +312,7 @@ async function main() {
           {
             '@context': 'https://schema.org',
             '@type': 'CollectionPage',
-            name: 'The roguelite tier list',
+            name: ssr.TIER_LIST_TITLE,
             url: tierUrl,
             isPartOf: SERIES,
             mainEntity: {
@@ -336,6 +337,36 @@ async function main() {
   } else {
     console.warn('⚠ No tier data (public/tiers.json) — skipping /tier-list/');
   }
+
+  // --- Roguelite vs roguelike ---------------------------------------------
+  // Static copy, no data to preload.
+  const definitionsUrl = `${SITE_URL}/roguelite-vs-roguelike/`;
+  write(
+    'roguelite-vs-roguelike',
+    page({
+      route: '/roguelite-vs-roguelike/',
+      title: ssr.DEFINITIONS_TITLE,
+      description:
+        'Roguelite or roguelike? How RoguePod LiteCast uses the terms, from traditional ' +
+        'roguelikes to metaprogression, and why the show calls all non-traditional ' +
+        'roguelikes roguelites.',
+      ogType: 'article',
+      preload: {},
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Roguelite vs Roguelike',
+          url: definitionsUrl,
+          isPartOf: { '@type': 'WebSite', name: 'RoguePod LiteCast', url: `${SITE_URL}/` },
+        },
+        breadcrumbs([
+          ['RoguePod LiteCast', `${SITE_URL}/`],
+          ['Roguelite vs Roguelike', definitionsUrl],
+        ]),
+      ],
+    })
+  );
 
   // --- Blog ----------------------------------------------------------------
   const posts = readPosts();
@@ -415,6 +446,7 @@ async function main() {
   console.log(
     `Prerendered home + ${episodes.length} episode pages + /episodes index` +
       (placed.length > 0 ? ' + /tier-list' : '') +
+      ' + /roguelite-vs-roguelike' +
       (posts.length > 0 ? ` + ${posts.length} blog posts + /blog index` : '')
   );
 }
