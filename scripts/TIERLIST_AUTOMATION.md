@@ -55,6 +55,13 @@ then either aborts the rebase or silently ships without it. The workflow prints 
    header images and caches them in `scripts/steam_images/` (game-name→appid cache
    in `steam_images/game_ids.json`). If no Steam image is found, it draws a text
    placeholder tile.
+7. **Write `tiers.json`** next to the image (`public/tiers.json` in CI): the same
+   placements as data — `{tiers: [{tier, games: [{name, slug}]}]}`, released
+   games only, in the doc's order. `slug` is the episode page's slug, derived from
+   the feed title with the same rule as `slugify()` in `fetch-episodes.js`. The
+   website renders `/tier-list/` and each episode's tier placement and "ranked
+   near" links from it, so no copy of the tier list is maintained by hand. It is
+   rewritten only when its content changes, and it's in `GENERATED_PATHS`.
 
 ## Troubleshooting checklist — "new episode released but tier list didn't update"
 

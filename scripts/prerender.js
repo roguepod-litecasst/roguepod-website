@@ -1,21 +1,28 @@
 /**
- * Stamps out a real HTML file per episode and per blog post after the CRA build.
+ * Renders every route to a real HTML file after the CRA build: the home page,
+ * /episodes/ and each episode, /tier-list/, /blog/ and each post.
  *
- * Reddit, Discord, Slack and search crawlers don't run JavaScript. Without this
- * every /episodes/<slug> URL would return the same index.html, so every episode
- * link would preview with the identical show-level title, description and
- * image — which is precisely what the episode pages exist to avoid.
+ * Reddit, Discord, Slack and search crawlers don't run JavaScript, and Google
+ * only runs it later, in a second pass it schedules by how valuable the page
+ * looks from its raw HTML. So the raw HTML has to be the page: its own <title>,
+ * meta description, Open Graph and Twitter tags, canonical URL and schema.org
+ * JSON-LD in the head, and the React app's own markup — header nav, content,
+ * links to other episodes, footer — in #root.
  *
- * For the blog it's worse than a bad preview. GitHub Pages has no SPA rewrite:
- * a path with no file behind it is served by 404.html, with a real HTTP 404.
- * The redirect script in there gets a browser to the right place, but a crawler
- * sees a 404 and leaves. Until these files existed, /blog and every post were
- * unindexable — in the sitemap, and returning 404 to everything that fetched
- * them.
+ * That markup comes from rendering the app itself (src/ssr.tsx, bundled by
+ * ssr-bundle.js) with the page's data preloaded, not from a hand-written copy.
+ * It used to be a hand-written copy: a few lines per page with no links to any
+ * other page, while the real links only existed after JavaScript ran. Google
+ * found almost every episode through the sitemap alone and left 53 of them
+ * "Discovered – currently not indexed".
  *
- * Each generated file carries its own <title>, meta description, Open Graph and
- * Twitter tags, canonical URL, schema.org JSON-LD, and a static content block
- * inside #root that React replaces on hydration.
+ * The same data is embedded as window.__ROGUEPOD_PRELOAD__ so the browser
+ * hydrates the markup rather than replacing it (see src/data/preload.tsx), and
+ * #root carries data-prerendered with the path it was rendered for.
+ *
+ * GitHub Pages has no SPA rewrite: a path with no file behind it is served by
+ * 404.html with a real HTTP 404, which a crawler takes at its word. A route
+ * that isn't rendered here is not indexable, whatever the sitemap says.
  *
  * Canonical URLs all end in a slash, because that's the only form Pages answers
  * 200 for — see the note in generate-sitemap.js, which has to agree with this
@@ -29,11 +36,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const { readPosts, renderBody } = require('./blog-posts');
+const { readPosts } = require('./blog-posts');
+const { loadSsr } = require('./ssr-bundle');
 
 const BUILD_DIR = path.join(__dirname, '../build');
-const EPISODES_JSON = path.join(__dirname, '../public/episodes.json');
 const SITE_URL = 'https://roguepod.show';
+const SERIES = { '@type': 'PodcastSeries', name: 'RoguePod LiteCast', url: `${SITE_URL}/` };
 const FALLBACK_IMAGE = `${SITE_URL}/cover-art.png`;
 
 const escapeHtml = (value = '') =>
@@ -54,6 +62,9 @@ const setMeta = (html, attr, name, content) => {
   );
 };
 
+const removeMeta = (html, attr, name) =>
+  html.replace(new RegExp(`<meta\\s+${attr}="${name}"\\s+content="[^"]*"\\s*/?>\\s*`, 'i'), '');
+
 const setTitle = (html, title) =>
   html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${escapeHtml(title)}</title>`);
 
@@ -63,24 +74,32 @@ const setCanonical = (html, url) =>
     `<link rel="canonical" href="${escapeHtml(url)}" />`
   );
 
-/**
- * Swap the crawler-visible placeholder inside #root. React replaces this on
- * mount, so it only ever renders for non-JS clients and crawlers.
- */
-const setRootContent = (html, content) =>
-  html.replace(
-    /(<div id="root">)[\s\S]*?(<\/div>\s*<\/body>)/i,
-    (_match, open, close) => `${open}${content}${close}`
-  );
-
 const stripJsonLd = (html) =>
   html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>\s*/gi, '');
+
+/** JSON inside a <script> must not be able to close it. */
+const scriptSafeJson = (data) =>
+  JSON.stringify(data)
+    .replace(/</g, '\\u003c')
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
 
 const addJsonLd = (html, data) =>
   html.replace(
     '</head>',
-    `  <script type="application/ld+json">\n${JSON.stringify(data, null, 2)}\n  </script>\n</head>`
+    `  <script type="application/ld+json">\n${scriptSafeJson(data)}\n  </script>\n</head>`
   );
+
+const breadcrumbs = (trail) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map(([name, url], index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name,
+    item: url,
+  })),
+});
 
 const write = (relativeDir, html) => {
   const dir = path.join(BUILD_DIR, relativeDir);
@@ -88,21 +107,23 @@ const write = (relativeDir, html) => {
   fs.writeFileSync(path.join(dir, 'index.html'), html);
 };
 
+/** Width and height from a PNG's IHDR chunk; the tier list grows as games are added. */
+const pngSize = (file) => {
+  const header = fs.readFileSync(file).subarray(16, 24);
+  return [header.readUInt32BE(0), header.readUInt32BE(4)];
+};
+
+const readBuildJson = (relative) =>
+  JSON.parse(fs.readFileSync(path.join(BUILD_DIR, relative), 'utf8'));
+
 async function main() {
   const template = path.join(BUILD_DIR, 'index.html');
   if (!fs.existsSync(template)) {
     console.error('No build/index.html — run the CRA build first');
     process.exit(1);
   }
-  if (!fs.existsSync(EPISODES_JSON)) {
-    console.warn('⚠ No public/episodes.json — skipping prerender');
-    return;
-  }
 
   const baseHtml = fs.readFileSync(template, 'utf8');
-  const { episodes = [], episodeCount = 0 } = JSON.parse(
-    fs.readFileSync(EPISODES_JSON, 'utf8')
-  );
 
   // Sanity-check the asset paths; relative ones would 404 from a nested page.
   if (/(?:src|href)="\.\/static\//.test(baseHtml)) {
@@ -112,230 +133,288 @@ async function main() {
     );
     process.exit(1);
   }
+  if (!baseHtml.includes('<div id="root"></div>')) {
+    console.error('build/index.html has no empty <div id="root"></div> to render into');
+    process.exit(1);
+  }
+
+  const ssr = loadSsr();
+  const feed = readBuildJson('episodes.json');
+  const tierList = fs.existsSync(path.join(BUILD_DIR, 'tiers.json'))
+    ? readBuildJson('tiers.json')
+    : { tiers: [] };
+  const { episodes = [], episodeCount = 0 } = feed;
+  const episodeData = { '/episodes.json': feed, '/tiers.json': tierList };
+
+  /**
+   * Render a route into the template's #root. Fails the build if the page
+   * came out as a loading skeleton or a not-found state — that means its data
+   * wasn't preloaded under the URL the component asks for, and the "static"
+   * page would be as empty as the ones this script exists to replace.
+   */
+  const renderRoot = (html, route, preload) => {
+    const markup = ssr.render(route, preload);
+    if (/animate-pulse|>(?:Episode|Article|Page) not found</.test(markup)) {
+      throw new Error(`${route} rendered a loading or not-found state — check its preload`);
+    }
+    return html.replace(
+      '<div id="root"></div>',
+      `<div id="root" data-prerendered="${escapeHtml(route)}">${markup}</div>` +
+        `<script>window.__ROGUEPOD_PRELOAD__=${scriptSafeJson(preload)}</script>`
+    );
+  };
+
+  /** A page's head: title, description, social tags, canonical and JSON-LD. */
+  const page = ({
+    route,
+    title,
+    description,
+    ogType,
+    image,
+    imageAlt,
+    imageSize,
+    jsonLd,
+    preload,
+  }) => {
+    const url = `${SITE_URL}${route}`;
+
+    let html = stripJsonLd(baseHtml);
+    html = setTitle(html, title);
+    html = setMeta(html, 'name', 'title', title);
+    html = setMeta(html, 'name', 'description', description);
+    html = setMeta(html, 'property', 'og:type', ogType);
+    html = setMeta(html, 'property', 'og:title', title);
+    html = setMeta(html, 'property', 'og:description', description);
+    html = setMeta(html, 'property', 'og:url', url);
+    html = setMeta(html, 'property', 'twitter:title', title);
+    html = setMeta(html, 'property', 'twitter:description', description);
+    html = setMeta(html, 'property', 'twitter:url', url);
+    // Without an image of its own, a page keeps the site-wide share card
+    // (and its alt text) from public/index.html.
+    if (image) {
+      html = setMeta(html, 'property', 'og:image', image);
+      // The template's 1200x630 describes the site share card; an image of
+      // unknown size (a blog screenshot) is better with no dimensions than wrong ones.
+      if (imageSize) {
+        html = setMeta(html, 'property', 'og:image:width', String(imageSize[0]));
+        html = setMeta(html, 'property', 'og:image:height', String(imageSize[1]));
+      } else {
+        html = removeMeta(html, 'property', 'og:image:width');
+        html = removeMeta(html, 'property', 'og:image:height');
+      }
+      html = setMeta(html, 'property', 'twitter:card', 'summary_large_image');
+      html = setMeta(html, 'property', 'twitter:image', image);
+      html = setMeta(html, 'property', 'og:image:alt', imageAlt);
+      html = setMeta(html, 'name', 'twitter:image:alt', imageAlt);
+    }
+    html = setCanonical(html, url);
+    for (const data of jsonLd) html = addJsonLd(html, data);
+    return renderRoot(html, route, preload);
+  };
 
   // --- Episode index -------------------------------------------------------
-  const indexTitle = 'All episodes | RoguePod LiteCast';
-  const indexDescription =
-    `Every episode of RoguePod LiteCast — ${episodeCount} roguelites played, discussed, ` +
-    'and placed on the tier list by Danny and David.';
   const indexUrl = `${SITE_URL}/episodes/`;
-
-  let indexHtml = baseHtml;
-  indexHtml = stripJsonLd(indexHtml);
-  indexHtml = setTitle(indexHtml, indexTitle);
-  indexHtml = setMeta(indexHtml, 'name', 'title', indexTitle);
-  indexHtml = setMeta(indexHtml, 'name', 'description', indexDescription);
-  indexHtml = setMeta(indexHtml, 'property', 'og:type', 'website');
-  indexHtml = setMeta(indexHtml, 'property', 'og:title', indexTitle);
-  indexHtml = setMeta(indexHtml, 'property', 'og:description', indexDescription);
-  indexHtml = setMeta(indexHtml, 'property', 'og:url', indexUrl);
-  indexHtml = setMeta(indexHtml, 'property', 'twitter:title', indexTitle);
-  indexHtml = setMeta(indexHtml, 'property', 'twitter:description', indexDescription);
-  indexHtml = setMeta(indexHtml, 'property', 'twitter:url', indexUrl);
-  indexHtml = setCanonical(indexHtml, indexUrl);
-  indexHtml = setRootContent(
-    indexHtml,
-    `<div style="font-family: system-ui, sans-serif; padding: 2rem; background: #08090A; color: #E8EAED; min-height: 100vh;">
-      <h1 style="color:#fff;">All episodes</h1>
-      <p style="color:#B7BCC4;">${escapeHtml(indexDescription)}</p>
-      <ul>${episodes
-        .map(
-          (ep) =>
-            `<li><a style="color:#FF3B30;" href="/episodes/${escapeHtml(ep.slug)}/">${escapeHtml(
-              ep.title
-            )}</a></li>`
-        )
-        .join('')}</ul>
-    </div>`
+  write(
+    'episodes',
+    page({
+      route: '/episodes/',
+      title: 'All episodes | RoguePod LiteCast',
+      description:
+        `Every episode of RoguePod LiteCast — ${episodeCount} roguelites played, discussed, ` +
+        'and placed on the tier list by Danny and David.',
+      ogType: 'website',
+      preload: episodeData,
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'All episodes',
+          url: indexUrl,
+          isPartOf: SERIES,
+        },
+      ],
+    })
   );
-  indexHtml = addJsonLd(indexHtml, {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: 'All episodes',
-    url: indexUrl,
-    isPartOf: { '@type': 'PodcastSeries', name: 'RoguePod LiteCast', url: SITE_URL },
-  });
-  write('episodes', indexHtml);
 
   // --- One page per episode ------------------------------------------------
   for (const episode of episodes) {
     const url = `${SITE_URL}/episodes/${episode.slug}/`;
-    const title = `${episode.title} | RoguePod LiteCast`;
-    const description =
-      episode.blurb ||
-      `Danny and David review ${episode.title} and add it to the ultimate roguelite tier list.`;
-    const image = episode.share ? `${SITE_URL}${episode.share}` : FALLBACK_IMAGE;
+    const description = ssr.episodeDescription(episode.title, episode.blurb);
+    const image = episode.share ? `${SITE_URL}${episode.share}` : null;
+    const duration = ssr.isoDuration(episode.duration || '');
 
-    let html = baseHtml;
-    html = stripJsonLd(html);
-    html = setTitle(html, title);
-    html = setMeta(html, 'name', 'title', title);
-    html = setMeta(html, 'name', 'description', description);
-    html = setMeta(html, 'property', 'og:type', 'article');
-    html = setMeta(html, 'property', 'og:title', `${episode.title} — RoguePod LiteCast`);
-    html = setMeta(html, 'property', 'og:description', description);
-    html = setMeta(html, 'property', 'og:url', url);
-    html = setMeta(html, 'property', 'og:image', image);
-    html = setMeta(html, 'property', 'og:image:width', '1200');
-    html = setMeta(html, 'property', 'og:image:height', '630');
-    html = setMeta(html, 'property', 'twitter:card', 'summary_large_image');
-    html = setMeta(html, 'property', 'twitter:title', `${episode.title} — RoguePod LiteCast`);
-    html = setMeta(html, 'property', 'twitter:description', description);
-    html = setMeta(html, 'property', 'twitter:url', url);
-    html = setMeta(html, 'property', 'twitter:image', image);
-    html = setCanonical(html, url);
-
-    const paragraphs = (episode.blocks || [])
-      .map((block) => `<p style="color:#B7BCC4;">${escapeHtml(block.text)}</p>`)
-      .join('');
-
-    html = setRootContent(
-      html,
-      `<div style="font-family: system-ui, sans-serif; padding: 2rem; background: #08090A; color: #E8EAED; min-height: 100vh;">
-        <p style="color:#FF3B30;">RoguePod LiteCast${
-          episode.number ? ` · Episode ${episode.number}` : ''
-        }</p>
-        <h1 style="color:#fff;">${escapeHtml(episode.title)}</h1>
-        <p style="color:#878D97;">${escapeHtml(episode.publishedAt)}${
-          episode.duration ? ` · ${escapeHtml(episode.duration)}` : ''
-        }</p>
-        ${paragraphs}
-        <p>${
-          episode.apple
-            ? `<a style="color:#FF3B30;" href="${escapeHtml(episode.apple)}">Apple Podcasts</a> · `
-            : ''
-        }<a style="color:#FF3B30;" href="${escapeHtml(episode.link)}">Acast</a> · <a style="color:#FF3B30;" href="${SITE_URL}/#tierlist">The tier list</a></p>
-      </div>`
+    write(
+      path.join('episodes', episode.slug),
+      page({
+        route: `/episodes/${episode.slug}/`,
+        title: ssr.episodeTitle(episode.title),
+        description,
+        ogType: 'article',
+        image,
+        imageAlt: `RoguePod LiteCast podcast review of ${episode.title}`,
+        imageSize: [1200, 630],
+        preload: episodeData,
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'PodcastEpisode',
+            name: episode.title,
+            url,
+            datePublished: new Date(episode.publishedAt).toISOString(),
+            description,
+            image: image || FALLBACK_IMAGE,
+            ...(episode.number ? { episodeNumber: episode.number } : {}),
+            ...(duration ? { timeRequired: duration } : {}),
+            ...(episode.audio
+              ? {
+                  associatedMedia: {
+                    '@type': 'MediaObject',
+                    contentUrl: episode.audio,
+                    encodingFormat: 'audio/mpeg',
+                    ...(duration ? { duration } : {}),
+                  },
+                }
+              : {}),
+            partOfSeries: SERIES,
+          },
+          breadcrumbs([
+            ['RoguePod LiteCast', `${SITE_URL}/`],
+            ['Episodes', indexUrl],
+            [episode.title, url],
+          ]),
+        ],
+      })
     );
+  }
 
-    html = addJsonLd(html, {
-      '@context': 'https://schema.org',
-      '@type': 'PodcastEpisode',
-      name: episode.title,
-      url,
-      datePublished: new Date(episode.publishedAt).toISOString(),
-      description,
-      image,
-      ...(episode.number ? { episodeNumber: episode.number } : {}),
-      associatedMedia: episode.audio
-        ? { '@type': 'MediaObject', contentUrl: episode.audio, encodingFormat: 'audio/mpeg' }
-        : undefined,
-      partOfSeries: {
-        '@type': 'PodcastSeries',
-        name: 'RoguePod LiteCast',
-        url: SITE_URL,
-      },
-    });
-
-    write(path.join('episodes', episode.slug), html);
+  // --- Tier list -------------------------------------------------------------
+  const bySlug = new Map(episodes.map((episode) => [episode.slug, episode]));
+  const placed = tierList.tiers.flatMap((row) =>
+    row.games.map((game) => ({ ...game, tier: row.tier, episode: bySlug.get(game.slug) }))
+  );
+  if (placed.length > 0) {
+    const tierUrl = `${SITE_URL}/tier-list/`;
+    write(
+      'tier-list',
+      page({
+        route: '/tier-list/',
+        title: ssr.TIER_LIST_TITLE,
+        description:
+          `The RoguePod LiteCast roguelite tier list: all ${placed.length} games we've ` +
+          'reviewed on the podcast, ranked S to F, each linked to its episode.',
+        ogType: 'website',
+        image: `${SITE_URL}/tierlist.png`,
+        imageAlt: 'The RoguePod LiteCast roguelite tier list, ranked S to F',
+        imageSize: pngSize(path.join(BUILD_DIR, 'tierlist.png')),
+        preload: episodeData,
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'The roguelite tier list',
+            url: tierUrl,
+            isPartOf: SERIES,
+            mainEntity: {
+              '@type': 'ItemList',
+              itemListOrder: 'https://schema.org/ItemListOrderAscending',
+              numberOfItems: placed.length,
+              itemListElement: placed.map((game, index) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                name: `${game.episode ? game.episode.title : game.name} (${game.tier} tier)`,
+                ...(game.episode ? { url: `${SITE_URL}/episodes/${game.episode.slug}/` } : {}),
+              })),
+            },
+          },
+          breadcrumbs([
+            ['RoguePod LiteCast', `${SITE_URL}/`],
+            ['Tier list', tierUrl],
+          ]),
+        ],
+      })
+    );
+  } else {
+    console.warn('⚠ No tier data (public/tiers.json) — skipping /tier-list/');
   }
 
   // --- Blog ----------------------------------------------------------------
   const posts = readPosts();
   if (posts.length > 0) {
     const blogUrl = `${SITE_URL}/blog/`;
-    const blogTitle = 'Blog | RoguePod LiteCast';
-    const blogDescription =
-      'Written reviews and companion articles from RoguePod LiteCast — Danny and ' +
-      'David on the roguelites they play for the show.';
-
-    let blogHtml = baseHtml;
-    blogHtml = stripJsonLd(blogHtml);
-    blogHtml = setTitle(blogHtml, blogTitle);
-    blogHtml = setMeta(blogHtml, 'name', 'title', blogTitle);
-    blogHtml = setMeta(blogHtml, 'name', 'description', blogDescription);
-    blogHtml = setMeta(blogHtml, 'property', 'og:type', 'website');
-    blogHtml = setMeta(blogHtml, 'property', 'og:title', blogTitle);
-    blogHtml = setMeta(blogHtml, 'property', 'og:description', blogDescription);
-    blogHtml = setMeta(blogHtml, 'property', 'og:url', blogUrl);
-    blogHtml = setMeta(blogHtml, 'property', 'twitter:title', blogTitle);
-    blogHtml = setMeta(blogHtml, 'property', 'twitter:description', blogDescription);
-    blogHtml = setMeta(blogHtml, 'property', 'twitter:url', blogUrl);
-    blogHtml = setCanonical(blogHtml, blogUrl);
-    blogHtml = setRootContent(
-      blogHtml,
-      `<div style="font-family: system-ui, sans-serif; padding: 2rem; background: #08090A; color: #E8EAED; min-height: 100vh;">
-        <h1 style="color:#fff;">Blog</h1>
-        <p style="color:#B7BCC4;">${escapeHtml(blogDescription)}</p>
-        <ul>${posts
-          .map(
-            (post) =>
-              `<li><a style="color:#FF3B30;" href="/blog/${escapeHtml(
-                post.slug
-              )}/">${escapeHtml(post.title)}</a></li>`
-          )
-          .join('')}</ul>
-      </div>`
+    write(
+      'blog',
+      page({
+        route: '/blog/',
+        title: 'Blog | RoguePod LiteCast',
+        description:
+          'Written reviews and companion articles from RoguePod LiteCast — Danny and ' +
+          'David on the roguelites they play for the show.',
+        ogType: 'website',
+        preload: { '/blog-index.json': readBuildJson('blog-index.json') },
+        jsonLd: [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            name: 'RoguePod LiteCast Blog',
+            url: blogUrl,
+            publisher: { '@type': 'Organization', name: 'RoguePod LiteCast', url: `${SITE_URL}/` },
+          },
+        ],
+      })
     );
-    blogHtml = addJsonLd(blogHtml, {
-      '@context': 'https://schema.org',
-      '@type': 'Blog',
-      name: 'RoguePod LiteCast Blog',
-      url: blogUrl,
-      publisher: { '@type': 'Organization', name: 'RoguePod LiteCast', url: SITE_URL },
-    });
-    write('blog', blogHtml);
 
     for (const post of posts) {
       const url = `${SITE_URL}/blog/${post.slug}/`;
-      const title = `${post.title} | RoguePod LiteCast`;
       const description = post.excerpt || post.title;
       // Posts reference their screenshots root-absolutely, so the first one
       // makes a better card than the generic share image.
       const firstImage = (post.body.match(/!\[[^\]]*\]\((\/[^)\s]+)\)/) || [])[1];
-      const image = firstImage ? `${SITE_URL}${firstImage}` : FALLBACK_IMAGE;
+      const image = firstImage ? `${SITE_URL}${firstImage}` : null;
 
-      let html = baseHtml;
-      html = stripJsonLd(html);
-      html = setTitle(html, title);
-      html = setMeta(html, 'name', 'title', title);
-      html = setMeta(html, 'name', 'description', description);
-      html = setMeta(html, 'property', 'og:type', 'article');
-      html = setMeta(html, 'property', 'og:title', `${post.title} — RoguePod LiteCast`);
-      html = setMeta(html, 'property', 'og:description', description);
-      html = setMeta(html, 'property', 'og:url', url);
-      html = setMeta(html, 'property', 'og:image', image);
-      html = setMeta(html, 'property', 'twitter:card', 'summary_large_image');
-      html = setMeta(html, 'property', 'twitter:title', `${post.title} — RoguePod LiteCast`);
-      html = setMeta(html, 'property', 'twitter:description', description);
-      html = setMeta(html, 'property', 'twitter:url', url);
-      html = setMeta(html, 'property', 'twitter:image', image);
-      html = setCanonical(html, url);
-
-      html = setRootContent(
-        html,
-        `<div style="font-family: system-ui, sans-serif; padding: 2rem; background: #08090A; color: #E8EAED; min-height: 100vh;">
-          <h1 style="color:#fff;">${escapeHtml(post.title)}</h1>
-          <p style="color:#878D97;">${escapeHtml(post.date)}${
-            post.author ? ` · By ${escapeHtml(post.author)}` : ''
-          }</p>
-          ${await renderBody(post)}
-          <p><a style="color:#FF3B30;" href="/blog/">All articles</a></p>
-        </div>`
+      write(
+        path.join('blog', post.slug),
+        page({
+          route: `/blog/${post.slug}/`,
+          title: `${post.title} | RoguePod LiteCast`,
+          description,
+          ogType: 'article',
+          image,
+          imageAlt: post.title,
+          preload: { [`/blog/${post.slug}.json`]: readBuildJson(`blog/${post.slug}.json`) },
+          jsonLd: [
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: post.title,
+              url,
+              mainEntityOfPage: url,
+              description,
+              image: image || FALLBACK_IMAGE,
+              ...(post.date && !Number.isNaN(new Date(post.date).getTime())
+                ? { datePublished: new Date(post.date).toISOString() }
+                : {}),
+              ...(post.author ? { author: { '@type': 'Person', name: post.author } } : {}),
+              publisher: {
+                '@type': 'Organization',
+                name: 'RoguePod LiteCast',
+                url: `${SITE_URL}/`,
+              },
+              isPartOf: { '@type': 'Blog', name: 'RoguePod LiteCast Blog', url: blogUrl },
+            },
+          ],
+        })
       );
-
-      html = addJsonLd(html, {
-        '@context': 'https://schema.org',
-        '@type': 'BlogPosting',
-        headline: post.title,
-        url,
-        mainEntityOfPage: url,
-        description,
-        image,
-        ...(post.date && !Number.isNaN(new Date(post.date).getTime())
-          ? { datePublished: new Date(post.date).toISOString() }
-          : {}),
-        ...(post.author ? { author: { '@type': 'Person', name: post.author } } : {}),
-        publisher: { '@type': 'Organization', name: 'RoguePod LiteCast', url: SITE_URL },
-        isPartOf: { '@type': 'Blog', name: 'RoguePod LiteCast Blog', url: blogUrl },
-      });
-
-      write(path.join('blog', post.slug), html);
     }
   }
 
+  // --- Home ----------------------------------------------------------------
+  // Last, because it overwrites the template everything above was built from.
+  // Its head (and the PodcastSeries JSON-LD) is public/index.html as written.
+  write('', renderRoot(baseHtml, '/', { '/episodes.json': feed }));
+
   console.log(
-    `Prerendered ${episodes.length} episode pages + /episodes index` +
+    `Prerendered home + ${episodes.length} episode pages + /episodes index` +
+      (placed.length > 0 ? ' + /tier-list' : '') +
       (posts.length > 0 ? ` + ${posts.length} blog posts + /blog index` : '')
   );
 }

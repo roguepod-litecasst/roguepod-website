@@ -26,7 +26,7 @@ const NotFound: React.FC = () => {
           Home
         </Link>
         <Link
-          to="/episodes"
+          to="/episodes/"
           className="inline-flex items-center border border-ink-500 px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-bone-100 transition-colors hover:border-bone-300 hover:text-bone-50"
         >
           All episodes

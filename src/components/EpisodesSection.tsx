@@ -18,7 +18,7 @@ const EpisodesSection: React.FC<EpisodesSectionProps> = ({ episodes, loading }) 
       </div>
 
       <Link
-        to="/episodes"
+        to="/episodes/"
         className="group inline-flex shrink-0 items-center gap-2 font-display text-sm font-semibold uppercase tracking-[0.08em] text-bone-100 transition-colors hover:text-signal-bright"
       >
         All episodes
@@ -40,7 +40,7 @@ const EpisodesSection: React.FC<EpisodesSectionProps> = ({ episodes, loading }) 
       </div>
     ) : (
       <p className="mt-8 text-bone-300">
-        Episode list unavailable right now — <Link className="font-medium text-signal-bright underline underline-offset-4" to="/episodes">browse all episodes</Link>.
+        Episode list unavailable right now — <Link className="font-medium text-signal-bright underline underline-offset-4" to="/episodes/">browse all episodes</Link>.
       </p>
     )}
   </section>

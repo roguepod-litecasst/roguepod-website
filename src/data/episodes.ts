@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useJson } from './preload';
 
 /** One paragraph of an episode description; `list` marks a bullet. */
 export type EpisodeBlock = {
@@ -39,48 +39,41 @@ const EMPTY: EpisodeFeed = { generatedAt: '', episodeCount: 0, episodes: [] };
 /**
  * Reads the build-time snapshot of the Acast feed written by
  * scripts/fetch-episodes.js. The feed itself sends no CORS headers, so this
- * cannot be fetched directly from the browser.
+ * cannot be fetched directly from the browser. Prerendered pages carry it
+ * preloaded (see ./preload).
  */
 export const useEpisodes = (): { feed: EpisodeFeed; loading: boolean } => {
-  const [feed, setFeed] = useState<EpisodeFeed>(EMPTY);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    fetch('/episodes.json')
-      .then((response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        return response.json();
-      })
-      .then((data: EpisodeFeed) => {
-        if (!cancelled) setFeed(data);
-      })
-      .catch(() => {
-        // Non-fatal: the sections that use this degrade to their static copy.
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  return { feed, loading };
+  const { data, loading } = useJson<EpisodeFeed>('/episodes.json');
+  return { feed: data ?? EMPTY, loading };
 };
 
+/*
+ * Dates are formatted in UTC. Pages are rendered once at build time and then
+ * hydrated in the visitor's browser, and the two must print the same day — in
+ * the visitor's own zone an episode out at 09:00 UTC reads as the day before
+ * anywhere west of UTC-9, and hydration would disagree with the static HTML.
+ * The UTC date is also simply the release date the feed publishes.
+ */
 export const formatDate = (value: string): string => {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
 };
 
 export const formatLongDate = (value: string): string => {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
 };
 
 export const isoDate = (value: string): string => {
@@ -88,4 +81,8 @@ export const isoDate = (value: string): string => {
   return Number.isNaN(date.getTime()) ? '' : date.toISOString();
 };
 
-export const episodePath = (slug: string): string => `/episodes/${slug}`;
+/**
+ * Slashed, because links are now in the static HTML crawlers read, and the
+ * slashed form is the one Pages answers 200 for (the bare path 301s).
+ */
+export const episodePath = (slug: string): string => `/episodes/${slug}/`;

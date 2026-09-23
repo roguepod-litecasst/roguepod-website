@@ -62,6 +62,7 @@ jobs:
       # exactly how the 2026-08-05 run lost the Pathogenic update.
       GENERATED_PATHS: >-
         public/tierlist.png
+        public/tiers.json
         public/episodes.json
         public/episode-art
         public/episode-share

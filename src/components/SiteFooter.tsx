@@ -48,12 +48,13 @@ const SiteFooter: React.FC = () => (
               More
             </h2>
             <ul className="mt-4 space-y-2.5">
-              <li><Link className="text-bone-200 transition-colors hover:text-signal-bright" to="/episodes">All episodes</Link></li>
+              <li><Link className="text-bone-200 transition-colors hover:text-signal-bright" to="/episodes/">All episodes</Link></li>
+              <li><Link className="text-bone-200 transition-colors hover:text-signal-bright" to="/tier-list/">Tier list</Link></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.patreon} target="_blank" rel="noopener noreferrer">Patreon</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.discord} target="_blank" rel="noopener noreferrer">Discord</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.tiktok} target="_blank" rel="noopener noreferrer">TikTok</a></li>
               <li><a className="text-bone-200 transition-colors hover:text-signal-bright" href={SITE.survey} target="_blank" rel="noopener noreferrer">Listener survey</a></li>
-              <li><Link className="text-bone-200 transition-colors hover:text-signal-bright" to="/blog">Articles</Link></li>
+              <li><Link className="text-bone-200 transition-colors hover:text-signal-bright" to="/blog/">Articles</Link></li>
             </ul>
           </div>
         </div>

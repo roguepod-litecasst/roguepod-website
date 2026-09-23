@@ -30,6 +30,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { readPosts } = require('./blog-posts');
+const { loadSsr } = require('./ssr-bundle');
 
 const PUBLIC_DIR = path.join(__dirname, '../public');
 const LEDGER_FILE = path.join(__dirname, 'sitemap-lastmod.json');
@@ -72,7 +73,11 @@ const urlEntry = ({ loc, lastmod }) =>
 
 function main() {
   const { episodes = [] } = readJson('episodes.json', {});
+  const tierList = readJson('tiers.json', { tiers: [] });
   const posts = readPosts();
+  // The app's own ranking helpers, so "ranked nearby" here is exactly what the
+  // page renders.
+  const { tierFor, nearbyOnTierList } = loadSsr();
 
   const ledger = (() => {
     try {
@@ -101,11 +106,17 @@ function main() {
     return lastmod;
   };
 
-  const episodeUrls = episodes.map((episode) => {
+  const episodeUrls = episodes.map((episode, index) => {
     const loc = `${SITE_URL}/episodes/${episode.slug}/`;
     // Everything the episode page renders. Art paths are included so a card
-    // gaining share art counts as a change.
+    // gaining share art counts as a change; so are the tier placement and the
+    // episodes it links to, so a new "next episode" link or a game moving
+    // tiers is a change too. Episodes are newest first.
     const source = {
+      tier: tierFor(tierList, episode.slug),
+      nearby: nearbyOnTierList(tierList, episode.slug),
+      previous: episodes[index + 1]?.slug ?? null,
+      next: episodes[index - 1]?.slug ?? null,
       title: episode.title,
       publishedAt: episode.publishedAt,
       number: episode.number,
@@ -141,6 +152,17 @@ function main() {
     { loc: `${SITE_URL}/episodes/`, lastmod: newestOf(episodeUrls) },
     ...episodeUrls,
   ];
+
+  // The HTML tier list. It renders from tiers.json plus each game's title and
+  // art, and has no publish date of its own, so a new entry starts today.
+  if (tierList.tiers.length > 0) {
+    const loc = `${SITE_URL}/tier-list/`;
+    const source = {
+      tiers: tierList.tiers,
+      episodes: episodes.map(({ slug, title, art }) => ({ slug, title, art })),
+    };
+    urls.push({ loc, lastmod: lastmodFor(loc, source, TODAY) });
+  }
 
   if (postUrls.length > 0) {
     urls.push({ loc: `${SITE_URL}/blog/`, lastmod: newestOf(postUrls) }, ...postUrls);

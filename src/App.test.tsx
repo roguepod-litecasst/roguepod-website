@@ -3,6 +3,7 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+import { PreloadProvider } from './data/preload';
 
 const renderAt = (path: string) =>
   render(
@@ -27,6 +28,33 @@ const EPISODE = {
   blocks: [{ text: 'This week we play Everything is Crab.', list: false }],
 };
 
+// An older episode, so the episode page has a neighbour to link to.
+const OLDER = {
+  ...EPISODE,
+  slug: 'balatro',
+  title: 'Balatro',
+  publishedAt: 'Wed, 25 Dec 2024 10:00:57 GMT',
+  number: 6,
+  apple: null,
+  art: null,
+  share: null,
+  blurb: 'A Podcast Review of Balatro: poker, but roguelite.',
+  blocks: [{ text: 'A Podcast Review of Balatro: poker, but roguelite.', list: false }],
+};
+
+const FEED = {
+  generatedAt: '2026-07-22T00:00:00.000Z',
+  episodeCount: 47,
+  episodes: [EPISODE, OLDER],
+};
+
+const TIERS = {
+  tiers: [
+    { tier: 'S', games: [{ name: 'Balatro', slug: 'balatro' }] },
+    { tier: 'B', games: [{ name: 'Everything is Crab', slug: 'everything-is-crab' }] },
+  ],
+};
+
 const POST = {
   slug: 'mewgenics-review',
   title: 'Mewgenics Podcast Review',
@@ -48,11 +76,9 @@ beforeEach(() => {
         ? [{ slug: POST.slug, title: POST.title, date: POST.date, author: POST.author, excerpt: POST.excerpt }]
         : url === `/blog/${POST.slug}.json`
           ? POST
-          : {
-              generatedAt: '2026-07-22T00:00:00.000Z',
-              episodeCount: 47,
-              episodes: [EPISODE],
-            };
+          : url === '/tiers.json'
+            ? TIERS
+            : FEED;
 
     return Promise.resolve({ ok: true, json: async () => body });
   }) as unknown as typeof fetch;
@@ -92,7 +118,73 @@ test('episode cards link to the on-site episode page, not off-site', async () =>
   renderAt('/');
 
   const card = await screen.findByRole('link', { name: /Everything is Crab/i });
-  expect(card).toHaveAttribute('href', '/episodes/everything-is-crab');
+  // Slashed: this link is in the static HTML crawlers follow, and the bare
+  // path 301s on GitHub Pages.
+  expect(card).toHaveAttribute('href', '/episodes/everything-is-crab/');
+});
+
+test('the episode page links to its tier placement and neighbouring episodes', async () => {
+  renderAt('/episodes/everything-is-crab/');
+
+  expect(await screen.findByText(/is in/)).toHaveTextContent(
+    'Everything is Crab is in B tier on our roguelite tier list.'
+  );
+  expect(screen.getByRole('link', { name: /The tier list/i })).toHaveAttribute(
+    'href',
+    '/tier-list/'
+  );
+
+  const more = within(screen.getByRole('navigation', { name: /More episodes/i }));
+  expect(more.getByRole('link', { name: /Previous episode.*Balatro/i })).toHaveAttribute(
+    'href',
+    '/episodes/balatro/'
+  );
+  // Newest episode: nothing to go forward to.
+  expect(more.queryByText(/Next episode/i)).not.toBeInTheDocument();
+
+  // Balatro is also the nearest game on the tier list.
+  expect(screen.getByRole('heading', { name: /Ranked near Everything is Crab/i })).toBeInTheDocument();
+});
+
+test('the tier list page links every game to its episode', async () => {
+  renderAt('/tier-list/');
+
+  expect(await screen.findByRole('heading', { name: /The roguelite tier list/i })).toBeInTheDocument();
+  const s = within(await screen.findByRole('region', { name: /Tier S/i }));
+  expect(s.getByRole('link', { name: /Balatro/i })).toHaveAttribute('href', '/episodes/balatro/');
+  const b = within(screen.getByRole('region', { name: /Tier B/i }));
+  expect(b.getByRole('link', { name: /Everything is Crab/i })).toHaveAttribute(
+    'href',
+    '/episodes/everything-is-crab/'
+  );
+
+  // The PNG stays on the page as a supplement.
+  expect(
+    Array.from(document.querySelectorAll('img')).some(
+      (img) => img.getAttribute('src') === '/tierlist.png'
+    )
+  ).toBe(true);
+});
+
+/*
+ * scripts/prerender.js renders each page with its data preloaded, and the
+ * browser hydrates that markup. The first render must therefore be the full
+ * page — a loading skeleton would mismatch the server HTML — and must not
+ * refetch what it was given.
+ */
+test('preloaded data renders on the first pass without fetching', () => {
+  render(
+    <PreloadProvider value={{ '/episodes.json': FEED, '/tiers.json': TIERS }}>
+      <MemoryRouter initialEntries={['/episodes/balatro/']}>
+        <App />
+      </MemoryRouter>
+    </PreloadProvider>
+  );
+
+  // Synchronous queries: no waiting for a fetch.
+  expect(screen.getByRole('heading', { name: 'Balatro' })).toBeInTheDocument();
+  expect(screen.getByText(/Balatro is in/)).toHaveTextContent('S tier');
+  expect(global.fetch).not.toHaveBeenCalled();
 });
 
 test('the episode page shows the player and a per-episode Apple link', async () => {

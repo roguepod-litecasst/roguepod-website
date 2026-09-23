@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useJson } from '../data/preload';
 
 /*
  * Posts are fetched as pre-rendered JSON, written by
@@ -18,44 +19,22 @@ interface BlogPostData {
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<BlogPostData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { data: post, loading } = useJson<BlogPostData>(`/blog/${slug}.json`);
 
   useEffect(() => {
-    const loadPost = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+    if (!post) return undefined;
+    document.title = `${post.title} | RoguePod LiteCast`;
 
-        const response = await fetch(`/blog/${slug}.json`);
-        if (!response.ok) {
-          throw new Error('Post not found');
-        }
-
-        const data: BlogPostData = await response.json();
-
-        setPost(data);
-        document.title = `${data.title} | RoguePod LiteCast`;
-
-        // Update meta description for this post
-        const metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc && data.excerpt) {
-          metaDesc.setAttribute('content', data.excerpt);
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load post');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPost();
+    // Update meta description for this post
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && post.excerpt) {
+      metaDesc.setAttribute('content', post.excerpt);
+    }
 
     return () => {
       document.title = 'RoguePod LiteCast';
     };
-  }, [slug]);
+  }, [post]);
 
   if (loading) {
     return (
@@ -70,13 +49,13 @@ const BlogPost: React.FC = () => {
     );
   }
 
-  if (error || !post) {
+  if (!post) {
     return (
       <div className="mx-auto max-w-3xl px-5 pt-32 text-center sm:px-8 sm:pt-40">
         <h1 className="text-3xl font-semibold">Article not found</h1>
         <p className="mt-4 text-bone-200">That article doesn&apos;t exist, or it moved.</p>
         <Link
-          to="/blog"
+          to="/blog/"
           className="mt-8 inline-flex items-center bg-signal px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-signal-dim"
         >
           All articles
@@ -88,7 +67,7 @@ const BlogPost: React.FC = () => {
   return (
     <div className="mx-auto max-w-3xl px-5 pb-8 pt-32 sm:px-8 sm:pt-40">
       <Link
-        to="/blog"
+        to="/blog/"
         className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400 transition-colors hover:text-signal-bright"
       >
         ← All articles
@@ -102,7 +81,8 @@ const BlogPost: React.FC = () => {
               {new Date(post.date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'long',
-                day: 'numeric'
+                day: 'numeric',
+                timeZone: 'UTC',
               })}
             </time>
             <span aria-hidden="true">·</span>

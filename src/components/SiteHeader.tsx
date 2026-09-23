@@ -8,8 +8,8 @@ type NavItem = { label: string; href: string; route?: boolean };
 
 /** `route: true` navigates to a page; the rest are in-page anchors. */
 const NAV: NavItem[] = [
-  { label: 'Episodes', href: '/episodes', route: true },
-  { label: 'Tier List', href: '/#tierlist' },
+  { label: 'Episodes', href: '/episodes/', route: true },
+  { label: 'Tier List', href: '/tier-list/', route: true },
   { label: 'Contact', href: '/#contact' },
   { label: 'Roguelite vs Roguelike', href: '/#roguelite-vs-roguelike' },
 ];

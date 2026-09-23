@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useJson } from '../data/preload';
 import { ArrowIcon } from './Icons';
 
 /*
@@ -18,26 +19,11 @@ interface BlogPostPreview {
 }
 
 const BlogList: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPostPreview[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data, loading } = useJson<BlogPostPreview[]>('/blog-index.json');
+  const posts = data ?? [];
 
   useEffect(() => {
     document.title = 'Articles | RoguePod LiteCast';
-
-    const loadPosts = async () => {
-      try {
-        const response = await fetch('/blog-index.json');
-        const index: BlogPostPreview[] = await response.json();
-
-        setPosts(index);
-      } catch (err) {
-        console.error('Failed to load posts:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPosts();
   }, []);
 
   return (
@@ -61,7 +47,7 @@ const BlogList: React.FC = () => {
         <div className="rule mt-12">
           {posts.map((post) => (
             <article key={post.slug} className="rule -mt-px">
-              <Link to={`/blog/${post.slug}`} className="group block py-8">
+              <Link to={`/blog/${post.slug}/`} className="group block py-8">
                 <time
                   dateTime={post.date}
                   className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400"
@@ -69,7 +55,8 @@ const BlogList: React.FC = () => {
                   {new Date(post.date).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
-                    day: 'numeric'
+                    day: 'numeric',
+                    timeZone: 'UTC',
                   })}
                 </time>
                 <h2 className="mt-3 font-display text-xl font-semibold text-bone-50 transition-colors group-hover:text-signal-bright sm:text-2xl">

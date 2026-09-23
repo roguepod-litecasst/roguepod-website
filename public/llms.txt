@@ -29,6 +29,8 @@ The hosts evaluate games through a roguelite-specific lens: run variety, build d
 
 Every episode has its own page, listed at https://roguepod.show/episodes/
 
+The full tier list, every game linked to its episode: https://roguepod.show/tier-list/
+
 ## Companion Articles
 
 Written reviews and companion articles for select episodes: https://roguepod.show/blog/

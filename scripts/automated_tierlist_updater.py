@@ -8,6 +8,8 @@ This script:
 3. Filters tier list to only include games with released episodes
 4. Generates updated tier list image using tier_list_generator.py
 5. Saves the result to public/tierlist.png for the website
+6. Writes the same placements to public/tiers.json, which the website renders
+   as the HTML tier list and the per-episode tier placement
 """
 
 import requests
@@ -150,6 +152,9 @@ class AutomatedTierListUpdater:
     def extract_game_names_from_episodes(self, episodes):
         """Extract game names from episode titles"""
         game_names = []
+        # Game name -> the feed title it came from, so tiers.json can link each
+        # placement to the episode page, whose slug is derived from that title.
+        self.episode_title_for_game = {}
 
         for episode in episodes:
             title = episode['title']
@@ -176,6 +181,7 @@ class AutomatedTierListUpdater:
 
             if cleaned_title:
                 game_names.append(cleaned_title)
+                self.episode_title_for_game.setdefault(cleaned_title, title)
                 self.vprint(f"  Episode: '{title}' -> Game: '{cleaned_title}' (Published: {pub_date})")
 
         print(f"Extracted {len(game_names)} game names from episodes")
@@ -370,6 +376,46 @@ class AutomatedTierListUpdater:
 
         return unplaced
     
+    @staticmethod
+    def episode_slug(title):
+        """Must match slugify() in scripts/fetch-episodes.js — it names the page."""
+        return re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
+
+    def write_tiers_json(self, filtered_tier_list, match_details, output_path):
+        """Write the placements behind the PNG as data the website can render.
+
+        The site builds its HTML tier list (/tier-list/) and each episode's tier
+        placement from this, so it deliberately carries exactly what the image
+        shows: released games only, in the doc's order within each tier.
+        Written only when the content changes, so the workflow's change check
+        stays a real signal.
+        """
+        episode_for_tier_game = {d['tier_game']: d['episode_title'] for d in match_details}
+        tiers = []
+        for tier in ['S', 'A', 'B', 'C', 'D', 'E', 'F']:
+            if tier not in filtered_tier_list:
+                continue
+            games = []
+            for game in filtered_tier_list[tier]:
+                feed_title = self.episode_title_for_game.get(episode_for_tier_game.get(game))
+                games.append({
+                    'name': game,
+                    'slug': self.episode_slug(feed_title) if feed_title else None,
+                })
+            tiers.append({'tier': tier, 'games': games})
+
+        serialised = json.dumps({'tiers': tiers}, indent=2, ensure_ascii=False) + '\n'
+        try:
+            with open(output_path, encoding='utf-8') as f:
+                if f.read() == serialised:
+                    print(f"Tier data unchanged ({output_path})")
+                    return
+        except FileNotFoundError:
+            pass
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(serialised)
+        print(f"✅ Tier data saved to {output_path}")
+
     def save_debug_info(self, released_games, match_details, output_dir="debug"):
         """Save debug information to files"""
         os.makedirs(output_dir, exist_ok=True)
@@ -435,10 +481,20 @@ class AutomatedTierListUpdater:
             self.generator.generate_tier_list(filtered_tier_list, output_path)
             
             print(f"✅ Tier list successfully saved to {output_path}")
-            return True
-            
         except Exception as e:
             print(f"❌ Error generating tier list: {e}")
+            return False
+
+        # Step 8: The same placements as data, next to the image.
+        try:
+            self.write_tiers_json(
+                filtered_tier_list,
+                match_details,
+                os.path.join(os.path.dirname(output_path) or '.', 'tiers.json'),
+            )
+            return True
+        except Exception as e:
+            print(f"❌ Error writing tier data: {e}")
             return False
 
 

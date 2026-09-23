@@ -1,0 +1,238 @@
+{
+  "tiers": [
+    {
+      "tier": "S",
+      "games": [
+        {
+          "name": "Slay the Spire",
+          "slug": "slay-the-spire"
+        },
+        {
+          "name": "Spelunky 2",
+          "slug": "spelunky-2"
+        },
+        {
+          "name": "Nuclear Throne",
+          "slug": "nuclear-throne"
+        },
+        {
+          "name": "Mewgenics",
+          "slug": "mewgenics"
+        },
+        {
+          "name": "Balatro",
+          "slug": "balatro"
+        }
+      ]
+    },
+    {
+      "tier": "A",
+      "games": [
+        {
+          "name": "Spelunky",
+          "slug": "spelunky-hd"
+        },
+        {
+          "name": "Into the Breach",
+          "slug": "into-the-breach"
+        },
+        {
+          "name": "The Binding of Isaac: Rebirth",
+          "slug": "the-binding-of-isaac-rebirth"
+        },
+        {
+          "name": "Slay the Spire 2",
+          "slug": "slay-the-spire-2"
+        },
+        {
+          "name": "Star of Providence",
+          "slug": "star-of-providence"
+        },
+        {
+          "name": "Crypt of the Necrodancer",
+          "slug": "crypt-of-the-necrodancer"
+        },
+        {
+          "name": "Downwell",
+          "slug": "downwell"
+        },
+        {
+          "name": "Shogun Showdown",
+          "slug": "shogun-showdown"
+        },
+        {
+          "name": "Pathogenic",
+          "slug": "pathogenic"
+        }
+      ]
+    },
+    {
+      "tier": "B",
+      "games": [
+        {
+          "name": "Luck be a Landlord",
+          "slug": "luck-be-a-landlord"
+        },
+        {
+          "name": "One Step From Eden",
+          "slug": "one-step-from-eden"
+        },
+        {
+          "name": "Enter The Gungeon",
+          "slug": "enter-the-gungeon"
+        },
+        {
+          "name": "Dead Cells",
+          "slug": "dead-cells"
+        },
+        {
+          "name": "Hades",
+          "slug": "hades"
+        },
+        {
+          "name": "Gambonanza",
+          "slug": "gambonanza"
+        },
+        {
+          "name": "We Who Are About To Die",
+          "slug": "we-who-are-about-to-die"
+        },
+        {
+          "name": "Tiny Rogues",
+          "slug": "tiny-rogues"
+        },
+        {
+          "name": "Everything is Crab",
+          "slug": "everything-is-crab"
+        },
+        {
+          "name": "Megabonk",
+          "slug": "megabonk"
+        },
+        {
+          "name": "Gnomes",
+          "slug": "gnomes"
+        },
+        {
+          "name": "Drop Duchy",
+          "slug": "drop-duchy"
+        },
+        {
+          "name": "Against the Storm",
+          "slug": "against-the-storm"
+        },
+        {
+          "name": "Noita",
+          "slug": "noita"
+        }
+      ]
+    },
+    {
+      "tier": "C",
+      "games": [
+        {
+          "name": "Brotato",
+          "slug": "brotato"
+        },
+        {
+          "name": "Coal LLC",
+          "slug": "coal-llc"
+        },
+        {
+          "name": "Barony",
+          "slug": "barony"
+        },
+        {
+          "name": "Inscryption",
+          "slug": "inscryption"
+        },
+        {
+          "name": "Risk of Rain Returns",
+          "slug": "risk-of-rain-returns"
+        },
+        {
+          "name": "Diceomancer",
+          "slug": "diceomancer"
+        },
+        {
+          "name": "Peglin",
+          "slug": "peglin"
+        },
+        {
+          "name": "CloverPit",
+          "slug": "cloverpit"
+        },
+        {
+          "name": "Backpack Hero",
+          "slug": "backpack-hero"
+        },
+        {
+          "name": "Returnal",
+          "slug": "returnal"
+        },
+        {
+          "name": "Curious Expedition",
+          "slug": "curious-expedition"
+        },
+        {
+          "name": "Deep Rock Galactic: Survivor",
+          "slug": "deep-rock-galactic-survivor"
+        }
+      ]
+    },
+    {
+      "tier": "D",
+      "games": [
+        {
+          "name": "Spiritfall",
+          "slug": "spiritfall"
+        },
+        {
+          "name": "Vampire Survivors",
+          "slug": "vampire-survivors"
+        },
+        {
+          "name": "Birdigo",
+          "slug": "birdigo"
+        },
+        {
+          "name": "Flocking Hell",
+          "slug": "flocking-hell"
+        },
+        {
+          "name": "Vampire Crawlers",
+          "slug": "vampire-crawlers-the-turbo-wildcard-from-vampire-survivors"
+        },
+        {
+          "name": "Fights in Tight Spaces",
+          "slug": "fights-in-tight-spaces"
+        },
+        {
+          "name": "ScourgeBringer",
+          "slug": "scourgebringer"
+        },
+        {
+          "name": "Heat Signature",
+          "slug": "heat-signature"
+        }
+      ]
+    },
+    {
+      "tier": "F",
+      "games": [
+        {
+          "name": "Loop Hero",
+          "slug": "loop-hero"
+        },
+        {
+          "name": "Rogue Legacy",
+          "slug": "rogue-legacy"
+        },
+        {
+          "name": "Minos",
+          "slug": "minos"
+        }
+      ]
+    }
+  ]
+}

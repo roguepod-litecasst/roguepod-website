@@ -9,13 +9,18 @@ import {
   SpotifyIcon,
   YouTubeIcon,
 } from '../components/Icons';
-import { formatLongDate, isoDate, useEpisodes } from '../data/episodes';
+import EpisodeCard from '../components/EpisodeCard';
+import { episodePath, formatLongDate, isoDate, useEpisodes } from '../data/episodes';
 import { SITE } from '../data/site';
+import { nearbyOnTierList, tierColor, tierFor, useTiers } from '../data/tiers';
+import { episodeTitle } from '../lib/seo';
 
 const Episode: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { feed, loading } = useEpisodes();
-  const episode = feed.episodes.find((candidate) => candidate.slug === slug);
+  const { tierList } = useTiers();
+  const index = feed.episodes.findIndex((candidate) => candidate.slug === slug);
+  const episode = index === -1 ? undefined : feed.episodes[index];
 
   /*
    * The Acast player is only embedded once someone asks for it, and that is
@@ -36,7 +41,7 @@ const Episode: React.FC = () => {
 
   useEffect(() => {
     if (!episode) return;
-    document.title = `${episode.title} | RoguePod LiteCast`;
+    document.title = episodeTitle(episode.title);
     const description = document.querySelector('meta[name="description"]');
     if (description && episode.blurb) description.setAttribute('content', episode.blurb);
   }, [episode]);
@@ -57,7 +62,7 @@ const Episode: React.FC = () => {
         <h1 className="text-3xl font-semibold">Episode not found</h1>
         <p className="mt-4 text-bone-200">That episode doesn&apos;t exist, or it moved.</p>
         <Link
-          to="/episodes"
+          to="/episodes/"
           className="mt-8 inline-flex items-center bg-signal px-6 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-signal-dim"
         >
           All episodes
@@ -79,6 +84,20 @@ const Episode: React.FC = () => {
     { href: episode.link, label: 'Acast', icon: <RssIcon /> },
   ].filter(Boolean) as { href: string; label: string; icon: React.ReactNode }[];
 
+  /*
+   * Links to other episodes, in the page itself rather than only in the index.
+   * Crawlers find pages by following links, and an episode page used to link
+   * to no other episode — the sitemap was Google's only route to most of them.
+   */
+  const bySlug = (candidate: string) => feed.episodes.find((e) => e.slug === candidate);
+  // The feed is newest first, so the previous episode is the next index along.
+  const previous = feed.episodes[index + 1];
+  const next = index > 0 ? feed.episodes[index - 1] : undefined;
+  const tier = tierFor(tierList, episode.slug);
+  const nearby = nearbyOnTierList(tierList, episode.slug)
+    .map(bySlug)
+    .filter((candidate): candidate is NonNullable<typeof candidate> => Boolean(candidate));
+
   const showLinks = [
     { href: SITE.spotify, label: 'Spotify', icon: <SpotifyIcon /> },
     { href: SITE.youtubePodcast, label: 'YouTube', icon: <YouTubeIcon /> },
@@ -90,7 +109,7 @@ const Episode: React.FC = () => {
   return (
     <div className="mx-auto max-w-content px-5 pb-8 pt-32 sm:px-8 sm:pt-40">
       <Link
-        to="/episodes"
+        to="/episodes/"
         className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400 transition-colors hover:text-signal-bright"
       >
         ← All episodes
@@ -240,11 +259,26 @@ const Episode: React.FC = () => {
           )}
 
           <div className="mt-10 flex flex-col gap-4 border border-ink-600 bg-ink-800 p-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm leading-relaxed text-bone-200">
-              See where {episode.title} landed against every other game on the show.
-            </p>
+            {tier ? (
+              <div className="flex items-center gap-4">
+                <span
+                  className={`${tierColor(tier)} flex h-12 w-12 shrink-0 items-center justify-center font-display text-2xl font-bold text-ink-900`}
+                  aria-hidden="true"
+                >
+                  {tier}
+                </span>
+                <p className="text-sm leading-relaxed text-bone-200">
+                  {episode.title} is in <strong className="text-bone-50">{tier} tier</strong> on
+                  our roguelite tier list.
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm leading-relaxed text-bone-200">
+                See where {episode.title} landed against every other game on the show.
+              </p>
+            )}
             <Link
-              to="/#tierlist"
+              to="/tier-list/"
               className="group inline-flex shrink-0 items-center gap-2.5 bg-signal px-5 py-3 font-display text-sm font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:bg-signal-dim"
             >
               The tier list
@@ -253,6 +287,49 @@ const Episode: React.FC = () => {
           </div>
         </div>
       </article>
+
+      {nearby.length > 0 && (
+        <section className="mt-16" aria-labelledby="ranked-nearby">
+          <h2 id="ranked-nearby" className="text-2xl font-semibold sm:text-3xl">
+            Ranked near {episode.title}
+          </h2>
+          <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            {nearby.map((candidate) => (
+              <EpisodeCard key={candidate.slug} episode={candidate} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {(previous || next) && (
+        <nav
+          aria-label="More episodes"
+          className="mt-16 grid gap-4 border-t border-ink-600 pt-8 sm:grid-cols-2"
+        >
+          {previous ? (
+            <Link to={episodePath(previous.slug)} className="group block">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400">
+                ← Previous episode
+              </span>
+              <span className="mt-2 block font-display text-lg font-semibold text-bone-50 transition-colors group-hover:text-signal-bright">
+                {previous.title}
+              </span>
+            </Link>
+          ) : (
+            <span />
+          )}
+          {next && (
+            <Link to={episodePath(next.slug)} className="group block sm:text-right">
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-bone-400">
+                Next episode →
+              </span>
+              <span className="mt-2 block font-display text-lg font-semibold text-bone-50 transition-colors group-hover:text-signal-bright">
+                {next.title}
+              </span>
+            </Link>
+          )}
+        </nav>
+      )}
     </div>
   );
 };

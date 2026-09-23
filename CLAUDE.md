@@ -18,25 +18,33 @@ React + TypeScript single-page app, Create React App build, Tailwind CSS.
 
 ### 1. The website (`src/`, `public/`)
 
-Routes: `/` (landing page), `/episodes`, `/episodes/:slug`, `/blog`,
-`/blog/:slug`. `src/App.tsx` is just the router and page chrome (`SiteHeader` /
-`SiteFooter`); the home page lives in `src/pages/Home.tsx` and composes four
-sections:
+Routes: `/` (landing page), `/episodes`, `/episodes/:slug`, `/tier-list`,
+`/blog`, `/blog/:slug`. `src/App.tsx` is just the router and page chrome
+(`SiteHeader` / `SiteFooter`); the home page lives in `src/pages/Home.tsx` and
+composes four sections:
 
 - `components/Hero.tsx` — glitch art band, wordmark, podcast-app links, stats.
 - `components/EpisodesSection.tsx` — latest six episode cards.
 - `components/TierListSection.tsx` — `/tierlist.png` with a click-to-expand
-  lightbox. Carries `id="tierlist"`, which is how the old `#tierlist` links
-  keep working (they now scroll to the section instead of swapping views).
+  lightbox (`components/TierListImage.tsx`, shared with `/tier-list/`).
+  Carries `id="tierlist"`, which is how the old `#tierlist` links keep working
+  (they now scroll to the section instead of swapping views).
 - `components/ListenSection.tsx` — Discord and Patreon blocks, socials.
 
 `src/pages/Episode.tsx` is the per-episode landing page (cover art, that
-episode's Acast player, per-episode listen links, description, tier list CTA).
+episode's Acast player, per-episode listen links, description, tier placement,
+the games ranked nearest it, previous/next episode links).
+`src/pages/TierList.tsx` is the tier list as HTML, every game linked to its
+episode; both render from `public/tiers.json`, which the tier list pipeline
+writes next to the PNG (section 2).
 These exist mainly so episodes can be linked from Reddit — see the prerender
 section below, without which they'd all share one link preview.
 
 Shared bits: `src/data/site.tsx` (all outbound URLs and standing copy — edit
 copy there, not in components), `src/data/episodes.ts` (feed snapshot hook),
+`src/data/tiers.ts` (tier data hook + ranking helpers), `src/data/preload.tsx`
+(`useJson`, the one way components load build-time JSON — see 1c),
+`src/lib/seo.ts` (title/description templates, shared with the prerender),
 `src/components/EpisodeCard.tsx`, `src/components/Icons.tsx`,
 `src/lib/scroll.ts` (in-page anchors jump instantly; `behavior: 'auto'` would
 defer to the CSS `scroll-behavior: smooth`, so it must be `'instant'`).
@@ -91,7 +99,7 @@ The Acast feed sends **no CORS headers**, so the browser cannot read it. The
 episode list is snapshotted at build time instead:
 
 - `scripts/fetch-episodes.js` runs on `npm start` / `npm run build` and writes
-  `public/episodes.json` (latest 12 episodes + a total count). Bonus episodes
+  `public/episodes.json` (every game episode + a total count). Bonus episodes
   are excluded from both — they're not reviews and get no tier. Detection
   checks `<itunes:episodeType>` *and* a `Bonus:` title prefix, because at least
   one bonus episode is tagged `full` in the feed. If the fetch fails the
@@ -142,17 +150,45 @@ push (see the 2026-08-05 entry in `scripts/TIERLIST_AUTOMATION.md`).
 
 ### 1c. Prerendering (`scripts/prerender.js`)
 
-Runs after the CRA build and writes `build/episodes/<slug>/index.html` for every
-episode, `build/episodes/index.html`, `build/blog/<slug>/index.html` for every
-published post and `build/blog/index.html`.
+Runs after the CRA build and writes `build/index.html`,
+`build/episodes/<slug>/index.html` for every episode, `build/episodes/index.html`,
+`build/tier-list/index.html`, `build/blog/<slug>/index.html` for every published
+post and `build/blog/index.html`.
 
 **Why it's mandatory, not an optimisation:** Reddit, Discord and search crawlers
 don't execute JavaScript. Without prerendering every episode URL returns the same
 `index.html`, so every episode shared on Reddit previews with an identical
 title, description and image. Each generated file carries its own `<title>`,
 meta description, Open Graph / Twitter tags, canonical URL, JSON-LD
-(`PodcastEpisode` / `BlogPosting`), and a static content block inside `#root`
-that React replaces on mount.
+(`PodcastEpisode` / `BlogPosting` / `BreadcrumbList`), and the page's real
+markup inside `#root`.
+
+**The markup is the React app itself, rendered at build time.**
+`scripts/ssr-bundle.js` bundles `src/ssr.tsx` for Node with esbuild; the
+prerender calls its `render(path, preload)` per route. So the static HTML has
+the header nav, footer and every internal link (home → latest episodes,
+`/episodes/` and `/tier-list/` → every episode, each episode → its neighbours
+and the games ranked near it). Before this it was a hand-written stub with no
+internal links, Google found the episodes only through the sitemap, and 53 sat
+at "Discovered – currently not indexed" (GSC, 2026-09-17).
+
+How the data gets there: components load build-time JSON only through
+`useJson(url)` (`src/data/preload.tsx`). The prerender passes each page's JSON
+keyed by that URL (`/episodes.json`, `/tiers.json`, `/blog-index.json`,
+`/blog/<slug>.json`), then embeds the same object as
+`window.__ROGUEPOD_PRELOAD__` and marks `#root` with `data-prerendered="<path>"`.
+`src/index.tsx` hydrates when that path matches the URL, and does a fresh render
+otherwise (the home page's `index.html` is also what `404.html` redirects
+unknown paths to). Rules that follow from it:
+
+- **A new route must be added to `prerender.js`**, with its JSON preloaded under
+  the exact URL its component fetches. The prerender fails the build if a page
+  renders a loading skeleton (`animate-pulse`) or a not-found heading.
+- **Render nothing that differs between build and browser.** Dates are
+  formatted with `timeZone: 'UTC'` for this reason; `window`/`document` belong in
+  effects, not render.
+- `public/index.html`'s `#root` stays empty and there's no `<noscript>`: the
+  old one put the same homepage text on every page.
 
 For the blog the stakes are higher than a bad preview. GitHub Pages has no SPA
 rewrite: a path with no file behind it is served by `404.html` with a real HTTP
@@ -167,8 +203,9 @@ at `/episodes/<slug>/` and 301s the bare path to it, and Google counts a
 redirecting sitemap URL as an error. So the slashed form is canonical
 everywhere: `prerender.js` writes it into `<link rel="canonical">`,
 `generate-sitemap.js` emits it, and `validate-sitemap.js` fails the build on
-any `<loc>` without it. React Router matches either form, so in-app `<Link>`s
-don't need it (there's a test pinning that).
+any `<loc>` without it. In-app `<Link>`s use it too (`episodePath()` etc.),
+since they're now in the static HTML crawlers follow. React Router matches
+either form (there's a test pinning that).
 
 **`"homepage"` in package.json must stay `"/"`.** With `"."` CRA emits relative
 asset paths (`./static/...`), which resolve against `/episodes/<slug>/` and
@@ -224,7 +261,10 @@ The tier list image at `public/tierlist.png` is generated automatically.
    API asset lookup for hashed URLs → composed tile from the horizontal
    header image). Images and name→appid lookups are cached in
    `scripts/steam_images/` (committed, so CI doesn't re-download).
-4. If the PNG changed, the workflow commits it, rebuilds, and deploys.
+4. It also writes `public/tiers.json` — the same placements as data, which the
+   site renders as `/tier-list/` and each episode's tier. Keep it next to the
+   PNG; its path is in `GENERATED_PATHS`.
+5. If the PNG changed, the workflow commits it, rebuilds, and deploys.
    "Tier list is already up to date" in the action log means the image was
    byte-identical — usually the game wasn't added to a tier line in the doc.
 
