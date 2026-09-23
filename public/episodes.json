@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T18:40:33.143Z",
+  "generatedAt": "2026-09-23T20:28:24.051Z",
   "episodeCount": 51,
   "episodes": [
     {
@@ -770,10 +770,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/downwell/id1774367401?i=1000705526775",
       "art": "/episode-art/downwell.webp",
       "share": "/episode-share/downwell.jpg",
-      "blurb": "A Podcast Review of Downwell: On this episode of RoguePod LiteCast we add the precision platformer Downwell to the tier list.",
+      "blurb": "A Podcast Review of Downwell: This week we cover the 2015 precision platformer Downwell and add it to the tier list. Don't make the mistake Danny made and start playing the story-driven adventure game 'Deepwell', you'll end up as confused as he was.",
       "blocks": [
         {
-          "text": "A Podcast Review of Downwell: On this episode of RoguePod LiteCast we add the precision platformer Downwell to the tier list.",
+          "text": "A Podcast Review of Downwell: This week we cover the 2015 precision platformer Downwell and add it to the tier list. Don't make the mistake Danny made and start playing the story-driven adventure game 'Deepwell', you'll end up as confused as he was.",
+          "list": false
+        },
+        {
+          "text": "On this episode we talk about the developer \"Moppin\" and how Downwell spawned out of his 'game a week' project. Moppin was obsessed with Spelunky and Downwell came from him wondering what a mobile phone game with similar gameplay would be. We definitely did not see the Spelunky inspiration at first but as we talked through it more we started getting it - the core gameplay is fundamentally different but there's some overlap in item sensibilities and the \"always be playing mentality\".",
+          "list": false
+        },
+        {
+          "text": "We've found on this show that we really love these arcade-style games and Downwell is one of the greats of that. You can hop in and immediately be in the action trying to maintain your combo. For how ultimately simple it is we didn't find the UI to be particularly intuitive and the game didn't connect until we started really understanding the combo system, but once it did it was an absolute joy to play. Danny runs some simulations to try to figure out when to take the \"apple\" item in a run and we marvel at how much fun we had for a game that cost $3.",
           "list": false
         }
       ]
@@ -790,10 +798,22 @@
       "apple": "https://podcasts.apple.com/us/podcast/into-the-breach/id1774367401?i=1000703717130",
       "art": "/episode-art/into-the-breach.webp",
       "share": "/episode-share/into-the-breach.jpg",
-      "blurb": "A Podcast Review of Into the Breach: On this episode of RoguePod LiteCast we add the tactics/puzzle classic Into the Breach to the tier list.",
+      "blurb": "A Podcast Review of Into the Breach: This week we add the 2018 foundational tactics game Into the Breach to the tier list. Is it a puzzle or a tactics game? Does that matter at all since the game slaps?",
       "blocks": [
         {
-          "text": "A Podcast Review of Into the Breach: On this episode of RoguePod LiteCast we add the tactics/puzzle classic Into the Breach to the tier list.",
+          "text": "A Podcast Review of Into the Breach: This week we add the 2018 foundational tactics game Into the Breach to the tier list. Is it a puzzle or a tactics game? Does that matter at all since the game slaps?",
+          "list": false
+        },
+        {
+          "text": "On this episode we talk through the legendary developers Subset Games. Particularly legendary in that they've only released this one and FTL, but that's enough! The same way that Slay the Spire laid the foundation for all roguelite deckbuilders, Into the Breach set the standard for all roguelite tactics games. It remains to this day maybe the best tactic roguelite out there, though 2026's Mewgenics might have some words.",
+          "list": false
+        },
+        {
+          "text": "We attempt to explain the enemy generation algorithm and discuss how impressive it is that, with a relatively limited set of rules, the developers were able to implement difficulty that pushes the edges of \"hard\" without crossing into \"unsolvable\". We also discuss the unique metagame system of allowing players to end a run earlier or later and just how good the game feels. Lots of discussion about whether the game belongs in S or A tier, either way it's a banger.",
+          "list": false
+        },
+        {
+          "text": "Link to the referenced doc from the developers about the enemy AI: https://docs.google.com/document/d/1OPRNzAVQNgPtP35HzhV2ZzEqE1eCdXbWA7lEZXDdMHQ/edit?tab=t.0",
           "list": false
         }
       ]
@@ -810,10 +830,22 @@
       "apple": "https://podcasts.apple.com/us/podcast/slay-the-spire/id1774367401?i=1000701873828",
       "art": "/episode-art/slay-the-spire.webp",
       "share": "/episode-share/slay-the-spire.jpg",
-      "blurb": "A Podcast Review of Slay the Spire: On this episode of RoguePod LiteCast we add the genre defining deckbuilder roguelite Slay the Spire to the tier list.",
+      "blurb": "A Podcast Review of Slay the Spire: This week we cover one of the GOATs, the 2017 deck-builder godfather Slay the Spire! Is it the best roguelite ever made?",
       "blocks": [
         {
-          "text": "A Podcast Review of Slay the Spire: On this episode of RoguePod LiteCast we add the genre defining deckbuilder roguelite Slay the Spire to the tier list.",
+          "text": "A Podcast Review of Slay the Spire: This week we cover one of the GOATs, the 2017 deck-builder godfather Slay the Spire! Is it the best roguelite ever made?",
+          "list": false
+        },
+        {
+          "text": "Least surprising take: Slay the Spire is a banger! On this episode we go into our personal history with Slay the Spire and talk through the impressive lengths the developers went through to make sure the game was well-balanced. We talk a lot about deck-builders writ-large and how Slay the Spire really kicked off an entire subgenre of games modeled after it and for good reason. We try to work through the specific mechanics that make this game work so well while generally glazing how fun it is to play.",
+          "list": false
+        },
+        {
+          "text": "There is a very good case that Slay the Spire is the greatest roguelite of all time - I don't think anyone would bat an eye at that take. No ragebait here, we are fully on board with STS and it's one of both of our most played roguelites of all time. David has beat A20 with all (original) characters and Danny called it after one A20 heart win. Despite the hundreds of hours of playtime, neither of us think that we are particularly good at the game because we see folks who are legitimately great at it. That speaks to how much skill expression there is and how much room there is to master this game to the point where you can overcome the procedural generation and win-streak even at the highest difficulty.",
+          "list": false
+        },
+        {
+          "text": "What a game!",
           "list": false
         }
       ]
@@ -830,10 +862,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/peglin/id1774367401?i=1000699792329",
       "art": "/episode-art/peglin.webp",
       "share": "/episode-share/peglin.jpg",
-      "blurb": "A Podcast Review of Peglin: On this episode of RoguePod LiteCast we add the pachinko deckbuilder roguelite Peglin to the tier list.",
+      "blurb": "A Podcast Review of Peglin: This week we add the 2022 Pachinko deckbuilder roguelite Peglin to the tier list. Danny played this one while waiting in the hospital for his daughter to be born (while everyone was sleeping, it's okay!) - will that influence the tier list placement?",
       "blocks": [
         {
-          "text": "A Podcast Review of Peglin: On this episode of RoguePod LiteCast we add the pachinko deckbuilder roguelite Peglin to the tier list.",
+          "text": "A Podcast Review of Peglin: This week we add the 2022 Pachinko deckbuilder roguelite Peglin to the tier list. Danny played this one while waiting in the hospital for his daughter to be born (while everyone was sleeping, it's okay!) - will that influence the tier list placement?",
+          "list": false
+        },
+        {
+          "text": "On this episode we discuss our experience with Pachinko games and discuss the covid-fueled origins of Peglin, concieved in a 48-hour game jam where the event's theme was \"fall\". Peglin is one of the more well-known of the ever-growing Pachinko subgenre of roguelites, which we think traces back to 2020's Roundguard. Since this episode's recording we have Nubby's Number Factory, Peganomics, Pegfinity, Ballionaire, Pegfinity, the list goes on. What is it about Pachinko games that lends itself to roguelitification?",
+          "list": false
+        },
+        {
+          "text": "While we both enjoyed the casual nature of this game, there wasn't quite enough meat on the bone (read: run-to-run variance) to move this high up the tier list. It works well as a pretty casual pick up and play game but we both burned out on it pretty quick and weren't itching to keep going. David was supremely charmed by the \"world building and immersion\" (you can tell who's writing these show notes) but at the end of the day we just didn't feel motivated to keep at it.",
           "list": false
         }
       ]
@@ -850,10 +890,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/tiny-rogues/id1774367401?i=1000697835468",
       "art": "/episode-art/tiny-rogues.webp",
       "share": "/episode-share/tiny-rogues.jpg",
-      "blurb": "A Podcast Review of Tiny Rogues: On this episode of RoguePod LiteCast we add Tiny Rogues to the tier list.",
+      "blurb": "A Podcast Review of Tiny Rogues: This week we cover the 2022 (early access) bullet hell Tiny Rogues and add it to the tier list! What happens when Danny and David disagree on tier list placement?",
       "blocks": [
         {
-          "text": "A Podcast Review of Tiny Rogues: On this episode of RoguePod LiteCast we add Tiny Rogues to the tier list.",
+          "text": "A Podcast Review of Tiny Rogues: This week we cover the 2022 (early access) bullet hell Tiny Rogues and add it to the tier list! What happens when Danny and David disagree on tier list placement?",
+          "list": false
+        },
+        {
+          "text": "On this episode we go through the background that led to Tiny Rogues: the developer says he \"sucked at Gungeon and had a dire wish to level up in the game and get some stats like in Path of Exile and brute force through [his] way through the game without needing to dodge things\". Therein lies the whole thing Danny bumped on in this game - it presents itself as a bullet-hell but you can quickly get so overpowered that you never actually engage in the boss patterns or systems. Perhaps though that was user-error since he didn't understand the endgame difficulty system!",
+          "list": false
+        },
+        {
+          "text": "Tiny Rogues is a fantastic new entry to the roguelite canon - we've always felt that Diablo 2 is the GOAT in terms of loot and it's really fun to see that system ported in to a new roguelite. We realized while recording this episode that the early-access of it all makes it a bit hard to add to the tier list and we vowed to revisit the game when it gets a 1.0 release. That may also address a lot of the small quibbles with the game. Tiny Rogues didn't quite have the legs to get it into A tier but we'll see what it looks like in a few years!",
           "list": false
         }
       ]
@@ -870,10 +918,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/fights-in-tight-spaces/id1774367401?i=1000693955207",
       "art": "/episode-art/fights-in-tight-spaces.webp",
       "share": "/episode-share/fights-in-tight-spaces.jpg",
-      "blurb": "A Podcast Review of Fights in Tight Spaces: On this episode of RoguePod LiteCast we add Fights in Tight Spaces to the tier list.",
+      "blurb": "A Podcast Review of Fights in Tight Spaces: This week we cover the stylish 2020 turn-based-tactics deck-builder mashup Fights in Tight Spaces and add it to the tier list! How does Danny justify the tier list placement given the 20 hours he put into it before starting the podcast?",
       "blocks": [
         {
-          "text": "A Podcast Review of Fights in Tight Spaces: On this episode of RoguePod LiteCast we add Fights in Tight Spaces to the tier list.",
+          "text": "A Podcast Review of Fights in Tight Spaces: This week we cover the stylish 2020 turn-based-tactics deck-builder mashup Fights in Tight Spaces and add it to the tier list! How does Danny justify the tier list placement given the 20 hours he put into it before starting the podcast?",
+          "list": false
+        },
+        {
+          "text": "On this episode we kick off with overview of the developer, Ground Shatter games (\"Ground Shatter is the feeling of finding a Neo Geno MVS amidst the cranes and pushers of a sea-side arcade. If Ground Shatter was a caring, nurturing parent, it would be your mum. If it iwas an insult it would be 'your mum'...\") and then work through the interesting mechanics used in this deck-building tactics game. The deck-building components of FITS feel a bit at odds with the tactics; you need to always make sure that you have some movement abilities, but you have virtually no draw/discard available so you just have to keep adding movement along with any fighting cards you put in there.",
+          "list": false
+        },
+        {
+          "text": "Most of the time we don't mind trying to juggle this sort of deck construction in a deck-builder but in FITS it ended up feeling a bit more frustrating than usual since the game is simultaneously a full-on tactics game. The marriage of these two genres felt a bit like it ended up detracting from both rather than leading to something greater than the sum of its parts. We also bumped on the lack of run-to-run variance: the early game especially feels very samey and is a bit of a slog to get through. Totally could see this working for some folks but didn't click with us.",
           "list": false
         }
       ]
@@ -890,10 +946,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/luck-be-a-landlord/id1774367401?i=1000689255025",
       "art": "/episode-art/luck-be-a-landlord.webp",
       "share": "/episode-share/luck-be-a-landlord.jpg",
-      "blurb": "A Podcast Review of Luck be a Landlord: On this episode of RoguePod LiteCast we add the slot machine capitalism simulator Luck be a Landlord to the tier list.",
+      "blurb": "A Podcast Review of Luck be a Landlord: This week we cover the 2021 Balatro-progenitor Luck be a Landlord! How should we put a super fun but small-scoped game on the tier list?",
       "blocks": [
         {
-          "text": "A Podcast Review of Luck be a Landlord: On this episode of RoguePod LiteCast we add the slot machine capitalism simulator Luck be a Landlord to the tier list.",
+          "text": "A Podcast Review of Luck be a Landlord: This week we cover the 2021 Balatro-progenitor Luck be a Landlord! How should we put a super fun but small-scoped game on the tier list?",
+          "list": false
+        },
+        {
+          "text": "On this episode we go through the communist sensibilities of the solo-developer and contrast the ostensibly serious themes with the goofy simple gameplay. We both got fully sucked in to Luck be a Landlord, racing to complete all the ascension-equivalents (apartment floors) and deciding to record this episode on a whim rather than playing video games. Really speaks to how much we were itching to talk about this! Playing LBAL really demonstrated to us that we have a soft-spot for these arcade-adjacent roguelites that are quick to get in and out of. The metagame maybe leaves a bit to be desired, but does a roguelite have to be a 100-hour experience? Can't it just be something short and sweet?",
+          "list": false
+        },
+        {
+          "text": "It was really neat seeing the systems that now define a whole genre of Balatro-likes at their inception, and even more neat to realize that the game underpinning these is legitimately fun to play. LBAL does synergies as well as any deck-builder and is impressively well designed in allowing for skill expression while staying true to the conceit of the game being a slot machine you spin. Little did we know at the time of this record that we'd see a wave of slot-machine roguelites in the future (Cloverpit, Slots & Daggers, Cat God Ranch, etc) - I think LBAL still did it best.",
           "list": false
         }
       ]
