@@ -102,6 +102,15 @@ jobs:
           python automated_tierlist_updater.py --verbose
         fi
     
+    # Before the refresh, not just before the build: generate-blog-index.js
+    # and generate-sitemap.js need gray-matter (and the sitemap needs esbuild,
+    # for the shared tier helpers). Installing only in the build step made both
+    # fail with "Cannot find module", silently under continue-on-error, so the
+    # committed sitemap and lastmod ledger stopped updating. `npm ci` because
+    # the lockfile is committed and this shouldn't rewrite it.
+    - name: Install Node dependencies
+      run: npm ci
+
     - name: Refresh episode data
       # Snapshots the RSS feed, then exports the card art and social share cards
       # from the Steam capsule cache the tier list step just updated. Never
@@ -190,9 +199,7 @@ jobs:
 
     - name: Build website
       if: steps.check_changes.outputs.changed == 'true' || inputs.force_deploy
-      run: |
-        npm install
-        npm run build
+      run: npm run build
 
     - name: Deploy to GitHub Pages
       if: steps.check_changes.outputs.changed == 'true' || inputs.force_deploy
