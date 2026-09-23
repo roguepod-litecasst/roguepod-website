@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T13:34:33.309Z",
+  "generatedAt": "2026-09-23T17:48:24.672Z",
   "episodeCount": 51,
   "episodes": [
     {
@@ -1018,10 +1018,14 @@
       "apple": "https://podcasts.apple.com/us/podcast/rogue-legacy/id1774367401?i=1000676780544",
       "art": "/episode-art/rogue-legacy.webp",
       "share": "/episode-share/rogue-legacy.jpg",
-      "blurb": "A Podcast Review of Rogue Legacy: This week we discuss the original \"rogue-vania,\" Rogue Legacy",
+      "blurb": "A Podcast Review of Rogue Legacy: On our third episode of the show we tackle the OG of all vertical metaprogression, 2013's Rogue Legacy! Should we put any respect on its name even though the gameplay didn't land with us?",
       "blocks": [
         {
-          "text": "A Podcast Review of Rogue Legacy: This week we discuss the original \"rogue-vania,\" Rogue Legacy",
+          "text": "A Podcast Review of Rogue Legacy: On our third episode of the show we tackle the OG of all vertical metaprogression, 2013's Rogue Legacy! Should we put any respect on its name even though the gameplay didn't land with us?",
+          "list": false
+        },
+        {
+          "text": "This episode we go through Cellar Door's previous flash games and their inspiration that led to Rogue Legacy. They originally sought to make a 2D version of dark souls but that scope got out of hand quick and pivoted to the roguelite elements. We really grapple in this episode with how much we dislike the vertical metaprogression instantiated in this game and resent how much it came to define the genre writ-large. We also bump hard on the game itself: the hitboxes feel unreliable, the movement is clunky, and the grind is real. We also reveal just how ignorant we are about metroidvanias (turns out really not either of our genres) and cringe at the 2013 newgrounds style humor that is omnipresent in the game. Our first big contrarian take is where Rogue Legacy ended up on the tier list but we stand by it!",
           "list": false
         }
       ]
@@ -1038,10 +1042,14 @@
       "apple": "https://podcasts.apple.com/us/podcast/we-who-are-about-to-die/id1774367401?i=1000674982575",
       "art": "/episode-art/we-who-are-about-to-die.webp",
       "share": "/episode-share/we-who-are-about-to-die.jpg",
-      "blurb": "A Podcast Review of We Who Are About to Die: This week we discuss the early access, phsyics-based gladiator roguelite We Who Are About To Die.",
+      "blurb": "A Podcast Review of We Who Are About to Die: On our second ever episode we cover the 2022 (early access) gladiator fighter We Who Are About To Die and start working through how to compromise on our tier list placement!",
       "blocks": [
         {
-          "text": "A Podcast Review of We Who Are About to Die: This week we discuss the early access, phsyics-based gladiator roguelite We Who Are About To Die.",
+          "text": "A Podcast Review of We Who Are About to Die: On our second ever episode we cover the 2022 (early access) gladiator fighter We Who Are About To Die and start working through how to compromise on our tier list placement!",
+          "list": false
+        },
+        {
+          "text": "We Who Are About To Die really connected with Danny but David had a bit harder time getting into it. On this episode we discuss the origins of the game (Mount & Blade mods) and our experience with physics-based fighters. We grapple with the balance between fights being super free and easy to snowball for experienced players vs being impossible for beginners and try to explain all of the different non-combat mechanics without just reading off lists. Overall we felt there was a really strong core gameplay loop but the run to run variance was a bit lacking - despite different win conditions for backgrounds, most runs start to blend together and feel a bit samey. We landed on the game being a great time to play through to get the first win but not quite enough to keep us motivated to keep playing afterwards.",
           "list": false
         }
       ]
@@ -1058,10 +1066,14 @@
       "apple": "https://podcasts.apple.com/us/podcast/crypt-of-the-necrodancer/id1774367401?i=1000673380015",
       "art": "/episode-art/crypt-of-the-necrodancer.webp",
       "share": "/episode-share/crypt-of-the-necrodancer.jpg",
-      "blurb": "A Podcast Review of Crypt of the NecroDancer: This week, we’re doing our best to stay on beat while we dance through the classic Crypt of the NecroDancer. [Disclaimer: we are aware that the audio is pretty mediocre in this episode, we promise it improves in subsequent episodes]",
+      "blurb": "A Podcast Review of Crypt of the NecroDancer: On this first episode of RoguePod LiteCast we cover the 2015 hit Crypt of the NecroDancer and start off our journey on building the ultimate roguelite tier list! Disclaimer: our audio was a bit rough in this episode - if it bumps on you wrong then just skip this one as we get better over time!",
       "blocks": [
         {
-          "text": "A Podcast Review of Crypt of the NecroDancer: This week, we’re doing our best to stay on beat while we dance through the classic Crypt of the NecroDancer. [Disclaimer: we are aware that the audio is pretty mediocre in this episode, we promise it improves in subsequent episodes]",
+          "text": "A Podcast Review of Crypt of the NecroDancer: On this first episode of RoguePod LiteCast we cover the 2015 hit Crypt of the NecroDancer and start off our journey on building the ultimate roguelite tier list! Disclaimer: our audio was a bit rough in this episode - if it bumps on you wrong then just skip this one as we get better over time!",
+          "list": false
+        },
+        {
+          "text": "We had a great time with Crypt of the NecroDancer having only heard before how difficult it was. Turns out it was actually pretty approachable and, as long as you don't play any of the insane challenge characters, made for a super fun and fast-paced gaming experience. In this episode we discuss the roguelike vs roguelite-ness of the game (beside staying on beat this is a traditional roguelike, but that's a pretty big thing!) and find our footing on what this podcast is supposed to be.",
           "list": false
         }
       ]
