@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T18:26:21.663Z",
+  "generatedAt": "2026-09-23T18:40:33.143Z",
   "episodeCount": 51,
   "episodes": [
     {
@@ -910,10 +910,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/returnal/id1774367401?i=1000684991850",
       "art": "/episode-art/returnal.webp",
       "share": "/episode-share/returnal.jpg",
-      "blurb": "A Podcast Review of Returnal: On this episode of RoguePod LiteCast we add the AAA sci-fi shooter Returnal (TM) to the tier list.",
+      "blurb": "A Podcast Review of Returnal: This week we cover the 2021 AAA (or maybe, AA) third-person bullet-heal shooter Returnal and add it to the tier list! Do we know what a metroidvania is enough to not make fools of ourselves? Answer: no.",
       "blocks": [
         {
-          "text": "A Podcast Review of Returnal: On this episode of RoguePod LiteCast we add the AAA sci-fi shooter Returnal (TM) to the tier list.",
+          "text": "A Podcast Review of Returnal: This week we cover the 2021 AAA (or maybe, AA) third-person bullet-heal shooter Returnal and add it to the tier list! Do we know what a metroidvania is enough to not make fools of ourselves? Answer: no.",
+          "list": false
+        },
+        {
+          "text": "Returnal is one of those that you often see at the top of people's lists and recommended as one of the great roguelites. We played it in co-op and had a good time but ultimately it didn't quite land for us. This episode we begin trying to parse the difference between a fun game and a great roguelite: Returnal is clearly a solid third-person shooter, but where's the run to run variance? Where are the build-defining items? Where's the procedural generation? Sure there's a bit, but you start seeing those pre-fab rooms repeating pretty quickly.",
+          "list": false
+        },
+        {
+          "text": "The boss patterns are super impressive and were the highlight of the experience for us, but there were a number of nitpicky complaints that started to add up to drive us crazy. Why do I have to back track to get back what should be a menu to open up the lobby to co-op? Really a lot of the friction we experienced comes down to us not really caring about story in roguelites. Foreshadowing for Hades! Returnal probably hits harder for folks who can get more lost in the experience of it and are engaged in the cutscenes rather than being grumpy about being taken out of the game.",
           "list": false
         }
       ]
