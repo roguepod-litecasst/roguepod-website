@@ -32,9 +32,9 @@ export const SITE = {
     "Since October 2024 we've been playing a different roguelite or non-traditional roguelike " +
       'game for two weeks, then discussing it on the podcast and adding it to this tier list.',
     'We try to assess games at how good they are at embodying what we feel this genre should ' +
-      'represent: procedural-generation forward, engaging runs, and an interesting metagame to ' +
-      'keep people playing after the first win. We also of course incorporate how much fun we ' +
-      'had with the game.',
+      'represent: permadeath, procedural-generation forward, engaging runs, and an interesting ' +
+      'metagame to keep people playing after the first win. We also of course incorporate how ' +
+      'much fun we had with the game.',
     'Games are ordered within the tier and this list is updated after every new episode release.',
     'Click on any game to listen to our podcast episode on it.',
   ],
