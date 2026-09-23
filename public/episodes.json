@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T17:48:24.672Z",
+  "generatedAt": "2026-09-23T18:40:33.143Z",
   "episodeCount": 51,
   "episodes": [
     {
@@ -910,10 +910,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/returnal/id1774367401?i=1000684991850",
       "art": "/episode-art/returnal.webp",
       "share": "/episode-share/returnal.jpg",
-      "blurb": "A Podcast Review of Returnal: On this episode of RoguePod LiteCast we add the AAA sci-fi shooter Returnal (TM) to the tier list.",
+      "blurb": "A Podcast Review of Returnal: This week we cover the 2021 AAA (or maybe, AA) third-person bullet-heal shooter Returnal and add it to the tier list! Do we know what a metroidvania is enough to not make fools of ourselves? Answer: no.",
       "blocks": [
         {
-          "text": "A Podcast Review of Returnal: On this episode of RoguePod LiteCast we add the AAA sci-fi shooter Returnal (TM) to the tier list.",
+          "text": "A Podcast Review of Returnal: This week we cover the 2021 AAA (or maybe, AA) third-person bullet-heal shooter Returnal and add it to the tier list! Do we know what a metroidvania is enough to not make fools of ourselves? Answer: no.",
+          "list": false
+        },
+        {
+          "text": "Returnal is one of those that you often see at the top of people's lists and recommended as one of the great roguelites. We played it in co-op and had a good time but ultimately it didn't quite land for us. This episode we begin trying to parse the difference between a fun game and a great roguelite: Returnal is clearly a solid third-person shooter, but where's the run to run variance? Where are the build-defining items? Where's the procedural generation? Sure there's a bit, but you start seeing those pre-fab rooms repeating pretty quickly.",
+          "list": false
+        },
+        {
+          "text": "The boss patterns are super impressive and were the highlight of the experience for us, but there were a number of nitpicky complaints that started to add up to drive us crazy. Why do I have to back track to get back what should be a menu to open up the lobby to co-op? Really a lot of the friction we experienced comes down to us not really caring about story in roguelites. Foreshadowing for Hades! Returnal probably hits harder for folks who can get more lost in the experience of it and are engaged in the cutscenes rather than being grumpy about being taken out of the game.",
           "list": false
         }
       ]
@@ -930,10 +938,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/barony/id1774367401?i=1000683160521",
       "art": "/episode-art/barony.webp",
       "share": "/episode-share/barony.jpg",
-      "blurb": "A Podcast Review of Barony: This week on RoguePod LiteCast we dive into the voxelated dungeons of Barony.",
+      "blurb": "A Podcast Review of Barony: This week we play the \"first person roguelike\" from 2015 that is the most unique nethack-clone we've seen, Barony! Or is it pronounced, Bare-Oh-Knee? (it's not)",
       "blocks": [
         {
-          "text": "A Podcast Review of Barony: This week on RoguePod LiteCast we dive into the voxelated dungeons of Barony.",
+          "text": "A Podcast Review of Barony: This week we play the \"first person roguelike\" from 2015 that is the most unique nethack-clone we've seen, Barony! Or is it pronounced, Bare-Oh-Knee? (it's not)",
+          "list": false
+        },
+        {
+          "text": "Despite this being a 3d first person game, this episode is probably the closest to covering Nethack we'll ever get so we do a lot of discussion of traditional roguelikes and our Nethack experience! We both went through a phase of being deep into Nethack (David ascended!) and Barony truly wears its inspiration proudly. We consider how some mechanics translate to the modern sensibility (is hunger fun?) and try to understand what is going on with the minotaur. Is it adding something to the game? Why isn't it on a timer?",
+          "list": false
+        },
+        {
+          "text": "While it was definitely fun to revisit Nethack from a new perspective and with co-op, we grapple in this episode with when difficulty is fun and when it is demoralizing. Turns out Danny cannot stay alive in this game and maybe that shaded his more negative experience. This one was another one where we had to reach consensus for tier list placement - we did enjoy playing together but felt there was a little bit of sauce missing from the experience. It was a little slow and the metagame did not feel super well adapted to the modern day.",
           "list": false
         },
         {
@@ -958,10 +974,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/balatro/id1774367401?i=1000681648672",
       "art": "/episode-art/balatro.webp",
       "share": "/episode-share/balatro.jpg",
-      "blurb": "A Podcast Review of Balatro: This week on RoguePod LiteCast get into the hit game of the year nominee, Balatro.",
+      "blurb": "A Podcast Review of Balatro: This week we cover the 2024 poker-inspired deck-builder Balatro! Just how deep into this will we get?",
       "blocks": [
         {
-          "text": "A Podcast Review of Balatro: This week on RoguePod LiteCast get into the hit game of the year nominee, Balatro.",
+          "text": "A Podcast Review of Balatro: This week we cover the 2024 poker-inspired deck-builder Balatro! Just how deep into this will we get?",
+          "list": false
+        },
+        {
+          "text": "What an absolute banger of a game! Balatro is the first deck-builder that has really hit for either of us since Slay the Spire dropped in 2017. We cover the developer background (Luck be a Landlord inspirations!) and our own experience with IRL poker (can David name all the hand types?) plus what we want out of a rogue deckbuilder. On this episode we try to put our fingers on what it is about Balatro that allows for so much skill expression while also being so approachable and easy to pick up and play. It's gotta be the build variety, right?",
+          "list": false
+        },
+        {
+          "text": "Balatro comes in as our favorite game we've covered so far on the podcast because it truly embodies what we love about roguelikes and roguelites. The procedural generation ensures that you can't just force the same strategy for every run while also allowing for totally busted overpowered combinations of jokers that you'll be chasing forever after. There's clearly a ton of skill in balance between deck-fixing and economy while maintaining enough score generation to keep the run alive. Unlike most complex games it managers to stay fully approachable to new players - that's the real magic in Balatro.",
           "list": false
         }
       ]
@@ -978,10 +1002,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/noita/id1774367401?i=1000679994361",
       "art": "/episode-art/noita.webp",
       "share": "/episode-share/noita.jpg",
-      "blurb": "A Podcast Review of Noita: This week we discuss the falling-sand-like platformer, Noita",
+      "blurb": "A Podcast Review of Noita: On this episode we grapple with the impressive and enigmatic platformer that is 2020's Noita. How much do you have to play this game to get over the hump of it being fun?",
       "blocks": [
         {
-          "text": "A Podcast Review of Noita: This week we discuss the falling-sand-like platformer, Noita",
+          "text": "A Podcast Review of Noita: On this episode we grapple with the impressive and enigmatic platformer that is 2020's Noita. How much do you have to play this game to get over the hump of it being fun?",
+          "list": false
+        },
+        {
+          "text": "On our most difficult episode of the show yet, we run up against the limitations of our format for such a behemoth of a game. Can you really play Noita enough in two weeks to understand why people love it so much? How are you supposed to rate a game that people say you need 50 hours in to begin to understand? Where's the balance between \"there's so much going on here\" and \"I am not having fun\"? We ultimately decided to evaluate this game based solely on how much fun we had playing it though tried to acknowledge how much is going on under the surface.",
+          "list": false
+        },
+        {
+          "text": "Noita is maybe the roguelite/roguelike that people report spending the most time on once you really grok how it works. I (Danny) wish that I was able to experience the joy that folks seem to get out of this game, but I just can't get past the slow-paced early game that comes with being a total scrub. It's a skill issue, for sure, but we can't rate the game based on a theoretical experience! Other fun parts of this episode include David making the case that cold countries make more game developers (?) and some reminiscing about the OG falling sand games of yore.",
           "list": false
         }
       ]
@@ -998,10 +1030,14 @@
       "apple": "https://podcasts.apple.com/us/podcast/shogun-showdown/id1774367401?i=1000678402329",
       "art": "/episode-art/shogun-showdown.webp",
       "share": "/episode-share/shogun-showdown.jpg",
-      "blurb": "A Podcast Review of Shogun Showdown: This week we discuss the new tactics roguelite, Shogun Showdown",
+      "blurb": "A Podcast Review of Shogun Showdown: This week we cover a newer game, the 2023 tactical deck-builder Shogun Showdown. Tune in to discover if David can remember what this one is called.",
       "blocks": [
         {
-          "text": "A Podcast Review of Shogun Showdown: This week we discuss the new tactics roguelite, Shogun Showdown",
+          "text": "A Podcast Review of Shogun Showdown: This week we cover a newer game, the 2023 tactical deck-builder Shogun Showdown. Tune in to discover if David can remember what this one is called.",
+          "list": false
+        },
+        {
+          "text": "On this episode we first discuss the developer \"roboatino\" and then dive into the mechanics of Shogun Showdown. The game absolutely flows - we were really impressed by how well the deck-building elements were able to create run-to-run variance in what ultimately feels like a series of solvable puzzles. Lots of Into the Breach comparisons here which we'll for sure cover on a future episode. Danny also reveals that he was able to get the speedrun world-record for approximately zero minutes (his time was approved simultaneously to a much better time, still neat though). Shogun Showdown feels extremely unique and is an excellent addition to the roguelite canon, particularly in how well it works both as a puzzle game and as a speed game. Our only real knock against the game was the metagame ascension system felt a little short and the true ending left a little bit to be desired, but ultimately a strong recommend from both of us. Definitely got to check this one out if you haven't given it a shot!",
           "list": false
         }
       ]
@@ -1025,7 +1061,11 @@
           "list": false
         },
         {
-          "text": "This episode we go through Cellar Door's previous flash games and their inspiration that led to Rogue Legacy. They originally sought to make a 2D version of dark souls but that scope got out of hand quick and pivoted to the roguelite elements. We really grapple in this episode with how much we dislike the vertical metaprogression instantiated in this game and resent how much it came to define the genre writ-large. We also bump hard on the game itself: the hitboxes feel unreliable, the movement is clunky, and the grind is real. We also reveal just how ignorant we are about metroidvanias (turns out really not either of our genres) and cringe at the 2013 newgrounds style humor that is omnipresent in the game. Our first big contrarian take is where Rogue Legacy ended up on the tier list but we stand by it!",
+          "text": "This episode we go through Cellar Door's previous flash games and their inspiration that led to Rogue Legacy. They originally sought to make a 2D version of dark souls but that scope got out of hand quick and pivoted to the roguelite elements. We really grapple in this episode with how much we dislike the vertical metaprogression instantiated in this game and resent how much it came to define the genre writ-large. We also bump hard on the game itself: the hitboxes feel unreliable, the movement is clunky, and the grind is real.",
+          "list": false
+        },
+        {
+          "text": "We also reveal just how ignorant we are about metroidvanias (turns out really not either of our genres) and cringe at the 2013 Newgrounds style humor that is omnipresent in the game. This one really did not land for us as it does not feel like your improving at the game, rather it is just getting easier by playing it. The simple gameplay and heavy metaprogression lends this game to feeling like an idle game more than an active roguelite that you have to master to beat. Our first big contrarian take is where Rogue Legacy ended up on the tier list but we stand by it!",
           "list": false
         }
       ]
@@ -1074,6 +1114,10 @@
         },
         {
           "text": "We had a great time with Crypt of the NecroDancer having only heard before how difficult it was. Turns out it was actually pretty approachable and, as long as you don't play any of the insane challenge characters, made for a super fun and fast-paced gaming experience. In this episode we discuss the roguelike vs roguelite-ness of the game (beside staying on beat this is a traditional roguelike, but that's a pretty big thing!) and find our footing on what this podcast is supposed to be.",
+          "list": false
+        },
+        {
+          "text": "Crypt of the NecroDancer took us back to the pseudo-couch co-op of switching off playing Spelunky HD in college when we were roommates. Sure it's hard, but it's not insurmountable by any means. Staying on beat is helpful but not required for the base character. This was a great game to kick off the podcast playing since it really embodies what it is that we love about this genre. Slow progression through building muscle memory and developing game knowledge while tackling unique situations created by procedural generation. What a banger!",
           "list": false
         }
       ]
