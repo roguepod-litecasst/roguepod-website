@@ -108,6 +108,27 @@ const TierList: React.FC = () => {
         </div>
       )}
 
+      <p className="mt-6 text-sm text-bone-300">
+        Think we got one wrong?{' '}
+        <a
+          href={SITE.discord}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-signal-bright underline decoration-signal/40 underline-offset-4 transition-colors hover:decoration-signal"
+        >
+          Tell us in the Discord
+        </a>
+        . You can also{' '}
+        {/* The PNG the Discord bot reposts — the same list as a single image. */}
+        <a
+          href="/tierlist.png"
+          className="font-medium text-signal-bright underline decoration-signal/40 underline-offset-4 transition-colors hover:decoration-signal"
+        >
+          view the tier list as an image
+        </a>
+        .
+      </p>
+
       <div className="mt-12 flex flex-col gap-4 border border-ink-600 bg-ink-800 p-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm leading-relaxed text-bone-200">
           But isn&apos;t [insert game] here a roguelike not a roguelite?

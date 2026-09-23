@@ -163,7 +163,13 @@ test('the tier list page links every game to its episode', async () => {
     '/episodes/everything-is-crab/'
   );
 
-  // The PNG lives on the home page only; this page is the HTML list.
+  expect(screen.getByText(/Click on any game to listen/i)).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /view the tier list as an image/i })).toHaveAttribute(
+    'href',
+    '/tierlist.png'
+  );
+
+  // The PNG isn't embedded here — it's on the home page; this page is the HTML list.
   expect(
     Array.from(document.querySelectorAll('img')).some(
       (img) => img.getAttribute('src') === '/tierlist.png'

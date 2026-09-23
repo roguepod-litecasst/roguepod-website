@@ -36,6 +36,7 @@ export const SITE = {
       'keep people playing after the first win. We also of course incorporate how much fun we ' +
       'had with the game.',
     'Games are ordered within the tier and this list is updated after every new episode release.',
+    'Click on any game to listen to our podcast episode on it.',
   ],
   patreon: 'https://www.patreon.com/roguepod',
   discord: 'https://discord.gg/EEwq9VGGKb',

@@ -34,10 +34,11 @@ const RogueliteVsRoguelike: React.FC = () => {
           these rigid rules fall under the category of &ldquo;roguelites&rdquo;.
         </p>
         <p>
-          Since the early days, there was another strain of thought that referred to games with
-          procedural generation, permadeath, and no metaprogression as &ldquo;roguelikes&rdquo;
-          and those with metaprogression as &ldquo;roguelites&rdquo;. This has slowly become the
-          more common terminology when discussing these games.
+          Since the term was first used in the Steam page for Rogue Legacy in 2013, there was
+          another strain of thought that referred to games with procedural generation, permadeath,
+          and no metaprogression as &ldquo;roguelikes&rdquo; and those with metaprogression as
+          &ldquo;roguelites&rdquo;. This has slowly become the more common terminology when
+          discussing these games.
         </p>
         <p>
           Language continues to evolve, but we don&apos;t want to change the name of the show, so
