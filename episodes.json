@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T13:14:39.765Z",
+  "generatedAt": "2026-09-30T18:02:40.996Z",
   "episodeCount": 52,
   "episodes": [
     {
@@ -14,10 +14,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/halls-of-torment/id1774367401?i=1000792355919",
       "art": "/episode-art/halls-of-torment.webp",
       "share": "/episode-share/halls-of-torment.jpg",
-      "blurb": "A Podcast Review of Halls of Torment: This week on RoguePod LiteCast we’re playing the Diablo style survivors like Halls of Torment and adding it to the ultimate roguelite tier list!",
+      "blurb": "A Podcast Review of Halls of Torment: This week we cover the 2023 Diablo-inspired survivors-like Halls of Torment and add it to the tier list. The final game in Survivors September! Are we too harsh on it because we're just sick of playing survivors-likes? Maybe!",
       "blocks": [
         {
-          "text": "A Podcast Review of Halls of Torment: This week on RoguePod LiteCast we’re playing the Diablo style survivors like Halls of Torment and adding it to the ultimate roguelite tier list!",
+          "text": "A Podcast Review of Halls of Torment: This week we cover the 2023 Diablo-inspired survivors-like Halls of Torment and add it to the tier list. The final game in Survivors September! Are we too harsh on it because we're just sick of playing survivors-likes? Maybe!",
+          "list": false
+        },
+        {
+          "text": "On this episode we try to parse the differences in core gameplay loop between our third survivors-like this month. We did both enjoy that HoT gives you some different enemy patterns rather than the slow approach from all corners of the screen, plus the bosses and elite fights are much more bullet-hell feeling and require some actual gameplay. Plus the item system is a bit neat, makes it feel extraction-shooter adjacent, though for all the talk about the game being Diablo-inspired we found the loot to be pretty underwhelming.",
+          "list": false
+        },
+        {
+          "text": "There are definitely things to like in this game and it's clear why folks who really like survivors-likes click with this one: the sheer number of achievements / quests alone could give the motivated player a lot of reasons to keep at it. For us that are less motivated by achievements, after finishing the five base halls we found ourselves not really sure what we were playing for. The user-applied difficulty modifiers seemed like a circular grind to just allow you to get items to allow you to keep grinding. That loop feels totally fine in some games but we bumped on it hard here.",
           "list": false
         }
       ]
