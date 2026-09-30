@@ -1,7 +1,27 @@
 {
-  "generatedAt": "2026-09-23T20:28:24.051Z",
-  "episodeCount": 51,
+  "generatedAt": "2026-09-30T13:14:39.765Z",
+  "episodeCount": 52,
   "episodes": [
+    {
+      "slug": "halls-of-torment",
+      "title": "Halls of Torment",
+      "publishedAt": "Wed, 30 Sep 2026 09:00:00 GMT",
+      "number": 52,
+      "duration": "1h 31m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6abab161f4720dfefb277742",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6abab161f4720dfefb277742",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6abab161f4720dfefb277742/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/halls-of-torment/id1774367401?i=1000792355919",
+      "art": "/episode-art/halls-of-torment.webp",
+      "share": "/episode-share/halls-of-torment.jpg",
+      "blurb": "A Podcast Review of Halls of Torment: This week on RoguePod LiteCast we’re playing the Diablo style survivors like Halls of Torment and adding it to the ultimate roguelite tier list!",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Halls of Torment: This week on RoguePod LiteCast we’re playing the Diablo style survivors like Halls of Torment and adding it to the ultimate roguelite tier list!",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "deep-rock-galactic-survivor",
       "title": "Deep Rock Galactic: Survivor",
@@ -610,10 +630,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/nuclear-throne/id1774367401?i=1000722781165",
       "art": "/episode-art/nuclear-throne.webp",
       "share": "/episode-share/nuclear-throne.jpg",
-      "blurb": "A Podcast Review of Nuclear Throne: On this episode of RoguePod LiteCast we add the post-apocalyptic roguelite top-down shooter Nuclear Throne to the ultimate roguelite tier list.",
+      "blurb": "A Podcast Review of Nuclear Throne: This week we're covering another classic in the genre, the 2015 twin-stick shooter Nuclear Throne and adding it to the tier list! We'd both bumped on this back when it first released, will we get sucked in this time?",
       "blocks": [
         {
-          "text": "A Podcast Review of Nuclear Throne: On this episode of RoguePod LiteCast we add the post-apocalyptic roguelite top-down shooter Nuclear Throne to the ultimate roguelite tier list.",
+          "text": "A Podcast Review of Nuclear Throne: This week we're covering another classic in the genre, the 2015 twin-stick shooter Nuclear Throne and adding it to the tier list! We'd both bumped on this back when it first released, will we get sucked in this time?",
+          "list": false
+        },
+        {
+          "text": "The answer to the above question is a resounding YES - what an absolute banger of a game. We talk through the development history and reveal just how much we both played this in our two weeks before recording (spoiler: too much) then talk mutations, characters, weapons, crowns, and looping. Why don't we see looping implemented like this in more games? It feels distinct from NG+ since you get a whole new enemy set and the run just flows together so smoothly, we were big fans and it kept us playing for long after this episode record.",
+          "list": false
+        },
+        {
+          "text": "Nuclear Throne embodies the \"Always Be Playing\" philosophy espoused by Derick Yu (Spelunky) that really connects with us in this genre. You get in and you're immediately in the action. You can get through the first levels in less than a minute, and the difficulty ramps up quickly but (almost) always feels fair. This game perfectly embodies the spirit of what I want my roguelites to be and it was an absolute joy to play. If you bounced off it because of the visual style like we originally did back in the day, give it another shot!",
           "list": false
         }
       ]
@@ -630,10 +658,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/one-step-from-eden/id1774367401?i=1000720868417",
       "art": "/episode-art/one-step-from-eden.webp",
       "share": "/episode-share/one-step-from-eden.jpg",
-      "blurb": "A Podcast Review of One Step From Eden: On this episode of RoguePod LiteCast we add the real-time tactics game One Step From Eden to the ultimate roguelite tier list.",
+      "blurb": "A Podcast Review of One Step From Eden: This week we add the 2020 Mega Man Battle Network-like One Step From Eden to the tier list. How will we connect with this having never played any of the MBNN games?",
       "blocks": [
         {
-          "text": "A Podcast Review of One Step From Eden: On this episode of RoguePod LiteCast we add the real-time tactics game One Step From Eden to the ultimate roguelite tier list.",
+          "text": "A Podcast Review of One Step From Eden: This week we add the 2020 Mega Man Battle Network-like One Step From Eden to the tier list. How will we connect with this having never played any of the MBNN games?",
+          "list": false
+        },
+        {
+          "text": "On this episode we talk about the Kickstarter success story that is One Step From Eden and Thomas Moon Kang, the developer behind it. Thomas set out to make a game so he \"could play MMBN infinitely\" and it is not shy about this inspiration. We discuss the roguelitification of specific games and what makes that work or not, plus the broad appeal (or lack thereof) of this kind of approach to turning a semi-niche game into a roguelite.",
+          "list": false
+        },
+        {
+          "text": "This was a bit of a hard one to get into since the game demands so much of you: moving around in real time on the grid while simultaneously managing six different spells with cooldowns plus navigating enemy abilities, but once we were able to get over the learning hump we had a great time with it. The metagame is a bit cookie cutter though there is some cool stuff in there (love bringing in fighting the shopkeeper into a subgenre where we don't expect to see it) but overall we landed very positive on this one. If you are into fast-twitch, quick reaction speed games then this would be a good fit for you.",
           "list": false
         }
       ]
@@ -650,10 +686,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/loop-hero/id1774367401?i=1000718655662",
       "art": "/episode-art/loop-hero.webp",
       "share": "/episode-share/loop-hero.jpg",
-      "blurb": "A Podcast Review of Loop Hero: On this episode of RoguePod LiteCast we add the autobattler roguelite Loop Hero to the ultimate roguelite tier list.",
+      "blurb": "A Podcast Review of Loop Hero: This week we add the 2021 autobattler (tower defense?) Loop Hero to the tier list. The metaprogression in this one got a little too glaring for us - do we go all the way to the bottom of the tier list?",
       "blocks": [
         {
-          "text": "A Podcast Review of Loop Hero: On this episode of RoguePod LiteCast we add the autobattler roguelite Loop Hero to the ultimate roguelite tier list.",
+          "text": "A Podcast Review of Loop Hero: This week we add the 2021 autobattler (tower defense?) Loop Hero to the tier list. The metaprogression in this one got a little too glaring for us - do we go all the way to the bottom of the tier list?",
+          "list": false
+        },
+        {
+          "text": "Another Devolver Digital published game in the books, on this episode we discuss the four man team Russian team behind Loop Hero and the role that \"zero player games\" played in inspiring them to put this game together. We then talk mechanics, synergies, bosses, and the concept of building a village as your metaprogression system (among other things).",
+          "list": false
+        },
+        {
+          "text": "This is one where Danny is being a bit of a wiener in that he got pretty sucked into this game when it initially released (pre-podcast days) but then was much more critical of it upon revisiting. Once the dopamine factory stopped flowing we felt that Loop Hero was just a layer over a big vertical metaprogression grind - the runs passively make you stronger, and you keep playing until your passive strength gets you over a hump. We want lots of skill expression in our roguelites! Ended up taking a pretty hard hit on the tier list because of this.",
           "list": false
         }
       ]
@@ -670,10 +714,22 @@
       "apple": "https://podcasts.apple.com/us/podcast/drop-duchy/id1774367401?i=1000716471201",
       "art": "/episode-art/drop-duchy.webp",
       "share": "/episode-share/drop-duchy.jpg",
-      "blurb": "A Podcast Review of Drop Duchy: On this episode of RoguePod LiteCast we add the tetris-deckbuilder mashup Drop Duchy to the ultimate roguelite tier list.",
+      "blurb": "A Podcast Review of Drop Duchy: This week we cover the new (2025) tetris-deckbuilder mashup from Sleepy Mill Studio, Drop Duchy, and add it to the tier list. Is it a puzzle game or a Tetris game? Does it matter?",
       "blocks": [
         {
-          "text": "A Podcast Review of Drop Duchy: On this episode of RoguePod LiteCast we add the tetris-deckbuilder mashup Drop Duchy to the ultimate roguelite tier list.",
+          "text": "A Podcast Review of Drop Duchy: This week we cover the new (2025) tetris-deckbuilder mashup from Sleepy Mill Studio, Drop Duchy, and add it to the tier list. Is it a puzzle game or a Tetris game? Does it matter?",
+          "list": false
+        },
+        {
+          "text": "On this episode we talk Tetris and David's deep love for it, then try to reconcile how not-Tetris this game is despite the very Tetris-forward presentation of it. If you go into Drop Duchy expecting a roguelite take on Tetris then you're probably in for a bad time, but if you just look at it like a new puzzle roguelite then there is a lot to like here. We talk about the development (it started as a training project then went for a commercial release) and the specifics: different phases, acts, bosses, buildings, factions, and difficulty modifiers.",
+          "list": false
+        },
+        {
+          "text": "We found Drop Duchy to be a really unique take on a puzzle game - it's a clever system which brings in some deck-building elements along with a rock-paper-scissors style combat that is influenced by the relative positions of your buildings and terrain that is plopped down onto the board. The metaprogression felt a little tacked on and there's maybe some balancing that should happen at the higher difficulty levels, but we're reviewing this pretty shortly after release and seems the developers will keep supporting in.",
+          "list": false
+        },
+        {
+          "text": "Definite recommend if this is your kind of genre!",
           "list": false
         }
       ]
@@ -690,10 +746,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/enter-the-gungeon/id1774367401?i=1000714479191",
       "art": "/episode-art/enter-the-gungeon.webp",
       "share": "/episode-share/enter-the-gungeon.jpg",
-      "blurb": "A Podcast Review of Enter the Gungeon: On this episode of RoguePod LiteCast we add the bullet hell roguelite Enter the Gungeon to the tier list.",
+      "blurb": "A Podcast Review of Enter the Gungeon: This week we cover one of the heavy hitters, the 2016 bullet hell twin stick shooter Enter the Gungeon and add it to the tier list. It's objectively a great game, so why aren't we putting it in S tier?",
       "blocks": [
         {
-          "text": "A Podcast Review of Enter the Gungeon: On this episode of RoguePod LiteCast we add the bullet hell roguelite Enter the Gungeon to the tier list.",
+          "text": "A Podcast Review of Enter the Gungeon: This week we cover one of the heavy hitters, the 2016 bullet hell twin stick shooter Enter the Gungeon and add it to the tier list. It's objectively a great game, so why aren't we putting it in S tier?",
+          "list": false
+        },
+        {
+          "text": "On this episode we talk Devolver Digital (just how many games of theirs have we covered already?) and the developer of EtG, the aptly named Dodge Roll Games. We talk guns, enemies, synergies, floors, bosses, items, and all the little things that make EtG one of the most beloved roguelites out there.It's clearly well-made and well polished, but in our heart of hearts we just found it a bit too slow-paced to really be itching to go all the way with this one.",
+          "list": false
+        },
+        {
+          "text": "We've both played EtG before starting this podcast and soft-bounced off of it. It's hard to say exactly why but I think a lot of it boils down to the slight down time introduced in walking around large rooms, backtracking, finding secret rooms, and tanky boss fights. Totally understand why people love this game but when you compile all of those things it just starts feeling a little slow. Will we feel the same about The Binding of Isaac when we cover that? We'll have to see!",
           "list": false
         }
       ]
@@ -710,10 +774,22 @@
       "apple": "https://podcasts.apple.com/us/podcast/brotato/id1774367401?i=1000712412839",
       "art": "/episode-art/brotato.webp",
       "share": "/episode-share/brotato.jpg",
-      "blurb": "A Podcast Review of Brotato: On this episode of RoguePod LiteCast we add the survivors-like roguelite Brotato to the tier list.",
+      "blurb": "A Podcast Review of Brotato: This week we cover our first survivors-like, the 2022 game Brotato, and add it to the tier list. We got sucked in, but are survivors-likes good roguelites?",
       "blocks": [
         {
-          "text": "A Podcast Review of Brotato: On this episode of RoguePod LiteCast we add the survivors-like roguelite Brotato to the tier list.",
+          "text": "A Podcast Review of Brotato: This week we cover our first survivors-like, the 2022 game Brotato, and add it to the tier list. We got sucked in, but are survivors-likes good roguelites?",
+          "list": false
+        },
+        {
+          "text": "On this episode we read through the developer's blog posts which were regular up until \"May 02: My new game: Brotato\". Blobfish's approach to game design was much more practical than a lot of developers we encounter here; he was in pursuit of making games quickly and cheaply enough to bring in enough money to justify doing game development full time. Brotato was put out in the spirit of that project - a relatively simple game that has the potential for a ton of replayability - and ended up being a megahit.",
+          "list": false
+        },
+        {
+          "text": "We talk through where Brotato differentiates itself from other survivors-likes (more heavy shop focus, round structure) and have a good discussion on where to put a game on the tier list if it was fun but does not necessarily embody the ideals of roguelites that we are after. This episode established the oft-referenced on later shows \"Brotato-model\" of run-to-run variance where the only run variance comes from pre-run character selection. Otherwise there's virtually no procedural generation here, so that played a big role int our tier list placement.",
+          "list": false
+        },
+        {
+          "text": "Developer's blog: https://www.blobfish.dev/",
           "list": false
         }
       ]
@@ -730,10 +806,18 @@
       "apple": "https://podcasts.apple.com/us/podcast/against-the-storm/id1774367401?i=1000710255444",
       "art": "/episode-art/against-the-storm.webp",
       "share": "/episode-share/against-the-storm.jpg",
-      "blurb": "A Podcast Review of Against the Storm: On this episode of RoguePod LiteCast we add the city builder roguelite Against the Storm to the tier list.",
+      "blurb": "A Podcast Review of Against the Storm: This week we cover the city builder (kind of), RTS (also, kind of) roguelite Against the Storm and add it to the tier list. Featuring our guest and now producer Andrew Tertocha.",
       "blocks": [
         {
-          "text": "A Podcast Review of Against the Storm: On this episode of RoguePod LiteCast we add the city builder roguelite Against the Storm to the tier list.",
+          "text": "A Podcast Review of Against the Storm: This week we cover the city builder (kind of), RTS (also, kind of) roguelite Against the Storm and add it to the tier list. Featuring our guest and now producer Andrew Tertocha.",
+          "list": false
+        },
+        {
+          "text": "On this episode we introduce our casual-gamer friend Andrew who covered Against the Storm with us then give an overview of the developers behind the game. We try to give an overview of the many mechanics which interplay with each other in this game (queen's impatience, different seasons, species satisfaction, hunger, resolve, the list goes on and on) and discuss strategies across increasing difficulty levels.",
+          "list": false
+        },
+        {
+          "text": "Against the Storm has one of the most impressive metagame system we've covered - not only is there a giant skill tree, but you have a limited number of runs to make progress before the map resets and you're trying to make progress on the world map as your progression through the game. Despite all of that, we did feel that the actual run-to-run variance was a bit limited in scope: at the end of the day you're trying to do the same thing with every run and the modifiers you're presented with are a bit limited in how much they influence that experience. We still land on the recommend here, for some folks this will definitely click and you can put a lot of time into this game.",
           "list": false
         }
       ]
@@ -750,10 +834,22 @@
       "apple": "https://podcasts.apple.com/us/podcast/heat-signature/id1774367401?i=1000708432335",
       "art": "/episode-art/heat-signature.webp",
       "share": "/episode-share/heat-signature.jpg",
-      "blurb": "A Podcast Review of Heat Signature: On this episode of RoguePod LiteCast we add the top-down stealth defenestration game Heat Signature to the tier list.",
+      "blurb": "A Podcast Review of Heat Signature: This week we add the 2017 top-down stealth \"defenestration game\" Heat Signature to the tier list. This is one that blurs the line on \"when does a roguelite become not a roguelite\" - how will that influence the tier list placement?",
       "blocks": [
         {
-          "text": "A Podcast Review of Heat Signature: On this episode of RoguePod LiteCast we add the top-down stealth defenestration game Heat Signature to the tier list.",
+          "text": "A Podcast Review of Heat Signature: This week we add the 2017 top-down stealth \"defenestration game\" Heat Signature to the tier list. This is one that blurs the line on \"when does a roguelite become not a roguelite\" - how will that influence the tier list placement?",
+          "list": false
+        },
+        {
+          "text": "This week we first talk about the developer Suspicious Developments Ltd which describes itself as a company \"specializing in sneaky games that let you think of clever plans and/or knock people through windows\" then try to wrap our heads around where a Heat Signature run starts and ends. Heat Signature does have a very distinct, and fun, core gameplay loop of breaking into ships and trying to achieve specific objectives. There's also some bigger picture game-level objectives you're working towards, and most of the time a character death doesn't lead to a full reset but rather an ejection into space and some sneaking back into the ship to try again.",
+          "list": false
+        },
+        {
+          "text": "You do have permadeath in that individual characters can die and you lose your inventory, but there is a lot of persistence between characters as well as overarching world persistence based on your progress through the game. Our tier list placement for this one ended up being really impacted by this concept of \"is this a good roguelite specifically\" even though we both felt the core gameplay was fun and engaging (albeit a bit repetitive).",
+          "list": false
+        },
+        {
+          "text": "See the developer's blog here: https://www.pentadact.com/",
           "list": false
         }
       ]
@@ -1101,7 +1197,11 @@
           "list": false
         },
         {
-          "text": "On this episode we first discuss the developer \"roboatino\" and then dive into the mechanics of Shogun Showdown. The game absolutely flows - we were really impressed by how well the deck-building elements were able to create run-to-run variance in what ultimately feels like a series of solvable puzzles. Lots of Into the Breach comparisons here which we'll for sure cover on a future episode. Danny also reveals that he was able to get the speedrun world-record for approximately zero minutes (his time was approved simultaneously to a much better time, still neat though). Shogun Showdown feels extremely unique and is an excellent addition to the roguelite canon, particularly in how well it works both as a puzzle game and as a speed game. Our only real knock against the game was the metagame ascension system felt a little short and the true ending left a little bit to be desired, but ultimately a strong recommend from both of us. Definitely got to check this one out if you haven't given it a shot!",
+          "text": "On this episode we first discuss the developer \"roboatino\" and then dive into the mechanics of Shogun Showdown. The game absolutely flows - we were really impressed by how well the deck-building elements were able to create run-to-run variance in what ultimately feels like a series of solvable puzzles. Lots of Into the Breach comparisons here which we'll for sure cover on a future episode. Danny also reveals that he was able to get the speedrun world-record for approximately zero minutes (his time was approved simultaneously to a much better time, still neat though).",
+          "list": false
+        },
+        {
+          "text": "Shogun Showdown feels extremely unique and is an excellent addition to the roguelite canon, particularly in how well it works both as a puzzle game and as a speed game. Our only real knock against the game was the metagame ascension system felt a little short and the true ending left a little bit to be desired, but ultimately a strong recommend from both of us. Definitely got to check this one out if you haven't given it a shot!",
           "list": false
         }
       ]
