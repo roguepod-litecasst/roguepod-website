@@ -33,6 +33,10 @@
           "slug": "spelunky-hd"
         },
         {
+          "name": "Vagante",
+          "slug": "vagante"
+        },
+        {
           "name": "Into the Breach",
           "slug": "into-the-breach"
         },
@@ -59,10 +63,6 @@
         {
           "name": "Shogun Showdown",
           "slug": "shogun-showdown"
-        },
-        {
-          "name": "Pathogenic",
-          "slug": "pathogenic"
         }
       ]
     },
@@ -72,6 +72,10 @@
         {
           "name": "Luck be a Landlord",
           "slug": "luck-be-a-landlord"
+        },
+        {
+          "name": "Pathogenic",
+          "slug": "pathogenic"
         },
         {
           "name": "One Step From Eden",

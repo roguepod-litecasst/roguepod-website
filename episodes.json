@@ -1,7 +1,35 @@
 {
-  "generatedAt": "2026-09-30T18:02:40.996Z",
-  "episodeCount": 52,
+  "generatedAt": "2026-10-14T14:10:43.796Z",
+  "episodeCount": 53,
   "episodes": [
+    {
+      "slug": "vagante",
+      "title": "Vagante",
+      "publishedAt": "Wed, 14 Oct 2026 09:00:00 GMT",
+      "number": 53,
+      "duration": "2h 8m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6ace9aa78f34078889849afc",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6ace9aa78f34078889849afc",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6ace9aa78f34078889849afc/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/vagante/id1774367401?i=1000796281330",
+      "art": "/episode-art/vagante.webp",
+      "share": "/episode-share/vagante.jpg",
+      "blurb": "A Podcast Review of Vagante: This week we cover the action RPG platformer Vagante and add it to the Ultimate Roguelite Tier List. Is Vagante a hidden gem or a wanna be Spelunky-like?",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Vagante: This week we cover the action RPG platformer Vagante and add it to the Ultimate Roguelite Tier List. Is Vagante a hidden gem or a wanna be Spelunky-like?",
+          "list": false
+        },
+        {
+          "text": "Danny and David discuss Nuke Nine's sole release, Vagante. True to its influences, it draws from Spelunky and traditional roguelikes such as DCSS.",
+          "list": false
+        },
+        {
+          "text": "Covering Vagante was a breath of fresh air after covering so many games that lack meaningful procedural generation and/or run-to-run variance. Vagante is a truly punishing game, with many insta death scenarios that many players find themselves disliking. Danny and David barely scratch the surface of the amount of depth present, but make sure to cover important things like all of the game's classes.",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "halls-of-torment",
       "title": "Halls of Torment",
