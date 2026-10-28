@@ -1,7 +1,35 @@
 {
-  "generatedAt": "2026-10-21T14:33:19.002Z",
-  "episodeCount": 53,
+  "generatedAt": "2026-10-28T15:20:00.702Z",
+  "episodeCount": 54,
   "episodes": [
+    {
+      "slug": "nubby-s-number-factory",
+      "title": "Nubby's Number Factory",
+      "publishedAt": "Wed, 28 Oct 2026 09:00:00 GMT",
+      "number": 54,
+      "duration": "1h 44m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6ae13b90664593f80634f74c",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6ae13b90664593f80634f74c",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6ae13b90664593f80634f74c/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/nubbys-number-factory/id1774367401?i=1000798492733",
+      "art": "/episode-art/nubby-s-number-factory.webp",
+      "share": "/episode-share/nubby-s-number-factory.jpg",
+      "blurb": "A Podcast Review of Nubby's Number Factory: This week we cover the goofy plinko-style roguelite Nubby's Number Factory and add it to the tier list. We poke around MogDogBlog and relish being done with Survivors September!",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Nubby's Number Factory: This week we cover the goofy plinko-style roguelite Nubby's Number Factory and add it to the tier list. We poke around MogDogBlog and relish being done with Survivors September!",
+          "list": false
+        },
+        {
+          "text": "On this episode we dive deep into Nubby's Number Factory, a cleverly made plinko-style game in an early 2000's flash wrapper. There's some clever mechanics under the hood here, like pegs scaling numerically and items/perks combining to legitimately make some cool builds.",
+          "list": false
+        },
+        {
+          "text": "Nubby's isn't the deepest game but it is good, simple fun. It embodies a lot of the things we really love about this genre: a tight core gameplay loop with replayability coming from unique builds that let you feel smart when you crack them. Each run feels a bit long and the metagame didn't entirely click with either of us but we both had a good time pushing for a W and for a game like this, that is plenty good enough.",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "vagante",
       "title": "Vagante",
