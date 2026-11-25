@@ -63,6 +63,10 @@
         {
           "name": "Shogun Showdown",
           "slug": "shogun-showdown"
+        },
+        {
+          "name": "Streets of Rogue",
+          "slug": "streets-of-rogue"
         }
       ]
     },
