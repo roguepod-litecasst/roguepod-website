@@ -1,7 +1,31 @@
 {
-  "generatedAt": "2026-11-11T16:13:02.299Z",
-  "episodeCount": 55,
+  "generatedAt": "2026-11-25T19:59:03.709Z",
+  "episodeCount": 56,
   "episodes": [
+    {
+      "slug": "streets-of-rogue",
+      "title": "Streets of Rogue",
+      "publishedAt": "Wed, 25 Nov 2026 10:00:00 GMT",
+      "number": 56,
+      "duration": "1h 47m",
+      "link": "https://shows.acast.com/roguepod-litecast/episodes/6b0600112110268582727580",
+      "embed": "https://embed.acast.com/670c223adf4dd6f896322012/6b0600112110268582727580",
+      "audio": "https://sphinx.acast.com/p/open/s/670c223adf4dd6f896322012/e/6b0600112110268582727580/media.mp3",
+      "apple": "https://podcasts.apple.com/us/podcast/streets-of-rogue/id1774367401?i=1000803955117",
+      "art": "/episode-art/streets-of-rogue.webp",
+      "share": "/episode-share/streets-of-rogue.jpg",
+      "blurb": "A Podcast Review of Streets of Rogue: This week we cover the roguelite meets immersive sim, Streets of Rogue, and add it to the tier list. Streets of Rogue brings a lot of fresh ideas to the table but is it ultimately too simplistic to offer a genuine sandbox experience?",
+      "blocks": [
+        {
+          "text": "A Podcast Review of Streets of Rogue: This week we cover the roguelite meets immersive sim, Streets of Rogue, and add it to the tier list. Streets of Rogue brings a lot of fresh ideas to the table but is it ultimately too simplistic to offer a genuine sandbox experience?",
+          "list": false
+        },
+        {
+          "text": "On this episode we discuss our time playing Streets of Rogue, where the premise is that you accomplish various missions to progress using whatever means possible. This was on our to-play list for a long time as well regarded roguelite. We were impressed by the amount of run to run variance between the different characters, even though this style of metaprogression where you are responsible for the variance up front usually doesn't click for us. This is a game for anyone who likes sandbox style games as well as action roguelites. If you enjoy games where your own gameplay can turn into novel stories and scenarios, this one is for you!",
+          "list": false
+        }
+      ]
+    },
     {
       "slug": "lucky-tower-ultimate",
       "title": "Lucky Tower Ultimate",
